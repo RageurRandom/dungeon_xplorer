@@ -1,11 +1,11 @@
 <?php 
 
 
-    $DB_adresse = 'mysql:host=mysql.info.unicaen.fr;port3306;dbname=remo231_dev;charset=utf8'; 
-    $user = 'remo231'; 
-    $password = 'iewoh5RooghohFa4'; 
+    $DB_adresse = 'mysql:host=localhost;port3306;dbname=dx11_bd;charset=utf8'; 
+    $user = 'dx11'; 
+    $password = 'aiWae6uGho7dil4e'; 
 
-    $DB = DB_connexion($DB_adresse, $user, $password); 
+    $BD = DB_connexion($DB_adresse, $user, $password);
 
     function DB_connexion($DB_adresse, $user, $password){
         try{
