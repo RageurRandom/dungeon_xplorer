@@ -1,3 +1,34 @@
+-- Drop des tables en commençant par celles qui ont des clés étrangères
+/*
+DROP TABLE IF EXISTS Quest;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Chapter_Treasure;
+DROP TABLE IF EXISTS Links;
+DROP TABLE IF EXISTS Inventory;
+DROP TABLE IF EXISTS Encounter;
+DROP TABLE IF EXISTS Chapter;
+DROP TABLE IF EXISTS Level;
+DROP TABLE IF EXISTS Hero;
+DROP TABLE IF EXISTS Monster;
+DROP TABLE IF EXISTS Treasure;
+DROP TABLE IF EXISTS Loot;
+DROP TABLE IF EXISTS Items;
+DROP TABLE IF EXISTS Spell;
+DROP TABLE IF EXISTS Potion;
+DROP TABLE IF EXISTS Armor;
+DROP TABLE IF EXISTS Weapon;
+DROP TABLE IF EXISTS Class;
+*/
+
+-- Création de la table Items (Objets disponibles dans le jeu)
+CREATE TABLE Items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    weight INT,
+    slot INT,
+    description TEXT
+);
+
 -- Création de la table Class (Classe des personnages)
 CREATE TABLE Class (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -7,15 +38,9 @@ CREATE TABLE Class (
     base_mana INT NOT NULL,
     strength INT NOT NULL,
     initiative INT NOT NULL,
-    max_items INT NOT NULL
-);
-
--- Création de la table Items (Objets disponibles dans le jeu)
-CREATE TABLE Items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    weight INT,
-    description TEXT
+    max_items INT NOT NULL,
+    item_id INT,
+    FOREIGN KEY (item_id) REFERENCES Items(id)
 );
 
 -- Création de la table Loot (Butins des monstres)
@@ -69,6 +94,7 @@ CREATE TABLE Hero (
     xp INT NOT NULL,
     current_level INT DEFAULT 1,
     max_weight INT,
+    max_slot INT,
     FOREIGN KEY (class_id) REFERENCES Class(id)
 );
 
@@ -118,9 +144,11 @@ CREATE TABLE Links (
     id INT AUTO_INCREMENT PRIMARY KEY,
     chapter_id INT,
     next_chapter_id INT,
+    item_id INT,
     description TEXT,
     FOREIGN KEY (chapter_id) REFERENCES Chapter(id),
-    FOREIGN KEY (next_chapter_id) REFERENCES Chapter(id)
+    FOREIGN KEY (next_chapter_id) REFERENCES Chapter(id),
+    FOREIGN KEY (item_id) REFERENCES Items(id)
 );
 
 -- Table intermédiaire pour les trésors dans les chapitres (Chapter - Items)
@@ -141,6 +169,7 @@ CREATE TABLE Quest (
     FOREIGN KEY (chapter_id) REFERENCES Chapter(id)
 );
 
+-- Table User pour se connecter 
 CREATE TABLE User (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email TEXT UNIQUE,
@@ -150,3 +179,32 @@ CREATE TABLE User (
     FOREIGN KEY (quest_id) REFERENCES Quest(id)
 );
 
+CREATE TABLE Weapon (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    attack_value INT,
+    is_one_handed BOOLEAN,
+    item_id INT,
+    FOREIGN KEY(item_id) REFERENCES Items(id)
+);
+
+CREATE TABLE Armor (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    defense_value INT,
+    item_id INT,
+    FOREIGN KEY(item_id) REFERENCES Items(id)
+);
+
+CREATE TABLE Potion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type TEXT,
+    value INT,
+    item_id INT,
+    FOREIGN KEY(item_id) REFERENCES Items(id)
+);
+
+CREATE Table Spell (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name TEXT,
+    mana_cost INT,
+    attack_value INT
+);
