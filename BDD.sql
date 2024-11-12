@@ -1,5 +1,5 @@
 -- Drop des tables en commençant par celles qui ont des clés étrangères
-/*
+
 DROP TABLE IF EXISTS Quest;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Chapter_Treasure;
@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS Potion;
 DROP TABLE IF EXISTS Armor;
 DROP TABLE IF EXISTS Weapon;
 DROP TABLE IF EXISTS Class;
-*/
+
 
 -- Création de la table Items (Objets disponibles dans le jeu)
 CREATE TABLE Items (
@@ -207,4 +207,12 @@ CREATE Table Spell (
     name TEXT,
     mana_cost INT,
     attack_value INT
+);
+
+CREATE TABLE Hero_Book_Spells (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    hero_id INT,
+    spell_id INT,
+    FOREIGN KEY (hero_id) REFERENCES Hero(id),
+    FOREIGN KEY (spell_id) REFERENCES Spell(id)
 );
