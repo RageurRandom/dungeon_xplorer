@@ -9,4 +9,13 @@ class Mage extends Hero {
         return null; // doit retournée int
     }
 
+        //récupére id de la classe
+        public function getClassID() {
+            return $id;
+        }
+        //récupére la classe
+        public function getClass() {
+            return $class;
+        }
+
 }

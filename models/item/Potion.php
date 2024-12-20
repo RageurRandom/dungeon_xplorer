@@ -9,4 +9,14 @@ class Potion extends Item{
         $this->type = $type;
         parent::__construct($weigt, $name, $desc, $size);
     }
+
+    //retourne le bonnus de la potion
+    public function getValue(){
+        return $value;
+    }
+
+    //retourne le type de potion
+    public function getType(){
+        return $type;
+    }
 }
