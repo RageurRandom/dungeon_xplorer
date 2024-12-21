@@ -20,7 +20,19 @@ INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Bottes 
 INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Torche Durable', 3, 2, 'Une torche capable de brûler longtemps, essentielle pour explorer les donjons sombres.');
 
 
-
+delete from spell;
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Boule de Feu', 10);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Éclat de Glace', 8);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Éclair', 12);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Tremblement de Terre', 15);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Frappe de l''Ombre', 10);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Explosion Arcanique', 7);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Nuage Toxique', 9);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Tranche de Vent', 5);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Jet d''Eau', 6);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Onde Obscure', 13);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Tempête de Foudre', 18);
+INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Décharge d''Énergie', 7);
 
 /*
 NE FONCTIONNE PAS CAR NULL DANS IMAGE
