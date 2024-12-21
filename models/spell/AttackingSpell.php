@@ -8,5 +8,10 @@ class AttackingSpell extends Spell{
         parent::__construct($nomval,$priceval);
     }
 
+    //récupére la valeur de l'attaque
+    public function getAttack_values(){
+        return $attack_values;
+    }
+
 
 }

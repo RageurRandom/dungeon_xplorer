@@ -7,4 +7,9 @@ class Weapon extends Item{
         $this->attak_value = $attak_value;
         parent::__construct($weigt, $name, $desc, $size);
     }
+
+    // récupére la valeur d'attaque de l'arme
+    public function getAttak_value(){
+        return attak_value;
+    }
 }

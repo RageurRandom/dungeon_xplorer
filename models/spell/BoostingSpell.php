@@ -8,5 +8,10 @@ class BoostingSpell extends Spell{
         parent::__construct($nomval,$priceval);
     }
 
+    //récupére la valeur du boost
+    public function getBoost_value(){
+        return $boost_value;
+    }
+
 
 }
