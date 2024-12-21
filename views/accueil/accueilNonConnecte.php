@@ -6,6 +6,7 @@
     <title>Accueil</title>
 </head>
 <body>
-<h1> page d'acceil de connection</h1>
+<h1> page d'acceil avec l'utilisateur non connecter</h1>
+    <a href="views/connexion.php">a</a> 
 </body>
 </html>
