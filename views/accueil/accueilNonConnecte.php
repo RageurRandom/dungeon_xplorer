@@ -7,6 +7,6 @@
 </head>
 <body>
 <h1> page d'acceil avec l'utilisateur non connecter</h1>
-    <a href="views/connexion.php">connexion</a> 
+    <a href="connexion">connexion</a> 
 </body>
 </html>

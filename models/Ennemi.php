@@ -7,3 +7,4 @@ class Ennemi extends Combattant{
         parent::__construct($name, $pv, $mana, $initiative, $strenght);
     }
 }
+?>

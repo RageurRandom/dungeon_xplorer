@@ -4,3 +4,4 @@ class Shield extends Item{
         parent::__construct($weigt, $name, $desc, $size);
     }
 }
+?>

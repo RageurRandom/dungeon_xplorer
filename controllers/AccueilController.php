@@ -6,11 +6,15 @@ class AccueilController {
         session_start(); 
         
         //Si on est connecté
-        if(!isset($_SESSION["connected"]) || !$_SESSION["connected"])
+        if(!isset($_SESSION["connected"]) || !$_SESSION["connected"]){
             require_once 'views/accueil/accueilNonConnecte.php';
+        }
+            
         //sinon
-        else
-            require_once 'views/accueil/accueilConnecte.php'; 
+        else{
+            require_once 'views/accueil/accueilConnecte.php';  
+        }
 
     }
 }
+?>

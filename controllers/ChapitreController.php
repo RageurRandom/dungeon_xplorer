@@ -5,3 +5,4 @@ class ChapitreController {
         require_once 'views/chapitre/chapitre.php';
     }
 }
+?>

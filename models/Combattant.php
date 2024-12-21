@@ -71,3 +71,4 @@ class Combattant {
         $strenght = $newStrenght;
     }
 }
+?>

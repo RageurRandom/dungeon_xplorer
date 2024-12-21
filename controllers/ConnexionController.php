@@ -1,65 +1,111 @@
 <?php
 class ConnexionController {
-    //regarder si l'utilisateur et connnectée
-    public function index() { 
+
+    /**
+     * regarde si l'utilisateur est connecté, sinon, le connecte
+     */
+    public function connect() { 
         session_start(); 
 
         //Si on est dèjà connecté
         if(isset($_SESSION["connected"]) && $_SESSION["connected"] === true) {
-            //On se déconnecte 
-            $this->logoff(); 
+            //On revien à la page d'accueil
+            header("Location: /dx_11"); 
         }//si on est déjà connecté 
 
-        //si on n'est pas connecté
-        else{   
-            echo"on essye de se connecter"; 
-            //Véruifcation des variables nécessires (mail, password)
-            $good = true; 
-            if(!isset( $_POST['userMail']))
-                $good = false;
-            if(!isset( $_POST['userPassword']))
-                $good = false;
+        //Si on veut renseigner les champs de connexion 
+        else if(!isset($_POST["userMail"]) || !isset($_POST["userPassword"])){
+            require_once "views/connexion.php"; 
+        }//Si on veut renseigner les champs 
 
-            //Si tous les champs sont correctement renseignés
-            if($good){
+        //Si on a dèjà renseigner les champs de connexion et qu'on n'est pas connecté
+        else{
+            
+            //On récupère les infos du compte à créer
+            $userMail = $_POST['userMail']; 
+            $userPassword = $_POST['userPassword'];
+            
+            //On se connecte
+            $this->login($userMail, $userPassword);
+ 
+            //On revient à l'accueil 
+            header("Location: /dx_11"); 
 
-                //On récupère les infos du compte à créer
-                $userMail = $_POST['userMail']; 
-                $userPassword = $_POST['userPassword'];
-                
-                //On se connecte
-                $this->login($userMail, $userPassword);
-            }
+        }//Si on a dèjà renseigner les champs de connexion et qu'on n'est pas connecté
 
-            //Si tous les champs ne sont pas bine renseignés
-            else{
-                die("il manque des champs obligatoirs pour la connexion"); 
-            }//Si tous les champs e sont as bien renseignés
-
-        }//Si on n'est pas connecté
-
-        //On revient à l'accueil 
-        header("Location: /dx_11"); 
-    }//fonction index()
+    }//fonction connect()
 
     /**
      * permet de se déconnecter
      * @return void
      */
     public function logoff(){
-        $_SESSION['connected'] = false; 
-        $_SESSION['userMail'] = null;
-        $_SESSION['userPassword'] = null;
-        $_SESSION['userName'] = null;
-        
+        session_start(); 
+        unset($_SESSION["connected"]);
+        unset($_SESSION["userMail"]);
+        unset($_SESSION["userPassword"]);
+        unset($_SESSION["userName"]); 
+        header("Location: /dx_11"); 
     }//fonction logoff
+
+    /**
+     * regarde si les champs nécessaires pour la création d'un compte sont renseignés puis essaye de créer le compte 
+     */
+    public function create() { 
+        
+        //Si on veut renseigner les champs de création 
+        if(!isset($_POST["userMail"]) || !isset($_POST["userPassword"]) || !isset($_POST["userName"])){
+            require_once "views/creationCompte.php"; 
+        }//Si on veut renseigner les champs de création 
+
+        //Si les champs sont déjà renseignés
+        else{
+            //On récupère les infos du compte à créer
+            $userMail = $_POST['userMail']; 
+            $userPassword = $_POST['userPassword']; 
+            $userName = $_POST['userName']; 
+
+            //On créer le compte
+            $this->createAccount( $userMail, $userPassword, $userName );
+
+            //On démarre une session en stockant les informations de l'utilisateur
+            session_start(); 
+            $_SESSION['connected'] = true; 
+            $_SESSION['userName'] = $userName;
+            $_SESSION['userMail'] = $userMail;
+            $_SESSION['userPassword'] = $userPassword;
+
+            //on revient à la page d'accueil
+            header("Location: /dx_11"); 
+        }//Si les champs sont déjà renseignés
+    }//fonction create()
+    
+    /**
+     * créer un compte dans la base de donnée
+     * @param string $userMail adresse mail du compte à créer
+     * @param string $userPassword MDP du compte à créer
+     * @param string $userName nom d'utilisateur du compte à créer
+     * @see create()
+     */
+    private function createAccount($userMail, $userPassword, $userName) {
+
+        try{
+            $DB = DataBase::getInstance(); 
+            $query = "insert into user (user_mail, user_password, user_name) values ('$userMail', '$userPassword', '$userName')"; 
+            $nbLines = $DB->excute($query);
+        }
+        catch (PDOException $ex) {
+            die("erreur de creation de compte : ".$ex->getMessage()); 
+        }
+    }
     
 
     /**
-     * permet de se connecter
+     * vérifie si le mail et le mdp passés en paramètres sont correctes. si oui, initialise les variables de sessions
      * @param string $userMail
      * @param string $userPassword
      * @return void
+     * @see connect()
      */
     public function login($userMail, $userPassword){ 
         $DB = DataBase::getInstance();
@@ -101,3 +147,4 @@ class ConnexionController {
 
     }//fonction login() 
 }
+?>

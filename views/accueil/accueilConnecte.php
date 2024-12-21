@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1> page d'acceil avec l'utilisateur connectee</h1>
-    <p><a href="connexion">cliquez ici pour vous déconnecter</a></p>
+    <p>adresse mail : <?php echo $_SESSION["userMail"]?></p>
+    <p><a href="deconnexion">cliquez ici pour vous déconnecter</a></p>
 </body>
 </html>

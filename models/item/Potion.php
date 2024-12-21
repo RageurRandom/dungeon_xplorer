@@ -20,3 +20,4 @@ class Potion extends Item{
         return $type;
     }
 }
+?>
