@@ -8,7 +8,7 @@
 <body>
     <h1> page de création de compte</h1>
 
-    <form action="../creationCompte" method = "post">
+    <form action="creationCompte" method = "post">
 
     
         <label for="userMail">adresse e-mail</label>
@@ -23,6 +23,6 @@
         <button type="submit">créer un compte</button>
     </form>
 
-        <p> si vous avez déjà un compte,<a href="connexion.php">cliquer ici vous connecter</a></p>
+        <p> si vous avez déjà un compte,<a href="connexion">cliquer ici vous connecter</a></p>
 </body>
 </html>

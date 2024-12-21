@@ -5,3 +5,4 @@ class ProfileController {
         require_once 'views/profile.php';
     }
 }
+?>

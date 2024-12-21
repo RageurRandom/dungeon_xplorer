@@ -13,3 +13,4 @@ class Weapon extends Item{
         return attak_value;
     }
 }
+?>

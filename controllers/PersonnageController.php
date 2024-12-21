@@ -9,3 +9,4 @@ class PersonnageController {
         //si non require_once 'views/personnage/creationPersonnage.php';'
     }
 }
+?>

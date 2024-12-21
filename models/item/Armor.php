@@ -13,3 +13,4 @@ class Armor extends Item{
         return $defense_value
     }
 }
+?>

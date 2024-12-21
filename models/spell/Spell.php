@@ -19,3 +19,4 @@ class Spell {
         return $price;
     }
 }
+?>
