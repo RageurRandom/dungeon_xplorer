@@ -7,6 +7,5 @@
 </head>
 <body>
 <h1> page d'acceil avec l'utilisateur non connecter</h1>
-    <a href="connection">a</a> 
 </body>
 </html>
