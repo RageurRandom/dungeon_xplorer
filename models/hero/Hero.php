@@ -48,7 +48,7 @@ class Hero extends Combattant{
     public function addXp($experience) {
         $xp += $xp + $experience;
         if(levelUp){
-            echo "monter de niveau" //a faire : montrer a l'écran qu'on monte de niveau
+            echo "monter de niveau"; //a faire : montrer a l'écran qu'on monte de niveau
         }
     }
 
@@ -56,7 +56,7 @@ class Hero extends Combattant{
     public function levelUp() {
         if ($ex > 100 + log($current_level)){
             $ex = 0;
-            $current_level = $current_level + 1
+            $current_level = $current_level + 1;
             return true;
         }
         return false;
@@ -64,7 +64,7 @@ class Hero extends Combattant{
 
     //regarde si je joueur a le droit de prendre l'objet
     public function addObjet($inventory_weight){
-        return $max_inventory_weight > $inventory_weight
+        return $max_inventory_weight > $inventory_weight;
     }
 
 

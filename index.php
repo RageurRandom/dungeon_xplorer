@@ -5,7 +5,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require 'autoload.php';
-require_once 'connexion_BDD.php'; 
 
 class Router
 {
@@ -70,7 +69,7 @@ class Router
 }
 
 // Instanciation du routeur
-$router = new Router('dx11');
+$router = new Router('dx_11');
 
 // Ajout des routes
 $router->addRoute('', 'AccueilController@index'); // Pour l'accueil

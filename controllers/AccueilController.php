@@ -1,5 +1,6 @@
 <?php
 class AccueilController {
+    
     //regarder si l'utilisateur et connnectée
     public function index() {
         // si oui require_once 'view/acceilConnecter'
