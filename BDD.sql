@@ -141,7 +141,7 @@ drop table if exists `chapter`;
 CREATE TABLE `chapter` (
   `chapter_num` int PRIMARY KEY,
   `monster_id` int,
-  `chapter_content` varchar(255) NOT NULL,
+  `chapter_content` varchar(2000) NOT NULL,
   `chapter_img` varchar(255) NOT NULL
 );
 

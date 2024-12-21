@@ -1,8 +1,8 @@
 /*
 A METTRE A JOUR A CHAQUE AJOUT DANS LE FICHIER EXCEL
 */
+delete from item;
 
---items
 INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Épée de Chevalier', 10, 4, 'Une épée longue et tranchante utilisée par les chevaliers, parfaite pour les combats rapprochés.');
 INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Arc Élfique', 7, 3, 'Un arc élégant fabriqué par les elfes, permettant des tirs précis à longue distance.');
 INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Bouclier d''Acier', 12, 5, 'Un bouclier solide conçu pour encaisser les coups les plus puissants.');
@@ -19,7 +19,8 @@ INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Sceptre
 INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Bottes de Vitesse', 5, 2, 'Des bottes légères qui augmentent considérablement la vitesse de déplacement.');
 INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Torche Durable', 3, 2, 'Une torche capable de brûler longtemps, essentielle pour explorer les donjons sombres.');
 
---chapitres
+
+delete from chapter;
 INSERT INTO chapter (chapter_num, chapter_content, chapter_img) VALUES (1, 'Le ciel est lourd ce soir sur le village du Val Perdu, dissimulé entre les montagnes. La petite taverne, dernier refuge avant l''immense forêt, est étrangement calme quand le bourgmestre s’approche de vous. Homme d’apparence usée par les années et les soucis, il vous adresse un regard désespéré.
 
 « Ma fille… elle a disparu dans la forêt. Personne n''a osé la chercher… sauf vous, peut-être ? On raconte qu’un sorcier vit dans un château en ruines, caché au cœur des bois. Depuis des mois, des jeunes filles disparaissent… J''ai besoin de vous pour la retrouver. »
