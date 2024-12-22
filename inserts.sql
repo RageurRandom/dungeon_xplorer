@@ -71,6 +71,12 @@ Vous décidez de quand même le prendre : si vous ne pouvez le découper alors i
 
 delete from class;
 
-INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (2, 10, 0, 1, 3, 'un spécialiste du combat au corps à corps. Il peut posséder un bouclier pour se protéger', 'guerrier');
-INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (3, 7, 2, 1, 2, 'un combattant agile pouvant utiliser des sorts et des armes. Possède le plus d''initiative', 'voleur');
-INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (4, 5, 5, 1, 1, 'un combattant spécialisé dans le lancement de sorts. Ne peut utiliser qu''un baton ou une dague. Peut apprendre tous les sorts', 'magicien');
+INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (0, 10, 0, 1, 3, 'un spécialiste du combat au corps à corps. Il peut posséder un bouclier pour se protéger', 'guerrier');
+INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (1, 7, 2, 1, 2, 'un combattant agile pouvant utiliser des sorts et des armes. Possède le plus d''initiative', 'voleur');
+INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (2, 5, 5, 1, 1, 'un combattant spécialisé dans le lancement de sorts. Ne peut utiliser qu''un baton ou une dague. Peut apprendre tous les sorts', 'magicien');
+
+delete from level;
+
+INSERT INTO LEVEL (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 0, 5, 3, 0, 1, 3);
+INSERT INTO LEVEL (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 1, 5, 1, 2, 3, 1);
+INSERT INTO LEVEL (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 2, 5, 0, 4, 1, 0);
