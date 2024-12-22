@@ -15,8 +15,10 @@ CREATE TABLE `hero` (
   `chapter_num` integer,
   `hero_name` varchar(255) NOT NULL,
   `hero_HP` int NOT NULL,
+  `hero_max_HP` int NOT NULL,
   `hero_XP` int NOT NULL,
   `hero_mana` int NOT NULL,
+  `hero_max_mana` int NOT NULL,
   `hero_strength` int NOT NULL,
   `hero_initiative` int NOT NULL
 );
@@ -142,7 +144,7 @@ CREATE TABLE `chapter` (
   `chapter_num` int PRIMARY KEY,
   `monster_id` int,
   `chapter_content` varchar(2000) NOT NULL,
-  `chapter_img` varchar(255) NOT NULL
+  `chapter_img` varchar(255) DEFAULT 'assets/images/StoneWall01.jpg'
 );
 
 drop table if exists `link`; 
@@ -194,3 +196,5 @@ ALTER TABLE `link` ADD FOREIGN KEY (`chapter_num`) REFERENCES `chapter` (`chapte
 ALTER TABLE `link` ADD FOREIGN KEY (`chapter_num_next`) REFERENCES `chapter` (`chapter_num`);
 
 ALTER TABLE `hero` ADD FOREIGN KEY (`chapter_num`) REFERENCES `chapter` (`chapter_num`);
+
+commit;
