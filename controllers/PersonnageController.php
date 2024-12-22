@@ -118,7 +118,7 @@ class PersonnageController {
                 $_SESSION["hero"] = $hero; 
 
                 //On revient à la page d'accueil
-                header("Location: /dx_11"); 
+                header("Location: /dx_11/chapitre"); 
 
             }//Si l'utilisateur possède déjà un héro dans la base de donnée
 
