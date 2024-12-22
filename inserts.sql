@@ -36,7 +36,7 @@ INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Décharge d''Énergie',
 
 /*
 NE FONCTIONNE PAS CAR NULL DANS IMAGE
-*/
+
 delete from chapter;
 INSERT INTO chapter (chapter_num, chapter_content, chapter_img) VALUES (1, 'Le ciel est lourd ce soir sur le village du Val Perdu, dissimulé entre les montagnes. La petite taverne, dernier refuge avant l''immense forêt, est étrangement calme quand le bourgmestre s’approche de vous. Homme d’apparence usée par les années et les soucis, il vous adresse un regard désespéré.
 
@@ -67,3 +67,10 @@ Rendez-vous sans perdre de temps au chapitre 10.', NULL);
 INSERT INTO chapter (chapter_num, chapter_content, chapter_img) VALUES (10, 'Vous fouillez le camp abandonné. Les lieux sont déserts depuis longtemps, mais les occupants semblent être partis dans la précipitation : ils ont en effet oublié beaucoup d''affaires. 
 La plupart des objets ne vous sont d''aucune utilité mais un saucissson retient votre attention. Vous tentez de le découper, mais il est trop durcis.
 Vous décidez de quand même le prendre : si vous ne pouvez le découper alors il découpera (ou plutôt fracassera) vos ennemis', NULL);
+*/
+
+delete from class;
+
+INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (2, 10, 0, 1, 3, 'un spécialiste du combat au corps à corps. Il peut posséder un bouclier pour se protéger', 'guerrier');
+INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (3, 7, 2, 1, 2, 'un combattant agile pouvant utiliser des sorts et des armes. Possède le plus d''initiative', 'voleur');
+INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (4, 5, 5, 1, 1, 'un combattant spécialisé dans le lancement de sorts. Ne peut utiliser qu''un baton ou une dague. Peut apprendre tous les sorts', 'magicien');
