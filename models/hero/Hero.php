@@ -58,6 +58,10 @@ abstract class Hero extends Combattant{
         }
     }
 
+    /**
+     * @return string la classe de l'héro
+     */
+    public abstract function getClass(); 
 
     /*
     //verifie les pv du hero 

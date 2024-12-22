@@ -14,9 +14,9 @@
         <label for="heroClass">Classe de l'héro</label>
         <select name="heroClass" id="heroClass" required>
             <option value="">euillez sélecionner une classe</option>
-            <option value="mage">guerrier</option>
-            <option value="thief">voleur</option>
-            <option value="warrior">magicien</option>
+            <option value="GUERRIER">guerrier</option>
+            <option value="VOLEUR">voleur</option>
+            <option value="MAGICIEN">magicien</option>
         </select>
 
         <label for="heroName">nom de l'héro</label>

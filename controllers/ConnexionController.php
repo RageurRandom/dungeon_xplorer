@@ -40,11 +40,8 @@ class ConnexionController {
      * @return void
      */
     public function logoff(){
-        session_start(); 
-        unset($_SESSION["connected"]);
-        unset($_SESSION["userMail"]);
-        unset($_SESSION["userPassword"]);
-        unset($_SESSION["userName"]); 
+        session_start();
+        session_unset();  
         header("Location: /dx_11"); 
     }//fonction logoff
 
@@ -123,7 +120,7 @@ class ConnexionController {
         else{
 
             //On vérifie le mot de passe
-            $query = "select user_name, user_password from user where user_mail = '$userMail'"; 
+            $query = "select * from user where user_mail = '$userMail'"; 
             $statement = $DB->unprepared_statement($query);
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -134,17 +131,17 @@ class ConnexionController {
                 $query = "select count(*) nb from user where hero_id is not null and upper(user_mail) = '$userMail'"; 
                 $statement = $DB->unprepared_statement($query); 
                 $resultHero = $statement->fetchAll(); 
-        
+
+
                 //Si l'utilisateur possède déjà un héro dans la base de donnée
-                if(intval($resultHero[0]["nb"]) != 0){
-                    $_SESSION["hasHero"] = true; 
-                }//Si l'utilisateur possède déjà un héro dans la base de donnée
+                $_SESSION["hasHero"] = ($resultHero[0]["nb"] == 1) ? true : false; 
 
                 //on initialise les variables de connexion
                 $_SESSION["connected"] = true;
                 $_SESSION["userMail"] = $userMail;
                 $_SESSION["userPassword"] = $userPassword;
                 $_SESSION["userName"] = $result[0]["user_name"]; 
+                $_SESSION["userID"] = $result[0]["user_id"]; 
             }//si le mot de passe est correcte
 
             //si le mot de passe n'est pas correcte            

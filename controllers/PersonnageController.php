@@ -13,11 +13,6 @@ class PersonnageController {
             header("Location: /dx_11/connexion"); 
         }//Si on n'est pas connecté
 
-        //Si cet utilisateur possède déjà un personnage récupéré
-        else if(isset($_SESSION["hero"]))
-            //On revient à la page d'accueil
-            header("Location: /dx_11"); 
-
         //si les champs de création ne sont pas renseignés
         else if(!isset($_POST["heroClass"]) || !isset($_POST["heroName"]))
             //On demande de les renseigner
@@ -32,9 +27,10 @@ class PersonnageController {
 
             //On insère le nouvel héro dans la base de donnée
             $this->addHero($heroClass, $heroName); 
+            $_SESSION["hasHero"] = true; 
 
             //On récupère alors le héro crée
-            header("Loction: /dx_11/recuperationPersonnage");
+            header("Location: /dx_11/recuperationHero");
         }//Si les champs sont renseignés et que l'utilisateur n'a pas de héro
 
     }//fonction createHero
@@ -45,6 +41,7 @@ class PersonnageController {
      */
     public function getHero(){
         session_start(); 
+        require_once "autoload.php"; 
 
         //Si on n'est pas connecté
         if(!isset($_SESSION["connected"]) || !$_SESSION["connected"]){
@@ -66,12 +63,12 @@ class PersonnageController {
 
             $query = "select count(*) nb from user where hero_id is not null and upper(user_mail) = '$userMail'"; 
             $statement = $DB->unprepared_statement($query); 
-            $result = $statement->execute(); 
+            $result = $statement->fetchAll(); 
 
             //Si l'utilisateur ne possède pas un héro dans la base de donnée
-            if(intval($result[0]["nb"]) == 0){
+            if($result[0]["nb"] == 0){
                 //On créer un nouvel héro
-                header("Loction: /dx_11/creationPersonnage"); 
+                header("Location: /dx_11/creationHero"); 
             }//Si l'utilisateur ne possède pas un héro dans la base de donnée
 
             //Si l'utilisateur possède déjà un héro dans la base de donnée 
@@ -82,14 +79,14 @@ class PersonnageController {
                             join hero using(hero_id)
                             join level using (level_num, class_id)
                             join class using (class_id) 
-                            where toUpper(userMail) = '$userMail'"; 
+                            where upper(user_mail) = '$userMail'"; 
                 $statement = $DB->unprepared_statement($query); 
-                $result = $statement->execute(); 
+                $result = $statement->fetchAll(); 
 
                 //On stocke ses infos dans des variables
                 $_id = $result[0]["hero_id"];
                 $_level = $result[0]["level_num"]; 
-                $_chapter = $result[0]["chaper_num"];
+                $_chapter = $result[0]["chapter_num"];
                 $_name = $result[0]["hero_name"];
                 $_hp = $result[0]["hero_HP"];
                 $_xp = $result[0]["hero_XP"];
@@ -117,9 +114,11 @@ class PersonnageController {
                     $hero->addItem($item); 
                 }//On créee ls items et on les ajoute à l'inventaire
 
+                //On stock l'héro 
+                $_SESSION["hero"] = $hero; 
 
                 //On revient à la page d'accueil
-                print_r($hero); 
+                header("Location: /dx_11"); 
 
             }//Si l'utilisateur possède déjà un héro dans la base de donnée
 
@@ -170,43 +169,48 @@ class PersonnageController {
      */
     public function addHero($heroClass, $heroName){
 
-        //On vérifie que cet utilisateur n'a pas de héro dans la base de donné
         $DB = DataBase::getInstance(); 
         $userMail = $_SESSION["userMail"]; 
 
-        $query = "select count(*) nb from user where hero_id is not null and upper(user_mail) = '$userMail'"; 
+        //On récupère les inofs de la classe
+        $query = "select * from class where upper(class_name) = '$heroClass'"; 
+        $statement = $DB->unprepared_statement($query); 
+        $classInfos = $statement->fetchAll();
+        //on les stock dans des variables
+        $classID = $classInfos[0]["class_id"]; 
+        $classHP = $classInfos[0]["class_starting_HP"]; 
+        $classMana = $classInfos[0]["class_starting_mana"]; 
+        $classInitiative = $classInfos[0]["class_starting_intitiative"]; 
+        $classStrength = $classInfos[0]["class_starting_strength"];
+
+        //On récupère l'ID de lho à inserer
+        $query = "select max(hero_id) max from hero"; 
         $statement = $DB->unprepared_statement($query); 
         $result = $statement->fetchAll(); 
+        if(count($result) == 0)
+            $heroID = 1; 
+        else
+            $heroID = $result[0]["max"]+1; 
 
-        //Si l'utilisateur possède déjà un héro dans la base de donnée
-        if(intval($result[0]["nb"]) != 0){
-            //On réupère le héro
-            header("Loction: /dx_11/recuperationPersonnage"); 
-        }//Si l'utilisateur possède déjà un héro dans la base de donnée
+        //On insère le héro avec les informations renseignés et rcupérées
+        $query = "insert into hero (hero_id, class_id, level_num, chapter_num, hero_name, hero_HP, hero_XP, hero_mana, hero_strength, hero_initiative) 
+                        values ($heroID, $classID, 1, 1, '$heroName', $classHP, 0, $classMana, $classStrength, $classInitiative)"; 
+        $nbLines = $DB->excute($query);
 
-        //Si l'utilisateur ne possède pas de héro
-        else{
-            //On récupère les inofs de la classe
-            $query = "select * from class where upper(class_name) = '$heroClass'"; 
-            $statement = $DB->unprepared_statement($query); 
-            $classInfos = $statement->fetchAll();
-            
-            $classID = $classInfos[0]["class_id"]; 
-            $classHP = $classInfos[0]["class_starting_hp"]; 
-            $classMana = $classInfos[0]["class_starting_mana"]; 
-            $classInitiative = $classInfos[0]["class_starting_initiative"]; 
-            $classStrength = $classInfos[0]["class_starting_strength"];
+        if($nbLines == 0)
+            die("impossible d'insérer le héro dans la base de donnée");
+        else if($nbLines > 1)
+            die("une erreure s'est produite");
 
-            //On insère le héro avec les informations renseignés et rcupérées
-            $query = "insert into hero values ($classID, 1, 1, '$heroName', $classHP, 0, $classMana, $classStrength, $classInitiative)"; 
-            $nbLines = $DB->excute($query); 
+        //On insère le hero dans la table user
+        $query = "update user set hero_id = $heroID where user_mail = '$userMail'"; 
+        $nbLines = $DB->excute($query); 
 
-            if($nbLines == 0)
-                die("impossible d'insérer le héro dans la base de donnée");
-            else if($nbLines > 1)
-                die("une erreure s'est produite");
-            
-        }//Si l'utilisateur ne possède pas de héro
+        if($nbLines == 0)
+            die("impossible d'associer l'héro à l'utilisateur");
+        else if($nbLines > 1)
+            die("une erreure s'est produite");
+
     }//fontion addHero()
 
 }

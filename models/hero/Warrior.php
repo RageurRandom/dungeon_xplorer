@@ -11,5 +11,8 @@ class Warrior extends Hero {
         $this->armor = $_armor; 
     }
 
+    public function getClass(){
+        return "GUERRIER"; 
+    }
 }
 ?>

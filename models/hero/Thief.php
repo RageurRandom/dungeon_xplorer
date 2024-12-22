@@ -6,6 +6,10 @@ class Thief extends Hero {
         parent::__construct($_id, $_level, $_chapter, $_name, $_hp, $_xp, $_mana, $_strength, $_initiative);
     }
 
+    public function getClass(){
+        return "VOLEUR"; 
+    }
+
 
 }
 ?>
