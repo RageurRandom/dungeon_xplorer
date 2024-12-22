@@ -1,17 +1,24 @@
 <?php
 class Item {
-    protected $weigt;
+    protected $weight;
     protected $name;
     protected $desc;
     protected $size;
 
-    public function __construct($weigt, $name, $desc, $size)
-
+    public function __construct($_weight, $_name, $_desc, $_size)
     {
-        $this->weigt = $weigt;
-        $this->name = $name;
-        $this->desc = $desc;
-        $this->size = $size;
+        $this->weight = $_weight;
+        $this->name = $_name;
+        $this->desc = $_desc;
+        $this->size = $_size;
+    }
+
+    public function getWeight(){
+        return $this->weight; 
+    }
+
+    public function getSize(){
+        return $this->size; 
     }
 
     

@@ -1,10 +1,11 @@
 <?php
 class Combattant {
-    protected $name;
-    protected $pv;
-    protected $mana;
+    
+    protected string $name;
+    protected int $hp;
+    protected string $mana;
     protected $initiative;
-    protected $strenght;
+    protected $strength;
 
     public function __construct($name, $pv, $mana, $initiative, $strenght)
     {

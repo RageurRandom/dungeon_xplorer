@@ -22,8 +22,8 @@ class ConnexionController {
         else{
             
             //On récupère les infos du compte à créer
-            $userMail = $_POST['userMail']; 
-            $userPassword = $_POST['userPassword'];
+            $userMail = strtoupper($_POST['userMail']); 
+            $userPassword =strtoupper($_POST['userPassword']);
             
             //On se connecte
             $this->login($userMail, $userPassword);
@@ -61,19 +61,16 @@ class ConnexionController {
         //Si les champs sont déjà renseignés
         else{
             //On récupère les infos du compte à créer
-            $userMail = $_POST['userMail']; 
-            $userPassword = $_POST['userPassword']; 
-            $userName = $_POST['userName']; 
+            $userMail = strtoupper($_POST['userMail']); 
+            $userPassword = strtoupper($_POST['userPassword']); 
+            $userName = strtoupper($_POST['userName']); 
 
             //On créer le compte
             $this->createAccount( $userMail, $userPassword, $userName );
 
-            //On démarre une session en stockant les informations de l'utilisateur
+            //On se connecte
             session_start(); 
-            $_SESSION['connected'] = true; 
-            $_SESSION['userName'] = $userName;
-            $_SESSION['userMail'] = $userMail;
-            $_SESSION['userPassword'] = $userPassword;
+            $this->login($userMail, $userPassword); 
 
             //on revient à la page d'accueil
             header("Location: /dx_11"); 
@@ -132,6 +129,17 @@ class ConnexionController {
 
             //Si le mot de passe est correcte
             if($result[0]["user_password"] == $userPassword){
+
+                //on vérifie si l'utilisateur a un héro dans la base de donnée
+                $query = "select count(*) nb from user where hero_id is not null and upper(user_mail) = '$userMail'"; 
+                $statement = $DB->unprepared_statement($query); 
+                $resultHero = $statement->fetchAll(); 
+        
+                //Si l'utilisateur possède déjà un héro dans la base de donnée
+                if(intval($resultHero[0]["nb"]) != 0){
+                    $_SESSION["hasHero"] = true; 
+                }//Si l'utilisateur possède déjà un héro dans la base de donnée
+
                 //on initialise les variables de connexion
                 $_SESSION["connected"] = true;
                 $_SESSION["userMail"] = $userMail;
