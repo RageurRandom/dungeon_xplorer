@@ -9,5 +9,11 @@
     <h1> page d'acceil avec l'utilisateur connectee</h1>
     <p>adresse mail : <?php echo $_SESSION["userMail"]?></p>
     <p><a href="deconnexion">cliquez ici pour vous déconnecter</a></p>
+    <?php 
+        //Si l'utilisateur a un héro
+        if(isset($_SESSION["hasHero"]) && $_SESSION["hasHero"] == true)
+            echo "<p><a href='recuperationHero'>continuer l'aventure</a></p>"; 
+    ?>
+    <p><a href='creationHero'>commencer une nouvelle aventure</a></p>
 </body>
 </html>

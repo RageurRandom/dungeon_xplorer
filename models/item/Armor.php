@@ -1,16 +1,19 @@
 <?php
 class Armor extends Item{
-    protected $defense_value;
 
-    public function __construct($defense_value,$weigt, $name, $desc, $size)
+    protected int $defenseValue;
+    protected bool $isShield; 
+
+    public function __construct($_defenseValue, $_isShield, $weigt, $name, $desc, $size)
     {
-        $this->defense_value = $defense_value;
         parent::__construct($weigt, $name, $desc, $size);
+        $this->defenseValue = $_defenseValue;
+        $this->isShield = $_isShield;
     }
 
     //récupére la valeur de défence de l'objet
-    public function getDefense_value(){
-        return $defense_value
+    public function getDefenseValue(){
+        return $this->defenseValue; 
     }
 }
 ?>

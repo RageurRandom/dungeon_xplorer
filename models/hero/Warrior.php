@@ -1,18 +1,18 @@
 <?php
 class Warrior extends Hero {
 
-    public function __construct($biographyval,$classval,$xpval,$current_levelval,$max_inventory_weightval,$idval  ,$name, $pv, $mana, $initiative, $strenght){
-        parent::__construct($biographyval,$classval,$xpval,$current_levelval,$max_inventory_weightval,$idval,$name, $pv, $mana, $initiative, $strenght);
+    protected Armor $armor; 
+
+    public function __construct($_id, $_level, $_chapter, $_name, $_hp, $_xp, $_mana, $_strength, $_initiative){
+        parent::__construct($_id, $_level, $_chapter, $_name, $_hp, $_xp, $_mana, $_strength, $_initiative);
     }
 
-        //récupére id de la classe
-        public function getClassID() {
-            return $id;
-        }
-        //récupére la classe
-        public function getClass() {
-            return $class;
-        }
+    public function putArmor($_armor){
+        $this->armor = $_armor; 
+    }
 
+    public function getClass(){
+        return "GUERRIER"; 
+    }
 }
 ?>
