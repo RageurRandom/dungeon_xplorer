@@ -80,3 +80,7 @@ delete from level;
 INSERT INTO LEVEL (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 0, 5, 3, 0, 1, 3);
 INSERT INTO LEVEL (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 1, 5, 1, 2, 3, 1);
 INSERT INTO LEVEL (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 2, 5, 0, 4, 1, 0);
+
+delete from monster;
+
+INSERT INTO monster (monster_id, monster_name, monster_HP, monster_mana, monster_strength, monster_initiative) VALUES (1, 'gobelin', 4, 0, 3, 3);
