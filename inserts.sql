@@ -94,3 +94,21 @@ delete from monster;
 INSERT INTO monster (monster_id, monster_name, monster_HP, monster_mana, monster_strength, monster_initiative) VALUES (1, 'gobelin', 4, 0, 3, 3);
 
 commit;
+
+delete from link;
+
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (1, 2, 'continuer');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (2, 3, 'emprunter le chemin sinueux');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (2, 4, 'emprunter le sentier couvert de ronces');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (3, 5, 'rester prudent');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (3, 6, 'ignorer les bruits');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (4, 8, 'affronter le sanglier');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (5, 7, 'poursuivre votre chemin');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (6, 7, 'affronter le loup');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (7, 8, 'prendre le sentier couvert de mousse');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (7, 9, 'suivre le chemin tortueux à travers les racines');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (8, 11, 'toucher la pierre gravée');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (8, 9, 'ignorer la pierre');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (10, 1, 'reprendre l’aventure depuis le début');
+
+commit;
