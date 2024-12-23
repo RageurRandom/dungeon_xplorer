@@ -32,10 +32,9 @@ CREATE TABLE `armor` (
 
 drop table if exists `treasure`; 
 CREATE TABLE `treasure` (
-  `item_id` integer,
   `chapter_num` int,
   `treasure_quantity` int NOT NULL check(`treasure_quantity` > 0),
-  PRIMARY KEY (`item_id`, `chapter_num`)
+  PRIMARY KEY (`chapter_num`)
 );
 
 drop table if exists `inventory`; 
@@ -84,7 +83,8 @@ CREATE TABLE `hero` (
   `hero_mana` int NOT NULL,
   `hero_max_mana` int NOT NULL,
   `hero_strength` int NOT NULL,
-  `hero_initiative` int NOT NULL
+  `hero_initiative` int NOT NULL,
+  `hero_treasure` int NOT NULL
 );
 
 drop table if exists `level`; 
@@ -191,8 +191,6 @@ ALTER TABLE `spell_boost` ADD FOREIGN KEY (`spell_id`) REFERENCES `spell` (`spel
 ALTER TABLE `spell_book` ADD FOREIGN KEY (`spell_id`) REFERENCES `spell` (`spell_id`);
 
 ALTER TABLE `spell_book` ADD FOREIGN KEY (`hero_id`) REFERENCES `hero` (`hero_id`);
-
-ALTER TABLE `treasure` ADD FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`);
 
 ALTER TABLE `treasure` ADD FOREIGN KEY (`chapter_num`) REFERENCES `chapter` (`chapter_num`);
 

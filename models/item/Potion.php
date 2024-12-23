@@ -1,23 +1,28 @@
 <?php
 class Potion extends Item{
-    protected $value;
-    protected $type;
 
-    public function __construct($value, $type   ,$weigt, $name, $desc, $size)
+    protected int $value;
+
+
+    public function __construct($_value ,$_weigt, $_name, $_desc, $_size)
     {
-        $this->value = $value;
-        $this->type = $type;
-        parent::__construct($weigt, $name, $desc, $size);
+        $this->value = $_value;
+        parent::__construct($_weigt, $_name, $_desc, $_size);
     }
 
-    //retourne le bonnus de la potion
+    /**
+     * @return int le bonus de la potion
+     */
     public function getValue(){
-        return $value;
+        return $this->value;
     }
 
-    //retourne le type de potion
+    /**
+     * retorune un string représentant le type de l'item : item, armure, potion, bouclier ou arme
+     */
     public function getType(){
-        return $type;
+        return "potion"; 
     }
+
 }
 ?>

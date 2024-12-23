@@ -1,18 +1,26 @@
 <?php
 class AttackingSpell extends Spell{
-    protected $attack_values;
 
-    public function __construct($attack_values,$nomval,$priceval)
+
+    protected int $attackValue;
+
+    public function __construct($_attackValue ,$_name, $_manaCost)
     {
-        $this->attack_values = $attack_values;
-        parent::__construct($nomval,$priceval);
+        parent::__construct($_name,$_manaCost);
+        $this->attackValue = $_attackValue;
     }
 
     //récupére la valeur de l'attaque
-    public function getAttack_values(){
-        return $attack_values;
+    public function getAttackValue(){
+        return $this->attackValue;
     }
 
+    /**
+     * @return string le type du spell : attaque ou boost
+     */
+    public function getType(){
+        return "attackingSpell"; 
+    }
 
 }
 ?>
