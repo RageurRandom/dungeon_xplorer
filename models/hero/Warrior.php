@@ -50,12 +50,36 @@ class Warrior extends Hero {
     }
 
     /**
-     * ajoute du mana aux ana max.
+     * ajoute du mana aux mana max.
      * @param int $quant la quantité de mana à ajouter
      * @return int la nouvelle valeur de mana max
      */
     public function addMaxMana($quant){
         throw new Exception("un guerrier ne peut pas avoir du mana"); 
+    }
+
+        /**
+     * @param Spell $spell le sort à ajouter
+     */
+    public function collecteSpell($spell){
+        throw new Exception("un guerrier ne peut pas collecter des sorts");
+    }
+
+    /**
+     * la durée du spell n'est pas encore prise en compte
+     * @param BoostingSpell $spell le sort à ajouter
+     */
+    public function useBoostingSpell($spell){
+        throw new Exception("un guerrier ne peut pas utiliser des sorts");
+    }
+
+    /**
+     * fait des dégats à l'adversaire passé en paramètre
+     * @param Combattant $adversaire à attaquer
+     * @param AttackingSpell $spell sort à utiliser 
+     */
+    public function useAttackingSpell($spell, $adversaire){
+        throw new Exception("un guerrier ne peut pas utiliser des sorts");
     }
 }
 ?>

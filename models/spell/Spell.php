@@ -1,22 +1,27 @@
 <?php
-class Spell {
+abstract class Spell {
 
-    private $nom = "";
-    private $price = -1;
+    protected string $name;
+    protected int $manaCost;
 
-    public function __construct($nomval,$priceval){
-        $nom = $nomval;
-        $price = $priceval ;
+    public function __construct($_name, $_manaCost){
+        $this->name = $_name;
+        $this->manaCost = $_manaCost ;
     }
 
     //récupére le nom du spell
-    public function getNom(){
-        return $nom;
+    public function getName(){
+        return $this->name;
     }
 
-    //récupére le prix du spelle
-    public function getprice(){
-        return $price;
+    //récupére le coût du spell
+    public function getCost(){
+        return $this->manaCost;
     }
+
+    /**
+     * @return string le type du spell : attaque ou boost
+     */
+    public abstract function getType(); 
 }
 ?>

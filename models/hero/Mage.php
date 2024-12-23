@@ -6,9 +6,8 @@ class Mage extends Hero {
 
     }
 
-
     public function getClass(){
-        return "MAGICIEN"; 
+        return "magicien"; 
     }
 }
 ?>

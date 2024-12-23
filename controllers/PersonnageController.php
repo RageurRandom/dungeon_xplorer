@@ -91,10 +91,10 @@ class PersonnageController {
                 $_strength = $result[0]["hero_strength"];
                 $_initiative = $result[0]["hero_initiative"];
                 $_class = $result[0]["class_name"];
-                $_treasure =  $result[0]["class_treasure"];
+                $_treasure =  $result[0]["hero_treasure"];
 
                 //On crée une instece de héro 
-                $hero = $this->heroInstance($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_class, $_treasure); 
+                $hero = $this->heroInstance($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_treasure, $_class); 
 
                 //On récupère ses items 
                 $query = "select * from inventory 
@@ -112,6 +112,21 @@ class PersonnageController {
                     $hero->collecteItem($item); 
                 }//On créee ls items et on les ajoute à l'inventaire
 
+                //On récupère ses spells 
+                $query = "select * from spell_book 
+                            join hero using(hero_id)
+                            join spell using (spell_id)
+                            where hero_id = $_id"; 
+                $statement = $DB->unprepared_statement($query); 
+                $result = $statement->fetchAll();
+                
+                //On créee les spells et on les ajoute à au spell book
+                $spell = null; 
+                foreach($result as $lineNum => $line){
+                    $spell = $this->spellInstance($line["spell_id"], $line["spell_name"], $line["spell_mana"]); 
+                    $hero->collecteSpell($spell); 
+                }//On créee les spells et on les ajoute à au spell book
+
                 //On stock l'héro 
                 $_SESSION["hero"] = $hero; 
 
@@ -127,7 +142,7 @@ class PersonnageController {
      * céer et retourne une insence de Hero
      * @return Hero le héro
      */
-    public function heroInstance($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_class, $_treasure){
+    public function heroInstance($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_treasure, $_class){
         
         $_className = strtoupper($_class); 
         $hero = null; 
@@ -135,24 +150,25 @@ class PersonnageController {
         switch($_className){
 
             case "GUERRIER":
-                $hero = new Warrior($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_strength, $_initiative, $_class, $_treasure); 
+                $hero = new Warrior($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_strength, $_initiative, $_treasure); 
                 break; 
             
             case "VOLEUR":
-                $hero = new Thief($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_class, $_treasure); 
+                $hero = new Thief($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_treasure); 
                 break; 
 
             case "MAGICIEN":
-                $hero = new Mage($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_class, $_treasure); 
+                $hero = new Mage($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_treasure); 
                 break; 
             
         }
 
         return $hero; 
-    }
+    }//fonction heroInstance()
 
     /**
      * crée et retourne une instece de l'item 
+     * @param int $_id l'id de l'item dans la BDD
      * @return Item l'item
      */
     public function itemInstance($_id, $_weight, $_name, $_desc, $_size){
@@ -207,11 +223,51 @@ class PersonnageController {
             $statement = $DB->unprepared_statement($query); 
             $result = $statement->fetchAll();
             return new Potion($result[0]["potion_value"], $_weight, $_name, $_desc, $_size); 
-        }//Si c'est une arme
+        }//Si c'est une potion
 
         //Si aucun de ces types
         return new Item($_weight, $_name, $_desc, $_size); 
 
+    }//fonction itemInstance()
+
+
+    /**
+     * crée une instence de Spell en fonction des paramètres passés
+     * @param int $_spellID l'ID du spell dans la BDD
+     * @return Spell le sort
+     */
+    public function spellInstance($_spellID, $_name, $_manaCost){
+
+        $DB = DataBase::getInstance();
+        //Vérifier le type de l'item grâce à son ID
+
+        $query = "select count(*) nb from spell_boost where spell_id = $_spellID"; 
+        $statement = $DB->unprepared_statement($query); 
+        $result = $statement->fetchAll();
+
+        //Si c'est un sort de boost
+        if($result[0]["nb"] > 0){
+            //On récupère sa cible et sa durée
+            $query = "select spell_boost_value, spell_boost_target, spell_boost_duration from spell_boost where spell_id = $_spellID"; 
+            $statement = $DB->unprepared_statement($query); 
+            $result = $statement->fetchAll();
+            return new BoostingSpell($result[0]["spell_boost_value"], $result[0]["spell_boost_target"], $result[0]["spell_boost_duration"],  $_name, $_manaCost); 
+        }//Si c'est un sort de boost
+
+        $query = "select count(*) nb from spell_attack where spell_id = $_spellID"; 
+        $statement = $DB->unprepared_statement($query); 
+        $result = $statement->fetchAll();
+
+        //Si c'est un sort d'attaque
+        if($result[0]["nb"] > 0){
+            //On récupère sa valeur
+            $query = "select spell_attack_value from spell_attack where spell_id = $_spellID"; 
+            $statement = $DB->unprepared_statement($query); 
+            $result = $statement->fetchAll();
+            return new AttackingSpell($result[0]["spell_attack_value"], $_name, $_manaCost); 
+        }//Si c'est un sort sort d'attaque
+
+        return null; 
     }
 
 

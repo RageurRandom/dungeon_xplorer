@@ -9,6 +9,8 @@ class Combattant {
     protected int $maxHP; 
     protected int $maxMana; 
 
+    protected $spellBook; 
+
     public function __construct($_name, $_HP, $_maxHP, $_mana, $_maxMana, $_initiative, $_strength)
     {
         $this->name = $_name;
@@ -37,11 +39,74 @@ class Combattant {
     }
 
     /**
+     * @param Spell $spell le sort à ajouter
+     */
+    public function collecteSpell($spell){
+        $index = count($this->spellBook);
+        $spellBook[$index] = $spell; 
+    }
+
+    /**
+     * la durée du spell n'est pas encore prise en compte
+     * @param BoostingSpell $spell le sort à ajouter
+     */
+    public function useBoostingSpell($spell){
+
+        if($spell->getType() != "boostingSpell")
+            throw new Exception("useBoostingSpell : ce sort n'est pas un sort de boost"); 
+
+        if($spell->getCost() > $this->getCurrentMana())
+            return; 
+
+        else{
+            $spellTarget = $spell->getBoostTarget(); 
+
+            switch($spellTarget){
+
+                case "hp":
+                    $this->addMaxHP($spell->getBoostValue());
+                    $this->addHP($spell->getBoostValue());
+                    break; 
+                
+                case "initiative":
+                    $this->addInitiative($spell->getBoostValue());
+                    break; 
+
+                case "strength":
+                    $this->addStrength($spell->getBoostValue());
+                    break; 
+            }
+
+            $this->reduceMana($spell->getCost()); 
+        }
+    }
+
+    /**
+     * fait des dégats à l'adversaire passé en paramètre
+     * @param Combattant $adversaire à attaquer
+     * @param AttackingSpell $spell sort à utiliser 
+     */
+    public function useAttackingSpell($spell, $adversaire){
+
+        if($spell->getType() != "attackingSpell")
+            throw new Exception("useAttackingSpell : ce sort n'est pas un sort d'attaque"); 
+
+        if($spell->getCost() > $this->getCurrentMana())
+            return; 
+
+        $adversaire->recieveAttack($spell->getAttackValue()); 
+
+        $this->reduceMana($spell->getCost()); 
+    }
+
+
+    /**
      * @return bool si ce combattant est mort
      */
     public function isDead(){
         return $this->HP <= 0; 
     }
+    
 
     /**
      * ajoute des PV aux PV actuels. le résultat ne dépasse pas PV max

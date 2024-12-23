@@ -11,8 +11,8 @@ abstract class Hero extends Combattant{
 
     protected $inventory;  
 
-    protected Armor $armor; 
-    protected Weapon $weapon; 
+    protected ?Armor $armor; 
+    protected ?Weapon $weapon; 
 
     protected int $treasure; 
 
