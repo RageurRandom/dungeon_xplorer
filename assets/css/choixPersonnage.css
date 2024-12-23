@@ -1,0 +1,119 @@
+
+
+body{
+    background-color: rgb(68, 62, 62);
+    color: white;
+}
+
+h1{
+    text-align: center;
+    font-size: 70px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.wrapper {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.box {
+    border-radius: 5px;
+    color: #fff;
+}
+
+section {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+	float: left;
+	width: 33%;
+	min-height: 800px;
+	border: 2px solid;
+	border-radius: 6px;
+
+}
+
+footer {
+	clear: both;
+	margin-bottom: 0;
+}
+
+.GUERRIER{
+    background-image: url("../images/guerrierSansCouleur.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: grey;
+}
+
+.GUERRIER:hover {
+    background-image: url("../images/guerrier.png");
+	background-color: rgb(240, 187, 187);
+}
+
+.MAGICIEN{
+    background-image: url("../images/mageSansCouleur.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: grey;
+}
+
+.MAGICIEN:hover {
+    background-image: url("../images/mage.png");
+	background-color: rgb(240, 187, 187);
+}
+
+.VOLEUR{
+    background-image: url("../images/voleurSansCouleur.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: grey;
+}
+
+.VOLEUR:hover {
+    background-image: url("../images/voleur.png");
+	background-color: rgb(240, 187, 187);
+}
+
+.btn {
+    width: 6.5em;
+    height: 2.3em;
+    margin: 0.5em;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 0.625em;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+   
+button:hover {
+    color: black;
+}
+   
+button:after {
+    content: "";
+    background: white;
+    position: absolute;
+    z-index: -1;
+    left: -20%;
+    right: -20%;
+    top: 0;
+    bottom: 0;
+    transform: skewX(-45deg) scale(0, 1);
+    transition: all 0.5s;
+}
+   
+button:hover:after {
+    transform: skewX(-45deg) scale(1, 1);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
