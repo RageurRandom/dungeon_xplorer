@@ -7,5 +7,14 @@
 </head>
 <body>
 <h1> page du chapitre 1 </h1>
+
+<?php
+
+$controller = new ChapitreController();
+$chapter_content = $controller->getChapitre(1);
+echo "<p>" . $chapter_content . "</p>";
+
+?>
+
 </body>
 </html>
