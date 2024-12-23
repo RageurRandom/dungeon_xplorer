@@ -3,30 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/choixPersonnage.css" rel="stylesheet" />
     <title>création héro</title>
 </head>
 <body>
-    <h1> page de création de l'héro</h1>
-
     <form action="creationHero" method = "post">
 
-    
-        <label for="heroClass">Classe de l'héro</label>
-        <select name="heroClass" id="heroClass" required>
-            <option value="">euillez sélecionner une classe</option>
-            <option value="GUERRIER">guerrier</option>
-            <option value="VOLEUR">voleur</option>
-            <option value="MAGICIEN">magicien</option>
-        </select>
+    <header>
+        <h1> Choix du héro</h1>
+        <div class="wrapper">
+            <div class="box"><input type="text" placeholder="nom de l'héro" id="heroName" name="heroName" required/></div>
+        </div>
+    </header>
 
-        <label for="heroName">nom de l'héro</label>
-        <input type="text" id="heroName" name="heroName" required/>
-
-        <button type="submit">créer le héro</button>
+        <section class="GUERRIER">
+            <button class="btn" name="heroClass" type="submit" value="GUERRIER">GUERRIER</button>
+		</section>
+		  
+		<section class="MAGICIEN">
+            <button class="btn" name="heroClass" type="submit" value="MAGICIEN">MAGICIEN</button>
+		</section>
+		  
+		<section class="VOLEUR">
+            <button class="btn" name="heroClass" type="submit" value="VOLEUR">VOLEUR</button>
+		</section>
 
     </form>
 
-    <p> pour revenir à l'accueil,<a href="">cliquer ici</a></p>
+    <footer>
+        <p> pour revenir à l'accueil,<a href="">cliquer ici</a></p>
+	</footer>
+
 
 </body>
 </html>
