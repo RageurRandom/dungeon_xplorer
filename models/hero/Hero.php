@@ -11,8 +11,8 @@ abstract class Hero extends Combattant{
 
     protected $inventory;  
      
-    public function __construct($_id, $_level, $_chapter, $_name, $_hp, $_xp, $_mana, $_strength, $_initiative){
-        parent::__construct($_name, $_hp, $_mana, $_initiative, $_strength);
+    public function __construct($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative){
+        parent::__construct($_name, $_hp, $_max_hp, $_mana, $_max_mana, $_initiative, $_strength);
         $this->id = $_id; 
         $this->chapter = $_chapter;  
         $this->level = $_level;  

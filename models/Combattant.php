@@ -6,14 +6,18 @@ class Combattant {
     protected $mana;
     protected $initiative;
     protected $strength;
+    protected $max_hp; 
+    protected $max_mana; 
 
-    public function __construct($_name, $_hp, $_mana, $_initiative, $_strength)
+    public function __construct($_name, $_hp, $_max_hp, $_mana, $_max_mana, $_initiative, $_strength)
     {
         $this->name = $_name;
         $this->hp = $_hp;
         $this->mana = $_mana;
         $this->initiative = $_initiative;
         $this->strength = $_strength;
+        $this->max_hp = $_max_hp;
+        $this->max_mana = $_max_mana;
     }
 
     /*
