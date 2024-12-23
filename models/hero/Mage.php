@@ -19,3 +19,4 @@ class Mage extends Hero {
         }
 
 }
+?>

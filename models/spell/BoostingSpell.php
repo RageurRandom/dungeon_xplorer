@@ -15,3 +15,4 @@ class BoostingSpell extends Spell{
 
 
 }
+?>

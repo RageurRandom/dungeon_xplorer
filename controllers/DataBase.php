@@ -15,14 +15,9 @@ class DataBase{
         $user = 'root'; 
         $password = ''; 
 
-        try{
-            $this->DB = new PDO($DB_adresse, $user, $password); 
-            $this->DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->DB->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        }
-        catch(PDOException $e){
-            die('erreure de connexion : '.$e->getMessage());
-        }
+        $this->DB = new PDO($DB_adresse, $user, $password); 
+        $this->DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->DB->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         
     }
 
@@ -46,13 +41,7 @@ class DataBase{
      */
     public function excute($query){
 
-        try{
-            $nbLines = $this->DB->exec($query);
-        }
-        catch(PDOException $e){
-            echo('requête impossible à excécuter excute()'.$e->getCode());
-        } 
-
+        $nbLines = $this->DB->exec($query);
         return $nbLines; 
     }
 
@@ -65,13 +54,9 @@ class DataBase{
      */
     public function prepare_statement($query){
 
-        try{
-            $statement = $this->DB->prepare($query);
-            return $statement; 
-        }
-        catch(PDOException $e){
-            die('requête impossible à préparer prepared_statement() '.$e->getCode());
-        }
+        $statement = $this->DB->prepare($query);
+        return $statement; 
+
     }
 
 
@@ -83,14 +68,10 @@ class DataBase{
      */
     public function unprepared_statement($query){
 
-        try{
             $statement = $this->DB->query($query); 
             return $statement; 
-        }
-        catch(Exception $e){
-            die('requête impossible à excécuter unprepared_statement '.$e->getCode()); 
-        }
+ 
     }
 
-
 }
+?>

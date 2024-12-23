@@ -73,10 +73,13 @@ $router = new Router('dx_11');
 
 // Ajout des routes
 $router->addRoute('', 'AccueilController@index'); // Pour l'accueil
-$router->addRoute('connection', 'ConnectionController@index'); // Pour la connection
+$router->addRoute('connexion', 'ConnexionController@connect');// Pour la connection
+$router->addRoute('deconnexion', 'ConnexionController@logoff');//Pour la déconnexion
+$router->addRoute('creationCompte', 'ConnexionController@create');//Pour la création de compte
 $router->addRoute('profile', 'ProfileController@index'); // Pour le profile
 $router->addRoute('chapitre', 'ChapitreController@index'); // Pour les chapitre
-$router->addRoute('personage', 'PersonnageController@index'); // Pour le personnage
+$router->addRoute('personnage', 'PersonnageController@index'); // Pour le personnage
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
+?>

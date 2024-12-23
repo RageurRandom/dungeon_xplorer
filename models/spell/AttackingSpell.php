@@ -15,3 +15,4 @@ class AttackingSpell extends Spell{
 
 
 }
+?>
