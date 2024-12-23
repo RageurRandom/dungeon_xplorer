@@ -48,18 +48,13 @@ class PersonnageController {
             //On envoie vers la page de cnnexion
             header("Location: /dx_11/connexion"); 
         }//Si on n'est pas connecté
-
-        //Si cet utilisateur possède déjà un personnage récupéré
-        else if(isset($_SESSION["hero"]))
-            //On revient à la page d'accueil
-            header("Location: /dx_11"); 
-
+ 
         //Si on est connecté et qu'on n'a pas de personnage récupéré 
         else{
 
             //On vérifie que cet utilisateur a bien un héro dans la base de donné
             $DB = DataBase::getInstance(); 
-            $userMail = $_SESSION["userMail"]; 
+            $userMail = strtoupper($_SESSION["userMail"]); 
 
             $query = "select count(*) nb from user where hero_id is not null and upper(user_mail) = '$userMail'"; 
             $statement = $DB->unprepared_statement($query); 
@@ -89,14 +84,16 @@ class PersonnageController {
                 $_chapter = $result[0]["chapter_num"];
                 $_name = $result[0]["hero_name"];
                 $_hp = $result[0]["hero_HP"];
+                $_max_hp = $result[0]["hero_max_HP"];
                 $_xp = $result[0]["hero_XP"];
                 $_mana = $result[0]["hero_mana"];
+                $_max_mana = $result[0]["hero_max_mana"];
                 $_strength = $result[0]["hero_strength"];
                 $_initiative = $result[0]["hero_initiative"];
                 $_class = $result[0]["class_name"]; 
 
                 //On crée une instece de héro 
-                $hero = $this->heroInstance($_id, $_level, $_chapter, $_name, $_hp, $_xp, $_mana, $_strength, $_initiative, $_class); 
+                $hero = $this->heroInstance($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_class); 
 
                 //On récupère ses items 
                 $query = "select * from inventory 
@@ -129,7 +126,7 @@ class PersonnageController {
      * céer et retourne une insence de Hero
      * @return Hero le héro
      */
-    public function heroInstance($_id, $_level, $_chapter, $_name, $_hp, $_xp, $_mana, $_strength, $_initiative, $_class){
+    public function heroInstance($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_class){
         
         $_className = strtoupper($_class); 
         $hero = null; 
@@ -137,15 +134,15 @@ class PersonnageController {
         switch($_className){
 
             case "GUERRIER":
-                $hero = new Warrior($_id, $_level, $_chapter, $_name, $_hp, $_xp, $_mana, $_strength, $_initiative, $_class); 
+                $hero = new Warrior($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_class); 
                 break; 
             
             case "VOLEUR":
-                $hero = new Thief($_id, $_level, $_chapter, $_name, $_hp, $_xp, $_mana, $_strength, $_initiative, $_class); 
+                $hero = new Thief($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_class); 
                 break; 
 
             case "MAGICIEN":
-                $hero = new Mage($_id, $_level, $_chapter, $_name, $_hp, $_xp, $_mana, $_strength, $_initiative, $_class); 
+                $hero = new Mage($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_class); 
                 break; 
             
         }
@@ -193,8 +190,8 @@ class PersonnageController {
             $heroID = $result[0]["max"]+1; 
 
         //On insère le héro avec les informations renseignés et rcupérées
-        $query = "insert into hero (hero_id, class_id, level_num, chapter_num, hero_name, hero_HP, hero_XP, hero_mana, hero_strength, hero_initiative) 
-                        values ($heroID, $classID, 1, 1, '$heroName', $classHP, 0, $classMana, $classStrength, $classInitiative)"; 
+        $query = "insert into hero (hero_id, class_id, level_num, chapter_num, hero_name, hero_HP, hero_max_HP, hero_XP, hero_mana, hero_max_mana, hero_strength, hero_initiative) 
+                        values ($heroID, $classID, 1, 1, '$heroName', $classHP, $classHP, 0, $classMana, $classMana, $classStrength, $classInitiative)"; 
         $nbLines = $DB->excute($query);
 
         if($nbLines == 0)
@@ -203,7 +200,7 @@ class PersonnageController {
             die("une erreure s'est produite");
 
         //On insère le hero dans la table user
-        $query = "update user set hero_id = $heroID where user_mail = '$userMail'"; 
+        $query = "update user set hero_id = $heroID where upper(user_mail) = '$userMail'"; 
         $nbLines = $DB->excute($query); 
 
         if($nbLines == 0)
