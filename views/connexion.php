@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/style.css" rel="stylesheet" />
     <title>Connexion</title>
 </head>
 <body>
-    <h1> page de connection</h1>
+    <div class="block">
+        <h1> Page de connection</h1>
+        <form action="connexion" method = "post">
+            <input type="email" placeholder="adresse e-mail" id="userMail" name="userMail" required/>
 
-    <form action="connexion" method = "post">
+            <input type="password" placeholder="mot de passe" id="userPassword" name="userPassword" required/>
 
-        <label for="userMail">adresse e-mail</label>
-        <input type="email" id="userMail" name="userMail" required/>
+            <button type="submit">se connecter</button>
+        </form>
 
-        <label for="userPassword">mot de passe</label>
-        <input type="password" id="userPassword" name="userPassword" required/>
-
-        <button type="submit">se connecter</button>
-    </form>
-
-        <a href="creationCompte">cliquer ici pour créer un compte</a>
+            <a href="creationCompte">cliquer ici pour créer un compte</a>
+    </div>
+  
+</div>
 </body>
 </html>
