@@ -1,80 +1,209 @@
-<?php
+<?pHP
 class Combattant {
     
-    protected  $name;
-    protected $hp;
-    protected $mana;
-    protected $initiative;
-    protected $strength;
-    protected $max_hp; 
-    protected $max_mana; 
+    protected  string $name;
+    protected int $HP;
+    protected int $mana;
+    protected int $initiative;
+    protected int $strength;
+    protected int $maxHP; 
+    protected int $maxMana; 
 
-    public function __construct($_name, $_hp, $_max_hp, $_mana, $_max_mana, $_initiative, $_strength)
+    public function __construct($_name, $_HP, $_maxHP, $_mana, $_maxMana, $_initiative, $_strength)
     {
         $this->name = $_name;
-        $this->hp = $_hp;
+        $this->HP = $_HP;
         $this->mana = $_mana;
         $this->initiative = $_initiative;
         $this->strength = $_strength;
-        $this->max_hp = $_max_hp;
-        $this->max_mana = $_max_mana;
+        $this->maxHP = $_maxHP;
+        $this->maxMana = $_maxMana;
     }
 
-    /*
-    //récupére le nom du combattant
+    /**
+     * fait des dégats à l'adversaire passé en paramètre
+     * @param Combattant $adversaire à attaquer 
+     */
+    public function attack($adversaire){
+        $adversaire->recieveAttack($this->strength); 
+    }
+
+    /**
+     * reçoit une attaque et diminue les PV
+     * @param int $damage les dégâts à subire
+     */
+    public function recieveAttack($damage){
+        $this->reduceHP($damage); 
+    }
+
+    /**
+     * @return bool si ce combattant est mort
+     */
+    public function isDead(){
+        return $this->HP <= 0; 
+    }
+
+    /**
+     * ajoute des PV aux PV actuels. le résultat ne dépasse pas PV max
+     * @param int $quant la quantité de PV à ajouter
+     * @return int la nouvelle valeur de PV
+     */
+    public function addHP($quant){
+
+        $newHP = $this->HP + $quant;
+
+        if($newHP >= $this->maxHP)
+            $this->HP = $this->maxHP; 
+        else
+            $this->HP = $newHP;
+
+        return $this->HP; 
+    }
+
+
+    /**
+     * ajoute des PV aux PV max.
+     * @param int $quant la quantité de PV à ajouter
+     * @return int la nouvelle valeur de PV max
+     */
+    public function addMaxHP($quant){
+        $this->maxHP += $quant; 
+        return $this->maxHP; 
+    }
+
+    /**
+     * ajoute du mana aux mana actuel. le résultat ne dépasse pas mana max
+     * @param int $quant la quantité de mana à ajouter
+     * @return int la nouvelle valeur de mana
+     */
+    public function addMana($quant){
+
+        $newMana = $this->mana + $quant;
+
+        if($newMana >= $this->maxMana)
+            $this->mana = $this->maxMana; 
+        else
+            $this->mana = $newMana;
+
+        return $this->mana; 
+    }
+
+    /**
+     * ajoute du mana aux ana max.
+     * @param int $quant la quantité de mana à ajouter
+     * @return int la nouvelle valeur de mana max
+     */
+    public function addMaxMana($quant){
+        $this->maxMana += $quant; 
+        return $this->maxMana; 
+    }
+
+    /**
+     * enlève des PV aux PV actuels.
+     * @param int $quant la quantité de PV à enlever
+     * @return int la nouvelle valeur de PV
+     */
+    public function reduceHP($quant){
+        $newHP = $this->HP - $quant;
+
+        if($newHP <= 0)
+            $this->HP = 0; 
+        else
+            $this->HP = $newHP;
+
+        return $this->HP; 
+    }
+
+    /**
+     * enlève du mana aux mana actuel.
+     * @param int $quant la quantité de mana à enlèver
+     * @return int la nouvelle valeur de mana
+     */
+    public function reduceMana($quant){
+
+        $newMana = $this->mana - $quant;
+
+        if($newMana <= 0)
+            $this->mana = 0; 
+        else
+            $this->mana = $newMana;
+
+        return $this->mana; 
+    }
+
+    /**
+     * ajoute de l'initiative.
+     * @param int $quant la quantité à ajouter
+     * @return int la nouvelle valeur de initiative
+     */
+    public function addInitiative($quant){
+        $this->initiative += $quant; 
+        return $this->initiative; 
+    }
+
+
+    /**
+     * ajoute de la force.
+     * @param int $quant la quantité à ajouter
+     * @return int la nouvelle valeur de la force
+     */
+    public function addStrength($quant){
+        $this->strength += $quant; 
+        return $this->strength; 
+    }
+    
+    /**
+     * @return string le nom du combattant
+     */
     public function getName(){
-        return $name;
-    }
-
-    //définie le nom du combattant
-    public function setName($newName){
-        $name = $newName;
+        return $this->name;
     }
 
 
-
-    //récupére les poins de vis du combattant
-    public function getPv(){
-        return $pv;
+    /**
+     * @return int les PV actuels du combattant
+     */
+    public function getCurrentHP(){
+        return $this->HP;
     }
 
-    //définie les poins de vis du combattant
-    public function setPv($newPv){
-        $pv = $newPv;
-    }
-
-
-
-    //récupére les poins de Mana du combattant
-    public function getMana(){
-        return $mana;
-    }
-
-    //définie les poins de Mana du combattant
-    public function setMana($newMana){
-        $mana = $newMana;
+    /**
+     * @return int les PV max du combattant
+     */
+    public function getMaxHP(){
+        return $this->maxHP;
     }
 
 
-    //récupére l'initiative du combattant
+    /**
+     * @return int le mana actuel du combattant
+     */
+    public function getCurrentMana(){
+        return $this->mana;
+    }
+
+    /**
+     * @return int le mana max du combattant
+     */
+    public function getMaxMana(){
+        return $this->maxMana;
+    }
+
+
+    /**
+     * @return int l'initiative actuel du combattant
+     */
     public function getInitiative(){
-        return $initiative;
-    }
-
-    //définie l'initiative du combattant
-    public function setMana($newInitiative){
-        $initiative = $newInitiative;
+        return $this->initiative;
     }
 
 
-    //récupére les dégat du combattant
-    public function getInitiative(){
-        return $strenght;
+    /**
+     * @return int la force du combattant
+     */
+    public function getStrength(){
+        return $this->strength;
     }
 
-    //définie les dégat du combattant
-    public function setMana($newStrenght){
-        $strenght = $newStrenght;
-    }*/
 }
 ?>

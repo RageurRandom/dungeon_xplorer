@@ -2,18 +2,25 @@
 class Armor extends Item{
 
     protected int $defenseValue;
-    protected bool $isShield; 
 
-    public function __construct($_defenseValue, $_isShield, $weigt, $name, $desc, $size)
+    public function __construct($_defenseValue, $_weigt, $_name, $_desc, $_size)
     {
-        parent::__construct($weigt, $name, $desc, $size);
+        parent::__construct($_weigt, $_name, $_desc, $_size);
         $this->defenseValue = $_defenseValue;
-        $this->isShield = $_isShield;
     }
 
-    //récupére la valeur de défence de l'objet
+    /**
+     * @return int la valeur de défence de l'armure
+     * */
     public function getDefenseValue(){
         return $this->defenseValue; 
+    }
+
+    /**
+     * retorune un string représentant le type de l'item : item, armure, potion, bouclier ou arme
+     */
+    public function getType(){
+        return "amure"; 
     }
 }
 ?>

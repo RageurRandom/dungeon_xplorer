@@ -1,16 +1,24 @@
 <?php
 class Weapon extends Item{
-    protected $attak_value;
 
-    public function __construct($attak_value,$weigt, $name, $desc, $size)
+    protected int $attackValue;
+
+    public function __construct($_attakValue,$_weigt, $_name, $_desc, $_size)
     {
-        $this->attak_value = $attak_value;
-        parent::__construct($weigt, $name, $desc, $size);
+        parent::__construct($_weigt, $_name, $_desc, $_size);
+        $this->attackValue = $_attakValue;
     }
 
     // récupére la valeur d'attaque de l'arme
-    public function getAttak_value(){
-        return attak_value;
+    public function getAttackValue(){
+        return $this->attackValue;
+    }
+
+    /**
+     * retorune un string représentant le type de l'item : item, armure, potion, bouclier ou arme
+     */
+    public function getType(){
+        return "arme"; 
     }
 }
 ?>

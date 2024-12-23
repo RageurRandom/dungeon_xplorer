@@ -4,27 +4,97 @@ abstract class Hero extends Combattant{
     protected static int $maxInventoryWeight = 100;
     protected static int $InventorySize = 100; 
 
-    protected int $xp;
+    protected int $XP;
     protected int $level;
-    protected int $id;
+    protected int $ID;
     protected int $chapter;
 
     protected $inventory;  
-     
-    public function __construct($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative){
+
+    protected Armor $armor; 
+    protected Weapon $weapon; 
+
+    protected int $treasure; 
+
+    public function __construct($_ID, $_level, $_chapter, $_name, $_hp, $_max_hp, $_XP, $_mana, $_max_mana, $_strength, $_initiative, $_treasure){
         parent::__construct($_name, $_hp, $_max_hp, $_mana, $_max_mana, $_initiative, $_strength);
-        $this->id = $_id; 
+        $this->ID = $_ID; 
         $this->chapter = $_chapter;  
         $this->level = $_level;  
-        $this->xp = $_xp; 
+        $this->XP = $_XP; 
+        $this->armor = null; 
+        $this->weapon = null; 
+        $this->treasure = $_treasure; 
     }
 
     /**
-     * adds an item to the inventory 
+     * fait des dégats à l'adversaire passé en paramètre
+     * @param Combattant $adversaire à attaquer 
+     */
+    public function attack($adversaire){
+
+        if(isset($this->weapon))
+            $adversaire->recieveAttack($this->weapon->getAttackValue());
+        else
+            parent::attack($adversaire); 
+    }
+
+    /**
+     * reçoit une attaque et diminue les PV
+     * @param int $damage les dégâts à subire
+     */
+    public function recieveAttack($damage){
+
+        if(isset($this->armor))
+            $damage -= $this->armor->getDefenseValue();
+
+        parent::recieveAttack($damage); 
+    }
+
+    /**
+     * permet de porter une armure
+     * @param Armor $armor l'armure à porter
+     */
+    public function putArmor($armor){
+        $this->armor = $armor; 
+    }
+
+    /**
+     * permet de retirer l'armure portée
+     */
+    public function removeArmor(){
+        unset($this->armor); 
+    }
+
+    /**
+     * permet de porter une arme
+     * @param Weapon $weapon l'arme à porter
+     */
+    public function holdWeapon($weapon){
+        $this->weapon = $weapon; 
+    }
+
+    /**
+     * permet de retirer l'arme portée
+     */
+    public function removeWeapon(){
+        unset($this->weapon); 
+    }
+
+    /**
+     * permet de consommer une potion
+     * @param Poion $potion la potion à consommer
+     */
+    public function consumePotion($potion){
+        $this->addHP($potion->getValue()); 
+    }
+
+    /**
+     * ajoute un item à l'inventaire
      * @param Item l'item à ajouter
      * @return bool si l'ajout est réussi 
      */
-    public function addItem($item){
+    public function collecteItem($item){
 
         if( (self::$maxInventoryWeight - $this->inventoryWeight()) < $item->getWeight()){
             throw new Exception("il n'y a pas assez de place das l'inventaire"); 
@@ -35,7 +105,21 @@ abstract class Hero extends Combattant{
         else{
             $index = count($this->inventory);
             $inventory[$index] = $item; 
+            return true; 
         }  
+    }
+
+    /**
+     * retire un item de l'inventaire. la référence de l'item passé en parmètre doit correspondre à celle de l'item à retirer 
+     * @param Item l'item à retirer
+     * @return bool si c'est réussi 
+     */
+    public function dropItem($item){
+
+        if(in_array($item, $this->inventory)){
+            $index = array_search($item, $this->inventory, true); 
+            unset($this->inventory[$index]); 
+        }
     }
 
     /**
@@ -46,6 +130,7 @@ abstract class Hero extends Combattant{
         foreach($this->inventory as $index => $item){
             $weight += $item->getWeight(); 
         }
+        return $weight; 
     }
 
     /**
@@ -56,6 +141,7 @@ abstract class Hero extends Combattant{
         foreach($this->inventory as $index => $item){
             $size += $item->getSize(); 
         }
+        return $size; 
     }
 
     /**
@@ -63,54 +149,56 @@ abstract class Hero extends Combattant{
      */
     public abstract function getClass(); 
 
-    /*
-    //verifie les pv du hero 
-    public function die() {
-        return $pv > 0;
+    /**
+     * rajoute de l'XP au héro
+     * @param int $eXPeirence à ajouter
+     */
+    public function addXP($eXPerience) {
+        $this->XP += $eXPerience;
     }
 
-    //recupére la biography du hero
-    public function getBiography() {
-        return $biography;
+    /**
+     * rajoute du tresor au héro
+     * @param int $quant à ajouter
+     */
+    public function addTreasure($quant) {
+        $this->treasure += $quant;
     }
 
-    //définie la biography du hero
-    public function setBiography() {
-        return $biography;
+    public function getInvenory(){
+        return $this->inventory; 
     }
 
-    //recupére la classe du hero
-    public function getClass() {
-        return $class;
-    }
-
-    //recupére le nombre l'expérience du hero
-    public function getXp($experience) {
-        $xp += $xp + $experience;
-    }
-
-    //ajoute de l'expérience au hero
-    public function addXp($experience) {
-        $xp += $xp + $experience;
-        if(levelUp){
-            echo "monter de niveau"; //a faire : montrer a l'écran qu'on monte de niveau
-        }
-    }
-
-    //regarde si le hero a assez d'expérience pour monter de niveau
+    /**
+     * augmente le niveau de 1 
+     */
     public function levelUp() {
-        if ($ex > 100 + log($current_level)){
-            $ex = 0;
-            $current_level = $current_level + 1;
-            return true;
-        }
-        return false;
+        $this->level++; 
     }
 
-    //regarde si je joueur a le droit de prendre l'objet
-    public function addObjet($inventory_weight){
-        return $max_inventory_weight > $inventory_weight;
-    }*/
+    public function getXP(){
+        return $this->XP; 
+    }
+
+    public function getTreasure(){
+        return $this->treasure; 
+    }
+
+    public function getLevel(){
+        return $this->level; 
+    }
+
+    public function getID(){
+        return $this->ID; 
+    }
+
+    public function getChapter(){
+        return $this->chapter; 
+    }
+
+    public function setChapter($chap){
+        return $this->chapter = $chap; 
+    }
 
 
 }
