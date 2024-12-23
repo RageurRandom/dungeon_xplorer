@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/style.css" rel="stylesheet" />
     <title>Creation de Compte</title>
 </head>
 <body>
-    <h1> page de création de compte</h1>
+    <div class="block">
+        <h1> page de création de compte</h1>
 
-    <form action="creationCompte" method = "post">
+        <form action="creationCompte" method = "post">
+            <input type="email" placeholder="adresse e-mail" id="userMail" name="userMail" required/>
 
-    
-        <label for="userMail">adresse e-mail</label>
-        <input type="email" id="userMail" name="userMail" required/>
+            <input type="text" placeholder="username" id="userName" name="userName" required/>
 
-        <label for="userName">username</label>
-        <input type="text" id="userName" name="userName" required/>
+            <input type="password" placeholder="mot de passe" id="userPassword" name="userPassword" required/>
 
-        <label for="userPassword">mot de passe</label>
-        <input type="password" id="userPassword" name="userPassword" required/>
-
-        <button type="submit">créer un compte</button>
-    </form>
+            <button type="submit">créer un compte</button>
+        </form>
 
         <p> si vous avez déjà un compte,<a href="connexion">cliquer ici vous connecter</a></p>
+    </div>
 </body>
 </html>

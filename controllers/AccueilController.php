@@ -5,7 +5,7 @@ class AccueilController {
     public function index() {
         session_start(); 
         
-        //Si on est connecté
+        //Si on n'est pas connecté
         if(!isset($_SESSION["connected"]) || !$_SESSION["connected"]){
             require_once 'views/accueil/accueilNonConnecte.php';
         }

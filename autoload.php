@@ -3,7 +3,10 @@
 spl_autoload_register(function ($class) {
     $directories = array(
         'models/',
-        'controllers/'
+        'controllers/',
+        'models/hero/',
+        'models/item/', 
+        'models/item/spell/', 
     );
 
     foreach ($directories as $directory) {
@@ -14,4 +17,5 @@ spl_autoload_register(function ($class) {
         }
     }
 });
+
 ?>

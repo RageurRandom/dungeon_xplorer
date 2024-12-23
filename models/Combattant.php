@@ -1,20 +1,26 @@
 <?php
 class Combattant {
-    protected $name;
-    protected $pv;
+    
+    protected  $name;
+    protected $hp;
     protected $mana;
     protected $initiative;
-    protected $strenght;
+    protected $strength;
+    protected $max_hp; 
+    protected $max_mana; 
 
-    public function __construct($name, $pv, $mana, $initiative, $strenght)
+    public function __construct($_name, $_hp, $_max_hp, $_mana, $_max_mana, $_initiative, $_strength)
     {
-        $this->name = $name;
-        $this->$pv = $pv;
-        $this->$mana = $mana;
-        $this->initiative = $initiative;
-        $this->strenght = $strenght;
+        $this->name = $_name;
+        $this->hp = $_hp;
+        $this->mana = $_mana;
+        $this->initiative = $_initiative;
+        $this->strength = $_strength;
+        $this->max_hp = $_max_hp;
+        $this->max_mana = $_max_mana;
     }
 
+    /*
     //récupére le nom du combattant
     public function getName(){
         return $name;
@@ -22,7 +28,7 @@ class Combattant {
 
     //définie le nom du combattant
     public function setName($newName){
-        $name = $newName
+        $name = $newName;
     }
 
 
@@ -34,7 +40,7 @@ class Combattant {
 
     //définie les poins de vis du combattant
     public function setPv($newPv){
-        $pv = $newPv
+        $pv = $newPv;
     }
 
 
@@ -69,6 +75,6 @@ class Combattant {
     //définie les dégat du combattant
     public function setMana($newStrenght){
         $strenght = $newStrenght;
-    }
+    }*/
 }
 ?>

@@ -1,22 +1,14 @@
 <?php
 class Mage extends Hero {
 
-    public function __construct($biographyval,$classval,$xpval,$current_levelval,$max_inventory_weightval,$idval  ,$name, $pv, $mana, $initiative, $strenght){
-        parent::__construct($biographyval,$classval,$xpval,$current_levelval,$max_inventory_weightval,$idval,$name, $pv, $mana, $initiative, $strenght);
+    public function __construct($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative){
+        parent::__construct($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative);
+
     }
 
-    public function getClassID() {
-        return null; // doit retournée int
+
+    public function getClass(){
+        return "MAGICIEN"; 
     }
-
-        //récupére id de la classe
-        public function getClassID() {
-            return $id;
-        }
-        //récupére la classe
-        public function getClass() {
-            return $class;
-        }
-
 }
 ?>
