@@ -21,6 +21,10 @@ abstract class Spell {
         return $this->manaCost;
     }
 
+    public function getID(){
+        return $this->ID; 
+    }
+
     /**
      * @return string le type du spell : attaque ou boost
      */

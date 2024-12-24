@@ -3,9 +3,9 @@ class Weapon extends Item{
 
     protected int $attackValue;
 
-    public function __construct($_ID, $_attakValue,$_weigt, $_name, $_desc, $_size)
+    public function __construct($_ID, $_attakValue,$_weigt, $_name, $_desc, $_size, $_quantity)
     {
-        parent::__construct($_ID, $_weigt, $_name, $_desc, $_size);
+        parent::__construct($_ID, $_weigt, $_name, $_desc, $_size, $_quantity);
         $this->attackValue = $_attakValue;
     }
 

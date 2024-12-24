@@ -4,9 +4,9 @@ class Potion extends Item{
     protected int $value;
 
 
-    public function __construct($_ID, $_value ,$_weigt, $_name, $_desc, $_size)
+    public function __construct($_ID, $_value ,$_weigt, $_name, $_desc, $_size, $_quantity)
     {
-        parent::__construct($_ID, $_weigt, $_name, $_desc, $_size);
+        parent::__construct($_ID, $_weigt, $_name, $_desc, $_size, $_quantity);
         $this->value = $_value;
     }
 

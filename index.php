@@ -79,7 +79,8 @@ $router->addRoute('deconnexion', 'ConnexionController@logoff');//Pour la déconn
 $router->addRoute('creationCompte', 'ConnexionController@create');//Pour la création de compte
 
 $router->addRoute('creationHero', 'PersonnageController@createHero'); // Pour créer le personnage
-$router->addRoute('recuperationHero', 'PersonnageController@getHero'); // Pour créer le personnage
+$router->addRoute('recuperationHero', 'PersonnageController@getHero'); // Pour récupérer le personnage
+$router->addRoute('sauvegardeHero', 'PersonnageController@saveHero'); // Pour sauvegarder le personnage
 
 $router->addRoute('profile', 'ProfileController@index'); // Pour le profile
 $router->addRoute('chapitre', 'ChapitreController@index'); // Pour les chapitre
