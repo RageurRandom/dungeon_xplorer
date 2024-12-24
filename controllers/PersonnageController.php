@@ -108,7 +108,7 @@ class PersonnageController {
                 //On créee ls items et on les ajoute à l'inventaire
                 $item = null; 
                 foreach($result as $lineNum => $line){
-                    $item = $this->itemInstance($line["item_id"], $line["item_weight"], $line["item_name"], $line["item_desc"], $line["item_size"]); 
+                    $item = $this->itemInstance($line["item_id"], $line["item_weight"], $line["item_name"], $line["item_desc"], $line["item_size"], $line["item_quantity"]); 
                     $hero->collecteItem($item); 
                 }//On créee ls items et on les ajoute à l'inventaire
 
@@ -137,6 +137,94 @@ class PersonnageController {
 
         }//Si on est connecté et qu'on n'a pas de personnage récupéré 
     }//fonion getHero()
+
+
+    public function saveHero(){
+        session_start(); 
+        require_once "autoload.php"; 
+        $DB = DataBase::getInstance(); 
+
+        //Si on n'est pas connecté
+        if(!isset($_SESSION["connected"]) || !$_SESSION["connected"]){
+            //On envoie vers la page de cnnexion
+            header("Location: /dx_11/connexion"); 
+        }//Si on n'est pas connecté
+
+        //si il n'y a pas de Hero stocké dans seession
+        if(!isset($_SESSION["hero"])){
+            //On le récupère
+            header("Location: /dx_11/recuperationHero"); 
+        }//si il n'y a pas de Hero stocké dans seession
+
+        //Si on est connecté et qu'on a un hero stocké dans la session
+        else{
+
+            //On récupère les infos 
+            $hero = $_SESSION["hero"]; 
+            $heroID = $hero->getID();  
+            $levelNum = $hero->getLevel(); 
+            $ChapterNum = $hero->getChapter(); 
+            $heroHP = $hero->getCurrentHP(); 
+            $heroMaxHP = $hero->getMaxHP(); 
+            $heroXP = $hero->getXP();
+            $heroMana = $hero->getCurrentMana(); 
+            $heroMaxMana = $hero->getMaxMana(); 
+            $heroStrength = $hero->getStrength(); 
+            $heroInitiative = $hero->getInitiative(); 
+            $heroTreasure = $hero->getTreasure(); 
+            $heroInventory = $hero->getInvenory(); 
+            $heroSpellBook = $hero->getSpellBook(); 
+
+            //On met à jour la table hero
+            $query = "update hero set 
+                        level_num = $levelNum,
+                        chapter_num = $ChapterNum,
+                        hero_HP = $heroHP,
+                        hero_max_HP = $heroMaxHP,
+                        hero_XP = $heroXP,
+                        hero_mana = $heroMana,
+                        hero_max_mana = $heroMaxMana,
+                        hero_strength = $heroStrength,
+                        hero_initiative = $heroInitiative,
+                        hero_treasure = $heroTreasure
+                        where hero_id = $heroID"; 
+            $nbLines = $DB->excute($query); 
+
+            //si la mise à jour de hero est impossible
+            if($nbLines != 1){
+                throw new Exception("impossible de sauvegarder la table hero"); 
+            }//si la mise à jour de hero est impossible
+
+            //On met à jour la table inventory
+            $query = "delete from inventory where hero_id = $heroID"; 
+            $nbLines = $DB->excute($query);
+            foreach($heroInventory as $index => $item){
+                $itemID = $item->getID(); 
+                $itemQuantity = $item->getQuantity(); 
+                $query = "insert into inventory (hero_id, item_id, item_quantity) values ($heroID, $itemID , $itemQuantity)"; 
+                $nbLines = $DB->excute($query);
+                if($nbLines != 1){
+                    throw new Exception("impossible de sauvegarder l'item $itemID");
+                }
+            }//On met à jour la table inventory
+
+            //On met à jour la table spell
+            $query = "delete from spell_book where hero_id = $heroID"; 
+            $nbLines = $DB->excute($query);
+            foreach($heroSpellBook as $index => $spell){
+                $spellID = $spell->getID();  
+                $query = "insert into spell_book (hero_id, spell_id) values ($heroID, $spellID)"; 
+                $nbLines = $DB->excute($query);
+                if($nbLines != 1){
+                    throw new Exception("impossible de sauvegarder le spell $spellID");
+                }
+            }//On met à jour la table inventory
+
+            //On revient au chapitres 
+            header("Location: /dx_11/chapitre"); 
+
+        }//Si on est connecté et qu'on a un hero stocké dans la session
+    } 
 
     /**
      * céer et retourne une insence de Hero
@@ -171,7 +259,7 @@ class PersonnageController {
      * @param int $_id l'id de l'item dans la BDD
      * @return Item l'item
      */
-    public function itemInstance($_id, $_weight, $_name, $_desc, $_size){
+    public function itemInstance($_id, $_weight, $_name, $_desc, $_size, $_quantity){
 
         $DB = DataBase::getInstance(); 
 
@@ -187,7 +275,7 @@ class PersonnageController {
             $query = "select weapon_attack_value from weapon where item_id = $_id"; 
             $statement = $DB->unprepared_statement($query); 
             $result = $statement->fetchAll();
-            return new Weapon($_id, $result[0]["weapon_attack_value"], $_weight, $_name, $_desc, $_size); 
+            return new Weapon($_id, $result[0]["weapon_attack_value"], $_weight, $_name, $_desc, $_size, $_quantity); 
         }//Si c'est une arme
 
         $query = "select count(*) nb from armor where item_id = $_id"; 
@@ -203,12 +291,12 @@ class PersonnageController {
             
             //Si c'est un bouclier
             if($result[0]["armor_is_shield"]){
-                return new Shield($_id, $result[0]["armor_defence_rate"],0, $_weight, $_name, $_desc, $_size); 
+                return new Shield($_id, $result[0]["armor_defence_rate"],0, $_weight, $_name, $_desc, $_size, $_quantity); 
             }//Si c'est un bouclier 
 
             //Si ce n'est pas un bouclier
             else{
-                return new Armor($_id, $result[0]["armor_defence_rate"], $_weight, $_name, $_desc, $_size);
+                return new Armor($_id, $result[0]["armor_defence_rate"], $_weight, $_name, $_desc, $_size, $_quantity);
             }
         }//Si c'est une armure
 
@@ -222,11 +310,11 @@ class PersonnageController {
             $query = "select potion_value from potion where item_id = $_id"; 
             $statement = $DB->unprepared_statement($query); 
             $result = $statement->fetchAll();
-            return new Potion($_id, $result[0]["potion_value"], $_weight, $_name, $_desc, $_size); 
+            return new Potion($_id, $result[0]["potion_value"], $_weight, $_name, $_desc, $_size, $_quantity); 
         }//Si c'est une potion
 
         //Si aucun de ces types
-        return new Item($_id, $_weight, $_name, $_desc, $_size); 
+        return new Item($_id, $_weight, $_name, $_desc, $_size, $_quantity); 
 
     }//fonction itemInstance()
 

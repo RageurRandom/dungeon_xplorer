@@ -5,14 +5,16 @@ class Item {
     protected string $desc;
     protected int $size;
     protected int $ID;
+    protected int $quantity; 
 
-    public function __construct($_ID, $_weight, $_name, $_desc, $_size)
+    public function __construct($_ID, $_weight, $_name, $_desc, $_size, $_quantity)
     {
         $this->ID = $_ID; 
         $this->weight = $_weight;
         $this->name = $_name;
         $this->desc = $_desc;
         $this->size = $_size;
+        $this->quantity = $_quantity;  
     }
 
     public function getWeight(){
@@ -29,6 +31,14 @@ class Item {
 
     public function getDesc(){
         return $this->desc; 
+    }
+
+    public function getID(){
+        return $this->ID; 
+    }
+
+    public function getQuantity(){
+        return $this->quantity; 
     }
 
     /**
