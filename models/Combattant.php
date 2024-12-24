@@ -27,7 +27,7 @@ class Combattant {
      * @param Combattant $adversaire à attaquer 
      */
     public function attack($adversaire){
-        $adversaire->recieveAttack($this->strength); 
+        $adversaire->recieveAttack($this->strength);
     }
 
     /**
@@ -35,7 +35,7 @@ class Combattant {
      * @param int $damage les dégâts à subire
      */
     public function recieveAttack($damage){
-        $this->reduceHP($damage); 
+        $this->reduceHP($damage);
     }
 
     /**

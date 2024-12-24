@@ -34,7 +34,7 @@ abstract class Hero extends Combattant{
     public function attack($adversaire){
 
         if(isset($this->weapon))
-            $adversaire->recieveAttack($this->weapon->getAttackValue());
+            $adversaire->recieveAttack($this->weapon->getAttackValue() * $this->strength); //TODO modifier la formule si besoin
         else
             parent::attack($adversaire); 
     }

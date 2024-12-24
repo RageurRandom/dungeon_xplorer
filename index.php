@@ -84,7 +84,7 @@ $router->addRoute('sauvegardeHero', 'PersonnageController@saveHero'); // Pour sa
 
 $router->addRoute('profile', 'ProfileController@index'); // Pour le profile
 $router->addRoute('chapitre', 'ChapitreController@index'); // Pour les chapitre
-
+$router->addRoute('combat', 'CombatController@index'); 
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
