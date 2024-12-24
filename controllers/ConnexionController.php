@@ -132,8 +132,7 @@ class ConnexionController {
                 $statement = $DB->unprepared_statement($query); 
                 $resultHero = $statement->fetchAll(); 
 
-
-                //Si l'utilisateur possède déjà un héro dans la base de donnée
+                //Si l'utilisateur possède déjà un héro dans la base de donnée, on stock cette info
                 $_SESSION["hasHero"] = ($resultHero[0]["nb"] == 1) ? true : false; 
 
                 //on initialise les variables de connexion

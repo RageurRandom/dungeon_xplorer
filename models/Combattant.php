@@ -20,6 +20,7 @@ class Combattant {
         $this->strength = $_strength;
         $this->maxHP = $_maxHP;
         $this->maxMana = $_maxMana;
+        $this->spellBook = []; 
     }
 
     /**

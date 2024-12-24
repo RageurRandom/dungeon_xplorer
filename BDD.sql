@@ -1,3 +1,4 @@
+
 drop table if exists `user`; 
 CREATE TABLE `user` (
   `user_id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -29,13 +30,6 @@ CREATE TABLE `armor` (
   `armor_is_shield` TINYINT(1) NOT NULL
 );
 
-
-drop table if exists `treasure`; 
-CREATE TABLE `treasure` (
-  `chapter_num` int,
-  `treasure_quantity` int NOT NULL check(`treasure_quantity` > 0),
-  PRIMARY KEY (`chapter_num`)
-);
 
 drop table if exists `inventory`; 
 CREATE TABLE `inventory` (
@@ -113,17 +107,19 @@ CREATE TABLE `class` (
 drop table if exists `link`; 
 CREATE TABLE `link` (
   `chapter_num` int,
+  `monster_id` int,
   `chapter_num_next` int,
   `link_desc` varchar(255) NOT NULL,
+  `link_treasure` int,
   PRIMARY KEY (`chapter_num`, `chapter_num_next`)
 );
 
 drop table if exists `chapter`; 
 CREATE TABLE `chapter` (
   `chapter_num` int PRIMARY KEY,
-  `monster_id` int,
   `chapter_content` varchar(2000) NOT NULL,
-  `chapter_img` varchar(255) DEFAULT 'assets/images/StoneWall01.jpg'
+  `chapter_img` varchar(255) DEFAULT 'assets/images/StoneWall01.jpg',
+  `chapter_xp` int NOT NULL
 );
 
 drop table if exists `monster`; 
@@ -133,7 +129,8 @@ CREATE TABLE `monster` (
   `monster_HP` integer NOT NULL,
   `monster_mana` int NOT NULL,
   `monster_strength` int NOT NULL,
-  `monster_initiative` int NOT NULL
+  `monster_initiative` int NOT NULL,
+  `monster_xp` int NOT NULL
 );
 
 
@@ -192,9 +189,7 @@ ALTER TABLE `spell_book` ADD FOREIGN KEY (`spell_id`) REFERENCES `spell` (`spell
 
 ALTER TABLE `spell_book` ADD FOREIGN KEY (`hero_id`) REFERENCES `hero` (`hero_id`);
 
-ALTER TABLE `treasure` ADD FOREIGN KEY (`chapter_num`) REFERENCES `chapter` (`chapter_num`);
-
-ALTER TABLE `chapter` ADD FOREIGN KEY (`monster_id`) REFERENCES `monster` (`monster_id`);
+ALTER TABLE `link` ADD FOREIGN KEY (`monster_id`) REFERENCES `monster` (`monster_id`);
 
 ALTER TABLE `link` ADD FOREIGN KEY (`chapter_num`) REFERENCES `chapter` (`chapter_num`);
 

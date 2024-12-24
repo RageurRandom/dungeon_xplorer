@@ -25,6 +25,7 @@ abstract class Hero extends Combattant{
         $this->armor = null; 
         $this->weapon = null; 
         $this->treasure = $_treasure; 
+        $this->inventory = []; 
     }
 
     /**
@@ -165,7 +166,7 @@ abstract class Hero extends Combattant{
         $this->treasure += $quant;
     }
 
-    public function getInvenory(){
+    public function getInventory(){
         return $this->inventory; 
     }
 
@@ -200,6 +201,13 @@ abstract class Hero extends Combattant{
         return $this->chapter = $chap; 
     }
 
+    public function getArmor(){
+        return $this->armor; 
+    }
+
+    public function getWeapon(){
+        return $this->weapon; 
+    }
 
 }
 ?>
