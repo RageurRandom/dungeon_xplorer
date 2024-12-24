@@ -3,18 +3,51 @@ class ChapitreController {
     //regarder si l'utilisateur et connnectée
 
     public function index() {
-        if(isset($_SESSION["hero"])){
+        //if(isset($_SESSION["connected"]) && $_SESSION["connected"] === true){ //connecté
+            /*
+            // a décommenter une fois que les tests sont finis et qu'on peut créer un heros
+            
+            if(!isset($_SESSION["hero"])){
+                //héros pas créé
+                header("Location: /dx_11/creationHero");
+            }
+            // utilisateur connecté et heros créé
+            */
+            
             require_once 'views/chapitre.php';
-        } else {
+       // } else {
             //pas de connexion
-            header("Location: /dx_11/connexion");
-        }
+            //header("Location: /dx_11/connexion");
+        //}
         
 
     }
 
     public function getLinks($chapter_num){
+        try{
+            $DB = DataBase::getInstance();
+            $querry = "SELECT chapter_num_next, link_desc FROM link WHERE chapter_num = ?";
 
+            $statement = $DB->prepare_statement($querry);
+            $statement->bindParam(1, $chapter_num);
+            $statement->execute();
+            $result = $statement->fetchAll();
+
+        } catch(Exception $e){
+            die("erreur getLinks : ".$e->getMessage());
+        }
+
+        if (count($result) > 0) {
+            $res = "<ul>";
+            foreach($result as $row){
+                $res .= "<li> <a> " . $row['link_desc'] . " </a> </li> ";
+            }  
+
+            return $res."</ul>";
+
+        } else {
+            return "No content found for chapter " . $chapter_num;
+        }
     }
 
     public function getChapitre($chapter_num) {

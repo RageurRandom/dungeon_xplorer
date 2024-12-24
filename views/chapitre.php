@@ -12,7 +12,8 @@
 
 $controller = new ChapitreController();
 $chapter_content = $controller->getChapitre(1);
-echo "<p>" . $chapter_content . "</p>";
+$links = $controller->getLinks(1);
+echo "<p>" . $chapter_content . "\n" . $links . "</p>";
 
 ?>
 

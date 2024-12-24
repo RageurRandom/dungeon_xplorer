@@ -27,7 +27,7 @@ class ConnexionController {
             
             //On se connecte
             $this->login($userMail, $userPassword);
- 
+
             //On revient à l'accueil 
             header("Location: /dx_11"); 
 
