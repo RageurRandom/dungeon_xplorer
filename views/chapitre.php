@@ -13,7 +13,7 @@
 $controller = new ChapitreController();
 $chapter_content = $controller->getChapitre(1);
 $links = $controller->getLinks(1);
-echo "<p>" . $chapter_content . "\n" . $links . "</p>";
+echo "<p>" . $chapter_content . $links . "</p>"; //temporaire
 
 ?>
 

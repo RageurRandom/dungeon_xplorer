@@ -3,26 +3,32 @@ class ChapitreController {
     //regarder si l'utilisateur et connnectée
 
     public function index() {
-        //if(isset($_SESSION["connected"]) && $_SESSION["connected"] === true){ //connecté
-            /*
+        if(isset($_SESSION["connected"]) && $_SESSION["connected"] === true){ //connecté
+            
             // a décommenter une fois que les tests sont finis et qu'on peut créer un heros
             
             if(!isset($_SESSION["hero"])){
                 //héros pas créé
-                header("Location: /dx_11/creationHero");
+                //header("Location: /dx_11/creationHero");
+                echo "redirection vers création heros";
             }
             // utilisateur connecté et heros créé
-            */
             
-            require_once 'views/chapitre.php';
-       // } else {
+            echo "tout bon";
+            
+        } else {
             //pas de connexion
             //header("Location: /dx_11/connexion");
-        //}
+            echo "redirection vers connexion";
+        }
         
-
+        require_once 'views/chapitre.php';
     }
 
+    /**
+     * @param int chapter_num numéro du chapitre
+     * @return string liste HTML (ul) avec les différents choix
+     */
     public function getLinks($chapter_num){
         try{
             $DB = DataBase::getInstance();
@@ -50,6 +56,10 @@ class ChapitreController {
         }
     }
 
+    /**
+     * @param int chapter_num numéro du chapitre
+     * @return string contenu du chapitre
+     */
     public function getChapitre($chapter_num) {
 
         try{
