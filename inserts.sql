@@ -1,51 +1,14 @@
-/*
-A METTRE A JOUR A CHAQUE AJOUT DANS LE FICHIER EXCEL
-*/
-delete from item;
 
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Épée de Chevalier', 10, 4, 'Une épée longue et tranchante utilisée par les chevaliers, parfaite pour les combats rapprochés.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Arc Élfique', 7, 3, 'Un arc élégant fabriqué par les elfes, permettant des tirs précis à longue distance.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Bouclier d''Acier', 12, 5, 'Un bouclier solide conçu pour encaisser les coups les plus puissants.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Potion de Vitalité', 2, 1, 'Une potion rouge qui restaure 50 points de vie lorsqu''elle est consommée.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Potion de Mana', 2, 1, 'Une potion bleue qui restaure 40 points de mana pour lancer des sorts.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Armure d''Écailles', 20, 6, 'Une armure lourde recouverte d''écailles métalliques, offrant une excellente protection.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Grimoire Enchanté', 8, 2, 'Un ancien livre de magie contenant des sorts puissants et secrets.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Hache de Guerre', 15, 5, 'Une hache imposante capable de briser les armures les plus résistantes.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Dague Envenimée', 3, 1, 'Une petite lame enduite d''un poison mortel, efficace pour les assassinats.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Amulette Mystique', 1, 1, 'Un bijou magique qui augmente la résistance aux dégâts élémentaires.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Corde Renforcée', 4, 2, 'Une corde solide idéale pour grimper ou pour capturer des ennemis.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Anneau de Force', 1, 1, 'Un anneau enchanté qui augmente temporairement la force de son porteur.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Sceptre Royal', 6, 3, 'Un bâton magique orné de pierres précieuses, amplifiant les capacités magiques.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Bottes de Vitesse', 5, 2, 'Des bottes légères qui augmentent considérablement la vitesse de déplacement.');
-INSERT INTO item (item_name, item_weight, item_size, item_desc) VALUES( 'Torche Durable', 3, 2, 'Une torche capable de brûler longtemps, essentielle pour explorer les donjons sombres.');
+/*CHAPITRE*/
 
-commit;
-
-delete from spell;
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Boule de Feu', 10);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Éclat de Glace', 8);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Éclair', 12);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Tremblement de Terre', 15);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Frappe de l''Ombre', 10);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Explosion Arcanique', 7);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Nuage Toxique', 9);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Tranche de Vent', 5);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Jet d''Eau', 6);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Onde Obscure', 13);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Tempête de Foudre', 18);
-INSERT INTO spell (spell_name, spell_mana_cost) VALUES ('Décharge d''Énergie', 7);
-
-commit;
-
-/*
-NE FONCTIONNE PAS CAR 'assets/images/StoneWall01.jpg' DANS IMAGE
-*/
+delete from link;
 delete from chapter;
+
 INSERT INTO chapter (chapter_num, chapter_content, chapter_img) VALUES (1, 'Le ciel est lourd ce soir sur le village du Val Perdu, dissimulé entre les montagnes. La petite taverne, dernier refuge avant l''immense forêt, est étrangement calme quand le bourgmestre s’approche de vous. Homme d’apparence usée par les années et les soucis, il vous adresse un regard désespéré.
 
 « Ma fille… elle a disparu dans la forêt. Personne n''a osé la chercher… sauf vous, peut-être ? On raconte qu’un sorcier vit dans un château en ruines, caché au cœur des bois. Depuis des mois, des jeunes filles disparaissent… J''ai besoin de vous pour la retrouver. »
 
-Vous sentez le poids de la mission qui s''annonce, et un frisson parcourt votre échine. Bientôt, la forêt s''ouvre devant vous, sombre et menaçante. La quête commence.', '');
+Vous sentez le poids de la mission qui s''annonce, et un frisson parcourt votre échine. Bientôt, la forêt s''ouvre devant vous, sombre et menaçante. La quête commence.', 'assets/images/StoneWall01.jpg');
 INSERT INTO chapter (chapter_num, chapter_content, chapter_img) VALUES (2, 'Vous franchissez la lisière des arbres, la pénombre de la forêt avalant le sentier devant vous. Un vent froid glisse entre les troncs, et le bruissement des feuilles ressemble à un murmure menaçant. Deux chemins s''offrent à vous : l''un sinueux, bordé de vieux arbres noueux ; l''autre droit mais envahi par des ronces épaisses.
 • Si vous empruntez le chemin sinueux, rendez-vous au chapitre 3.
 • Si vous choisissez le sentier couvert de ronces, rendez-vous au chapitre 4.', 'assets/images/StoneWall01.jpg');
@@ -73,29 +36,7 @@ Vous décidez de quand même le prendre : si vous ne pouvez le découper alors i
 
 commit;
 
-delete from class;
-
-INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (1, 10, 0, 1, 3, 'un spécialiste du combat au corps à corps. Il peut posséder un bouclier pour se protéger', 'guerrier');
-INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (2, 7, 2, 1, 2, 'un combattant agile pouvant utiliser des sorts et des armes. Possède le plus d''initiative', 'voleur');
-INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (3, 5, 5, 1, 1, 'un combattant spécialisé dans le lancement de sorts. Ne peut utiliser qu''un baton ou une dague. Peut apprendre tous les sorts', 'magicien');
-
-commit;
-
-delete from `level`;
-
-INSERT INTO `level` (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 1, 5, 3, 0, 1, 3); /*celle la ne marche pas wtf*/
-INSERT INTO `level` (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 2, 5, 1, 2, 3, 1);
-INSERT INTO `level` (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 3, 5, 0, 4, 1, 0);
-
-commit;
-
-delete from monster;
-
-INSERT INTO monster (monster_id, monster_name, monster_HP, monster_mana, monster_strength, monster_initiative) VALUES (1, 'gobelin', 4, 0, 3, 3);
-
-commit;
-
-delete from link;
+/*LINK*/
 
 INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (1, 2, 'continuer');
 INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (2, 3, 'emprunter le chemin sinueux');
@@ -107,8 +48,110 @@ INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (5, 7, 'pours
 INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (6, 7, 'affronter le loup');
 INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (7, 8, 'prendre le sentier couvert de mousse');
 INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (7, 9, 'suivre le chemin tortueux à travers les racines');
-INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (8, 11, 'toucher la pierre gravée');
+INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (8, 10, 'toucher la pierre gravée');
 INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (8, 9, 'ignorer la pierre');
 INSERT INTO link (chapter_num, chapter_num_next, link_desc) VALUES (10, 1, 'reprendre l’aventure depuis le début');
+
+commit;
+
+/*SORTS D'ATTAQUE*/
+
+delete from spell_attack;
+delete from spell_boost;
+delete from spell;
+
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (1, 'Boule de Feu', 10);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (1, 4);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (2, 'Éclat de Glace', 8);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (2, 1);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (3, 'Éclair', 12);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (3, 1);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (4, 'Tremblement de Terre', 15);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (4, 3);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (5, 'Frappe de l''Ombre', 10);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (5, 2);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (6, 'Explosion Arcanique', 7);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (6, 5);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (7, 'Nuage Toxique', 9);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (7, 1);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (8, 'Tranche de Vent', 5);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (8, 1);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (9, 'Jet d''Eau', 6);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (9, 1);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (10, 'Onde Obscure', 13);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (10, 2);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (11, 'Tempête de Foudre', 18);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (11, 4);
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (12, 'Décharge d''Énergie', 7);INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES (12, 2);
+
+commit;
+
+/*SORT DE BOOST*/
+
+INSERT INTO spell (spell_id, spell_name, spell_mana_cost) VALUES (13, 'rythme du soleil levant', 5);INSERT INTO spell_boost (spell_id, spell_boost_value,spell_boost_target, spell_boost_duration) VALUES (13, 3, 'initiative', 3);
+
+commit;
+
+/*CLASS*/
+
+delete from `level`;
+delete from class;
+
+INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (1, 10, 0, 1, 3, 'un spécialiste du combat au corps à corps. Il peut posséder un bouclier pour se protéger', 'guerrier');
+INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (2, 7, 2, 1, 2, 'un combattant agile pouvant utiliser des sorts et des armes. Possède le plus d''initiative', 'voleur');
+INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength , class_description, class_name) VALUES (3, 5, 5, 1, 1, 'un combattant spécialisé dans le lancement de sorts. Ne peut utiliser qu''un baton ou une dague. Peut apprendre tous les sorts', 'magicien');
+
+commit;
+
+/*TABLE DES NIVEAUX*/
+
+INSERT INTO LEVEL (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 0, 5, 3, 0, 1, 3);
+INSERT INTO LEVEL (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 1, 5, 1, 2, 3, 1);
+INSERT INTO LEVEL (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus ) VALUES (1, 2, 5, 0, 4, 1, 0);
+
+commit;
+
+delete from monster;
+
+/*MONSTER*/
+
+INSERT INTO monster (monster_id, monster_name, monster_HP, monster_mana, monster_strength, monster_initiative) VALUES (1, 'gobelin', 4, 0, 3, 3);
+INSERT INTO monster (monster_id, monster_name, monster_HP, monster_mana, monster_strength, monster_initiative) VALUES (1, 'gobelin', 4, 0, 3, 3);
+INSERT INTO monster (monster_id, monster_name, monster_HP, monster_mana, monster_strength, monster_initiative) VALUES (1, 'gobelin', 4, 0, 3, 3);
+
+commit;
+
+/*ITEM*/
+
+delete from weapon;
+delete from armor;
+delete from potion;
+delete from item;
+
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 1, 'Grimoire Enchanté', 8, 2, 'Un ancien livre de magie contenant des sorts puissants et secrets.');
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 2, 'Amulette Mystique', 1, 1, 'Un bijou magique qui augmente la résistance aux dégâts élémentaires.');
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 3, 'Corde Renforcée', 4, 2, 'Une corde solide idéale pour grimper ou pour capturer des ennemis.');
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 4, 'Anneau de Force', 1, 1, 'Un anneau enchanté qui augmente temporairement la force de son porteur.');
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 5, 'Sceptre Royal', 6, 3, 'Un bâton magique orné de pierres précieuses, amplifiant les capacités magiques.');
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 6, 'Bottes de Vitesse', 5, 2, 'Des bottes légères qui augmentent considérablement la vitesse de déplacement.');
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 7, 'Torche Durable', 3, 2, 'Une torche capable de brûler longtemps, essentielle pour explorer les donjons sombres.');
+
+commit;
+
+/*ARMES*/
+
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 4, 'arbachoute', 10, 'arme a 2 main fait 6 de dégat', 8);INSERT INTO weapon (item_id, weapon_attack_value, weapon_is_one_hand) VALUES (8, 6, 0);
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 5, 'espadon', 15, 'fait 10 de dégats, arme à 2 main', 9);INSERT INTO weapon (item_id, weapon_attack_value, weapon_is_one_hand) VALUES (9, 10, 0);
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 2, 'glaive', 6, 'fait 5 de dégats, arme à 1 main', 10);INSERT INTO weapon (item_id, weapon_attack_value, weapon_is_one_hand) VALUES (10, 5, 1);
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 1, 'saucisson', 2, 'trop durcis pour être mangé, mais assez pour servir d''arme contondante (8 de dégâts, arme à une main)', 11);INSERT INTO weapon (item_id, weapon_attack_value, weapon_is_one_hand) VALUES (11, 8, 1);
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 4, 'Hache d''arme', 25, 'fait 13 de dégâts, arme à deux mains', 12);INSERT INTO weapon (item_id, weapon_attack_value, weapon_is_one_hand) VALUES (12, 13, 0);
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 2, 'boomrang', 4, '1chance sur deux soit 6 de degats soit -3 pv', 13);INSERT INTO weapon (item_id, weapon_attack_value, weapon_is_one_hand) VALUES (13, 6, 1);
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 3, 'lance', 4, '4 degats', 14);INSERT INTO weapon (item_id, weapon_attack_value, weapon_is_one_hand) VALUES (14, 4, 1);
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 3, 'baton', 5, 'uniquement pour le magicien, donne 2 de mana a chaque tour', 15);INSERT INTO weapon (item_id, weapon_attack_value, weapon_is_one_hand) VALUES (15, 1, 1);
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 1, 'dague', 3, '3 degats, arme à 1 main', 16);INSERT INTO weapon (item_id, weapon_attack_value, weapon_is_one_hand) VALUES (16, 3, 1);
+
+commit;
+
+/*POTION*/
+
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 1, 'potion de vie', 1, 'rends 5 PV', 17);INSERT INTO potion (item_id, potion_value, type) VALUES (17, 5, 'hp');
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 1, 'potion de mana', 1, 'rends 5 points de mana', 18);INSERT INTO potion (item_id, potion_value, type) VALUES (18, 5, 'mana');
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 1, 'potion de force', 1, 'augmente de 3 la force', 19);INSERT INTO potion (item_id, potion_value, type) VALUES (19, 3, 'strength');
+
+commit;
+
+/*ARMURE*/
+
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 5, 'Bouclier d''Acier', 12, 'Un bouclier solide conçu pour encaisser les coups les plus puissants.', 20);INSERT INTO armor(item_id, armor_defence_rate, armor_is_shield) VALUES (20, 2, 1);
+INSERT INTO item (item_id, item_name, item_weight, item_size, item_desc) VALUES( 6, 'Armure d''Écailles', 20, 'Une armure lourde recouverte d''écailles métalliques, offrant une excellente protection.', 21);INSERT INTO armor(item_id, armor_defence_rate, armor_is_shield) VALUES (21, 5, 0);
 
 commit;

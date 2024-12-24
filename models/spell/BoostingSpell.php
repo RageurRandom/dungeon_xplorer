@@ -5,9 +5,9 @@ class BoostingSpell extends Spell{
     protected string $boostTarget; 
     protected int $boostDuration;
 
-    public function __construct($_boostValue, $_boostTarget, $_boostDuration ,$_name, $_manaCost)
+    public function __construct($_ID, $_boostValue, $_boostTarget, $_boostDuration ,$_name, $_manaCost)
     {
-        parent::__construct($_name,$_manaCost);
+        parent::__construct($_ID, $_name,$_manaCost);
 
         $_boostTarget = strtolower($_boostTarget); 
         if($_boostTarget != "hp" && $_boostTarget != "initiative" && $_boostTarget != "strength"){

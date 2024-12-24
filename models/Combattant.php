@@ -225,6 +225,10 @@ class Combattant {
     }
 
 
+    public function getSpellBook(){
+        return $this->spellBook; 
+    }
+
     /**
      * @return int les PV actuels du combattant
      */
