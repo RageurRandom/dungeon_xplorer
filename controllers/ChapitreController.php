@@ -3,7 +3,18 @@ class ChapitreController {
     //regarder si l'utilisateur et connnectée
 
     public function index() {
-        require_once 'views/chapitre.php';
+        if(isset($_SESSION["hero"])){
+            require_once 'views/chapitre.php';
+        } else {
+            //pas de connexion
+            header("Location: /dx_11/connexion");
+        }
+        
+
+    }
+
+    public function getLinks($chapter_num){
+
     }
 
     public function getChapitre($chapter_num) {
