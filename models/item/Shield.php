@@ -4,8 +4,8 @@ class Shield extends Item{
     protected int $defenseValue; 
     protected int $counterValue;
 
-    public function __construct($_defenseValue, $_counterValue, $_weigt, $_name, $_desc, $_size){
-        parent::__construct($_weigt, $_name, $_desc, $_size);
+    public function __construct($_ID, $_defenseValue, $_counterValue, $_weigt, $_name, $_desc, $_size){
+        parent::__construct($_ID, $_weigt, $_name, $_desc, $_size);
         $this->counterValue = $_counterValue; 
         $this->defenseValue = $_defenseValue; 
     }

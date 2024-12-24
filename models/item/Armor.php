@@ -3,9 +3,9 @@ class Armor extends Item{
 
     protected int $defenseValue;
 
-    public function __construct($_defenseValue, $_weigt, $_name, $_desc, $_size)
+    public function __construct($_ID, $_defenseValue, $_weigt, $_name, $_desc, $_size)
     {
-        parent::__construct($_weigt, $_name, $_desc, $_size);
+        parent::__construct($_ID, $_weigt, $_name, $_desc, $_size);
         $this->defenseValue = $_defenseValue;
     }
 

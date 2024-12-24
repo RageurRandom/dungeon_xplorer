@@ -3,8 +3,10 @@ abstract class Spell {
 
     protected string $name;
     protected int $manaCost;
+    protected int $ID;
 
-    public function __construct($_name, $_manaCost){
+    public function __construct($_ID, $_name, $_manaCost){
+        $this->ID = $_ID;
         $this->name = $_name;
         $this->manaCost = $_manaCost ;
     }
