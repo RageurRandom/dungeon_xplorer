@@ -4,9 +4,11 @@ class Item {
     protected string $name;
     protected string $desc;
     protected int $size;
+    protected int $ID;
 
-    public function __construct($_weight, $_name, $_desc, $_size)
+    public function __construct($_ID, $_weight, $_name, $_desc, $_size)
     {
+        $this->ID = $_ID; 
         $this->weight = $_weight;
         $this->name = $_name;
         $this->desc = $_desc;

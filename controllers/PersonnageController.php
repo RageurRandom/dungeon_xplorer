@@ -187,7 +187,7 @@ class PersonnageController {
             $query = "select weapon_attack_value from weapon where item_id = $_id"; 
             $statement = $DB->unprepared_statement($query); 
             $result = $statement->fetchAll();
-            return new Weapon($result[0]["weapon_attack_value"], $_weight, $_name, $_desc, $_size); 
+            return new Weapon($_id, $result[0]["weapon_attack_value"], $_weight, $_name, $_desc, $_size); 
         }//Si c'est une arme
 
         $query = "select count(*) nb from armor where item_id = $_id"; 
@@ -203,12 +203,12 @@ class PersonnageController {
             
             //Si c'est un bouclier
             if($result[0]["armor_is_shield"]){
-                return new Shield($result[0]["armor_defence_rate"],0, $_weight, $_name, $_desc, $_size); 
+                return new Shield($_id, $result[0]["armor_defence_rate"],0, $_weight, $_name, $_desc, $_size); 
             }//Si c'est un bouclier 
 
             //Si ce n'est pas un bouclier
             else{
-                return new Armor($result[0]["armor_defence_rate"], $_weight, $_name, $_desc, $_size);
+                return new Armor($_id, $result[0]["armor_defence_rate"], $_weight, $_name, $_desc, $_size);
             }
         }//Si c'est une armure
 
@@ -222,11 +222,11 @@ class PersonnageController {
             $query = "select potion_value from potion where item_id = $_id"; 
             $statement = $DB->unprepared_statement($query); 
             $result = $statement->fetchAll();
-            return new Potion($result[0]["potion_value"], $_weight, $_name, $_desc, $_size); 
+            return new Potion($_id, $result[0]["potion_value"], $_weight, $_name, $_desc, $_size); 
         }//Si c'est une potion
 
         //Si aucun de ces types
-        return new Item($_weight, $_name, $_desc, $_size); 
+        return new Item($_id, $_weight, $_name, $_desc, $_size); 
 
     }//fonction itemInstance()
 
@@ -251,7 +251,7 @@ class PersonnageController {
             $query = "select spell_boost_value, spell_boost_target, spell_boost_duration from spell_boost where spell_id = $_spellID"; 
             $statement = $DB->unprepared_statement($query); 
             $result = $statement->fetchAll();
-            return new BoostingSpell($result[0]["spell_boost_value"], $result[0]["spell_boost_target"], $result[0]["spell_boost_duration"],  $_name, $_manaCost); 
+            return new BoostingSpell($_spellID, $result[0]["spell_boost_value"], $result[0]["spell_boost_target"], $result[0]["spell_boost_duration"],  $_name, $_manaCost); 
         }//Si c'est un sort de boost
 
         $query = "select count(*) nb from spell_attack where spell_id = $_spellID"; 
@@ -264,7 +264,7 @@ class PersonnageController {
             $query = "select spell_attack_value from spell_attack where spell_id = $_spellID"; 
             $statement = $DB->unprepared_statement($query); 
             $result = $statement->fetchAll();
-            return new AttackingSpell($result[0]["spell_attack_value"], $_name, $_manaCost); 
+            return new AttackingSpell($_spellID, $result[0]["spell_attack_value"], $_name, $_manaCost); 
         }//Si c'est un sort sort d'attaque
 
         return null; 
