@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'BlackChancery';
+    src: url('../fonts/BLKCHCRY.TTF') format('truetype');
+}
+
+body {
+    background-image: url('../images/dungeounBackground.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    font-family: 'BlackChancery', sans-serif;
+
+}
+
+.masthead {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+h1 {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 1);
+}
+
+p {
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.btn-light {
+    font-family: sans-serif;
+    background-color: rgb(137, 184, 32);
+    outline-color: rgb(137, 184, 32);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.btn-light:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+.btn-link {
+    color: rgb(255, 255, 255);
+}
+
+.btn-link:hover {
+    color: rgb(0, 0, 0);
+}

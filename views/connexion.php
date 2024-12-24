@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="assets/css/style.css" rel="stylesheet" />
+
+    <!-- <link href="assets/css/style.css" rel="stylesheet" /> -->
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"
+        defer></script>
+
+    <link href="assets/css/acceuil.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/connexion.css">
+
     <title>Connexion</title>
 </head>
-<body>
-    <div class="block">
-        <h1> Page de connection</h1>
-        <form action="connexion" method = "post">
-            <input type="email" placeholder="adresse e-mail" id="userMail" name="userMail" required/>
 
-            <input type="password" placeholder="mot de passe" id="userPassword" name="userPassword" required/>
+<body class="text-center d-flex align-items-center justify-content-center vh-100">
 
-            <button type="submit">se connecter</button>
-        </form>
-
-            <a href="creationCompte">cliquer ici pour créer un compte</a>
+<form class="form-signin" action="connexion" method = "post">
+    <div class="logo-container mb-4">
+        <div class="logo"></div>
     </div>
-  
-</div>
+      <h1 class="h3 mb-3 font-weight-normal">Page de connection</h1>
+      <label for="userMail" class="sr-only">Email address</label>
+      <input type="email" id="userMail" class="form-control" placeholder="Email address" name="userMail" required autofocus>
+      <label for="userPassword" class="sr-only">Password</label>
+      <input type="password" id="userPassword" class="form-control mb-3" placeholder="Password" name="userPassword" required>
+
+      <button class="btn btn-primary btn-lg btn-light mb-3 " type="submit">SE CONNECTER</button>
+      <a class="btn btn-link" href="creationCompte">créer un compte</a>
+
+    </form>
 </body>
+
 </html>
