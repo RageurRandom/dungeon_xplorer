@@ -13,7 +13,7 @@
         defer></script>
 
     <!-- Custom CSS -->
-    <link href="assets/css/styleLandingPage.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/styleConnexion.css" rel="stylesheet" />
 
 
