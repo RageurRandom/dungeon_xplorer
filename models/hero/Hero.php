@@ -97,10 +97,10 @@ abstract class Hero extends Fighter{
     public function collecteItem($item){
 
         if( (self::$maxInventoryWeight - $this->inventoryWeight()) < ($item->getWeight()*$item->getQuantity()) ){
-            throw new Exception("il n'y a pas assez de place das l'inventaire"); 
+            return false; 
         }
         else if ( (self::$InventorySize - $this->InventoryUsedSize()) < $item->getSize()*$item->getQuantity() ){
-            throw new Exception("il n'y a pas assez de place das l'inventaire");
+            return false;;
         }
 
         else{

@@ -49,6 +49,13 @@ class ConnexionController {
      * regarde si les champs nécessaires pour la création d'un compte sont renseignés puis essaye de créer le compte 
      */
     public function create() { 
+        session_start();
+
+        //Si on est dèjà connecté
+        if(isset($_SESSION["connected"]) && $_SESSION["connected"] === true) {
+            //On revien à la page d'accueil
+            header("Location: /dx_11"); 
+        }//si on est déjà connecté 
         
         //Si on veut renseigner les champs de création 
         if(!isset($_POST["userMail"]) || !isset($_POST["userPassword"]) || !isset($_POST["userName"])){
@@ -63,10 +70,9 @@ class ConnexionController {
             $userName = strtoupper($_POST['userName']); 
 
             //On créer le compte
-            $this->createAccount( $userMail, $userPassword, $userName );
+            DataBase::createAccount($userMail, $userPassword, $userName);
 
-            //On se connecte
-            session_start(); 
+            //On se connecte 
             $this->login($userMail, $userPassword); 
 
             //on revient à la page d'accueil
@@ -74,24 +80,6 @@ class ConnexionController {
         }//Si les champs sont déjà renseignés
     }//fonction create()
     
-    /**
-     * créer un compte dans la base de donnée
-     * @param string $userMail adresse mail du compte à créer
-     * @param string $userPassword MDP du compte à créer
-     * @param string $userName nom d'utilisateur du compte à créer
-     * @see create()
-     */
-    private function createAccount($userMail, $userPassword, $userName) {
-
-        try{
-            $DB = DataBase::getInstance(); 
-            $query = "insert into user (user_mail, user_password, user_name) values ('$userMail', '$userPassword', '$userName')"; 
-            $nbLines = $DB->excute($query);
-        }
-        catch (PDOException $ex) {
-            die("erreur de creation de compte : ".$ex->getMessage()); 
-        }
-    }
     
 
     /**
@@ -102,52 +90,29 @@ class ConnexionController {
      * @see connect()
      */
     public function login($userMail, $userPassword){ 
-        $DB = DataBase::getInstance();
+        
+        //On récupère le compte
+        $result = DataBase::getAccount($userMail);
 
-        //On vérifie que le compte existe
-        $query = "select count(*) nb from user where user_mail = '$userMail'"; 
-        $statement = $DB->unprepared_statement($query);
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        //Si le mot de passe est correcte
+        if($result[0]["user_password"] == $userPassword){
 
+            //on vérifie si l'utilisateur a un héro dans la base de donnée et on stock cette infos dans la session
+            $hasHero = DataBase::hasHero($userMail); 
+            $_SESSION["hasHero"] = $hasHero; 
 
-        //Si le compte n'existe pas
-        if(intval($result[0]["nb"]) == 0)
-            die("aucun compte existe avec cette adresse mail"); 
-        else if(intval($result[0]["nb"]) != 1)
-            die("un problème s'est passé");
+            //on initialise les variables de connexion
+            $_SESSION["connected"] = true;
+            $_SESSION["userMail"] = $userMail;
+            $_SESSION["userPassword"] = $userPassword;
+            $_SESSION["userName"] = $result[0]["user_name"]; 
+            $_SESSION["userID"] = $result[0]["user_id"]; 
+        }//si le mot de passe est correcte
 
-        //si le compte existe
+        //si le mot de passe n'est pas correcte            
         else{
-
-            //On vérifie le mot de passe
-            $query = "select * from user where user_mail = '$userMail'"; 
-            $statement = $DB->unprepared_statement($query);
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-            //Si le mot de passe est correcte
-            if($result[0]["user_password"] == $userPassword){
-
-                //on vérifie si l'utilisateur a un héro dans la base de donnée
-                $query = "select count(*) nb from user where hero_id is not null and upper(user_mail) = '$userMail'"; 
-                $statement = $DB->unprepared_statement($query); 
-                $resultHero = $statement->fetchAll(); 
-
-                //Si l'utilisateur possède déjà un héro dans la base de donnée, on stock cette info
-                $_SESSION["hasHero"] = ($resultHero[0]["nb"] == 1) ? true : false; 
-
-                //on initialise les variables de connexion
-                $_SESSION["connected"] = true;
-                $_SESSION["userMail"] = $userMail;
-                $_SESSION["userPassword"] = $userPassword;
-                $_SESSION["userName"] = $result[0]["user_name"]; 
-                $_SESSION["userID"] = $result[0]["user_id"]; 
-            }//si le mot de passe est correcte
-
-            //si le mot de passe n'est pas correcte            
-            else{
-                die("le mot de passe n'est pas correcte"); 
-            }
-        }//si le compte existe
+            die("le mot de passe n'est pas correcte"); 
+        }//si le mot de passe n'est pas correcte 
 
     }//fonction login() 
 }
