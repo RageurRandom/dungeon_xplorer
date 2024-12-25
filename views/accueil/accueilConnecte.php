@@ -35,7 +35,7 @@
             </div>
             <div class="col-lg-8 align-self-baseline">
                 <p class="nofont">adresse mail : <?php echo $_SESSION["userMail"] ?></p>
-                <p><a class="btn btn-primary btn-lg btn-light" href="deconnexion">déconnexion</a></p>
+                <p><a class="btn btn-primary btn-lg btn-light deconnexion-btn" href="deconnexion">déconnexion</a></p>
 
                 <p><a class="btn btn-primary btn-lg btn-light" href='creationHero'>nouvelle aventure</a></p>
             </div>

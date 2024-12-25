@@ -70,3 +70,16 @@ p {
     text-decoration: underline;
     color: var(--btn-primary);
 }
+
+.deconnexion-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+@media (max-width: 768px) {
+    .deconnexion-btn {
+        right: 50%;
+        transform: translateX(50%);
+    }
+}
