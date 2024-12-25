@@ -48,6 +48,18 @@ CREATE TABLE `loot` (
   PRIMARY KEY (`monster_id`, `item_id`)
 );
 
+drop table if exists `link`; 
+CREATE TABLE `link` (
+  `chapter_num` int,
+  `chapter_num_next` int,
+  `monster_id` int,
+  `item_id` int,
+  `spell_id` int,
+  `link_desc` varchar(255) NOT NULL,
+  `link_treasure` int,
+  PRIMARY KEY (`chapter_num`, `chapter_num_next`)
+);
+
 drop table if exists `item`; 
 CREATE TABLE `item` (
   `item_id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -104,15 +116,6 @@ CREATE TABLE `class` (
   `class_name` varchar(255) NOT NULL
 );
 
-drop table if exists `link`; 
-CREATE TABLE `link` (
-  `chapter_num` int,
-  `monster_id` int,
-  `chapter_num_next` int,
-  `link_desc` varchar(255) NOT NULL,
-  `link_treasure` int,
-  PRIMARY KEY (`chapter_num`, `chapter_num_next`)
-);
 
 drop table if exists `chapter`; 
 CREATE TABLE `chapter` (
@@ -194,6 +197,10 @@ ALTER TABLE `link` ADD FOREIGN KEY (`monster_id`) REFERENCES `monster` (`monster
 ALTER TABLE `link` ADD FOREIGN KEY (`chapter_num`) REFERENCES `chapter` (`chapter_num`);
 
 ALTER TABLE `link` ADD FOREIGN KEY (`chapter_num_next`) REFERENCES `chapter` (`chapter_num`);
+
+ALTER TABLE `link` ADD FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`);
+
+ALTER TABLE `link` ADD FOREIGN KEY (`spell_id`) REFERENCES `spell` (`spell_id`);
 
 ALTER TABLE `hero` ADD FOREIGN KEY (`chapter_num`) REFERENCES `chapter` (`chapter_num`);
 

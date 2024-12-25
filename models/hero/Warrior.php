@@ -46,7 +46,7 @@ class Warrior extends Hero {
      * @return int la nouvelle valeur de mana
      */
     public function addMana($quant){
-        throw new Exception("un guerrier ne peut pas avoir du mana"); 
+        
     }
 
     /**
@@ -55,14 +55,14 @@ class Warrior extends Hero {
      * @return int la nouvelle valeur de mana max
      */
     public function addMaxMana($quant){
-        throw new Exception("un guerrier ne peut pas avoir du mana"); 
+        
     }
 
         /**
      * @param Spell $spell le sort à ajouter
      */
     public function collecteSpell($spell){
-        throw new Exception("un guerrier ne peut pas collecter des sorts");
+        
     }
 
     /**
@@ -70,7 +70,7 @@ class Warrior extends Hero {
      * @param BoostingSpell $spell le sort à ajouter
      */
     public function useBoostingSpell($spell){
-        throw new Exception("un guerrier ne peut pas utiliser des sorts");
+        
     }
 
     /**
@@ -79,7 +79,7 @@ class Warrior extends Hero {
      * @param AttackingSpell $spell sort à utiliser 
      */
     public function useAttackingSpell($spell, $adversaire){
-        throw new Exception("un guerrier ne peut pas utiliser des sorts");
+        
     }
 }
 ?>

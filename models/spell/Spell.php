@@ -26,6 +26,15 @@ abstract class Spell {
     }
 
     /**
+     * permet de comparer un sort avec celui là. true si les deux possède le même ID
+     * @param Spell $spell à comparer
+     * @return bool le résultat
+     */
+    public function equals($spell){ 
+        return $this->ID == $spell->getID(); 
+    }
+
+    /**
      * @return string le type du spell : attaque ou boost
      */
     public abstract function getType(); 

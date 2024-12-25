@@ -1,5 +1,5 @@
 <?pHP
-class Combattant {
+class Fighter {
     
     protected  string $name;
     protected int $HP;
@@ -9,7 +9,7 @@ class Combattant {
     protected int $maxHP; 
     protected int $maxMana; 
 
-    protected $spellBook; 
+    protected array $spellBook; 
 
     public function __construct($_name, $_HP, $_maxHP, $_mana, $_maxMana, $_initiative, $_strength)
     {
@@ -41,10 +41,18 @@ class Combattant {
 
     /**
      * @param Spell $spell le sort à ajouter
+     * @return bool true si l'ajout est réussi, false sinon
      */
     public function collecteSpell($spell){
+
+        foreach($this->spellBook as $index => $spellS){
+            if($spellS->equals($spell))
+                return false; 
+        }
+
         $index = count($this->spellBook);
-        $spellBook[$index] = $spell; 
+        $this->spellBook[$index] = $spell; 
+        return true; 
     }
 
     /**
@@ -225,7 +233,9 @@ class Combattant {
         return $this->name;
     }
 
-
+    /**
+     * @return array $this->spellBook
+     */
     public function getSpellBook(){
         return $this->spellBook; 
     }

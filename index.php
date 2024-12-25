@@ -37,20 +37,19 @@ class Router
             $urlParts = explode('/', $url);
 
             // Si le nombre de segments correspond
-            if (count($routeParts) === count($urlParts)) {
+            if (count($routeParts) === count($urlParts)) { 
                 // Vérification de chaque segment
                 $params = [];
                 $isMatch = true;
-                foreach ($routeParts as $index => $part) {
+                foreach ($routeParts as $index => $part) { 
                     if (preg_match('/^{\w+}$/', $part)) {
                         // Capture les paramètres
-                        $params[] = $urlParts[$index];
+                        $params[] = $urlParts[$index]; 
                     } elseif ($part !== $urlParts[$index]) {
                         $isMatch = false;
                         break;
                     }
-                }
-
+                } 
                 if ($isMatch) {
                     // Extraction du nom du contrôleur et de la méthode
                     list($controllerName, $methodName) = explode('@', $controllerMethod);
@@ -80,10 +79,10 @@ $router->addRoute('creationCompte', 'ConnexionController@create');//Pour la cré
 
 $router->addRoute('creationHero', 'PersonnageController@createHero'); // Pour créer le personnage
 $router->addRoute('recuperationHero', 'PersonnageController@getHero'); // Pour récupérer le personnage
-$router->addRoute('sauvegardeHero', 'PersonnageController@saveHero'); // Pour sauvegarder le personnage
 
-$router->addRoute('profile', 'ProfileController@index'); // Pour le profile
-$router->addRoute('chapitre', 'ChapitreController@index'); // Pour les chapitre
+
+$router->addRoute('chapitre', 'ChapitreController@showChapter'); // Pour afficher le chapitre en cours
+$router->addRoute('chapitreSuivant/{numChap}/{tresor}/{monstreID}/{itemID}/{spellID}', 'ChapitreController@nextChapter'); //Pour passer d'un chapitre à l'autre
 
 
 // Appel de la méthode route
