@@ -1,5 +1,5 @@
 <?php
-abstract class Hero extends Combattant{
+abstract class Hero extends Fighter{
 
     protected static int $maxInventoryWeight = 100;
     protected static int $InventorySize = 100; 
@@ -9,7 +9,7 @@ abstract class Hero extends Combattant{
     protected int $ID;
     protected int $chapter;
 
-    protected $inventory;  
+    protected array $inventory = [];  
 
     protected ?Armor $armor; 
     protected ?Weapon $weapon; 
@@ -96,15 +96,24 @@ abstract class Hero extends Combattant{
      */
     public function collecteItem($item){
 
-        if( (self::$maxInventoryWeight - $this->inventoryWeight()) < $item->getWeight()){
-            throw new Exception("il n'y a pas assez de place das l'inventaire"); 
+        if( (self::$maxInventoryWeight - $this->inventoryWeight()) < ($item->getWeight()*$item->getQuantity()) ){
+            return false; 
         }
-        else if ( (self::$InventorySize - $this->InventoryUsedSize()) < $item->getSize() ){
-            throw new Exception("il n'y a pas assez de place das l'inventaire");
+        else if ( (self::$InventorySize - $this->InventoryUsedSize()) < $item->getSize()*$item->getQuantity() ){
+            return false;;
         }
+
         else{
+
+            foreach($this->inventory as $index => $itemS){
+                if($itemS->equals($item)){
+                    $itemS->addQuantity($item->getQuantity());
+                    return true; 
+                }
+            }
+
             $index = count($this->inventory);
-            $inventory[$index] = $item; 
+            $this->inventory[$index] = $item; 
             return true; 
         }  
     }
@@ -128,7 +137,7 @@ abstract class Hero extends Combattant{
     public function inventoryWeight(){
         $weight = 0; 
         foreach($this->inventory as $index => $item){
-            $weight += $item->getWeight(); 
+            $weight += ($item->getWeight()*$item->getQuantity()); 
         }
         return $weight; 
     }
@@ -139,7 +148,7 @@ abstract class Hero extends Combattant{
     public function InventoryUsedSize(){
         $size = 0; 
         foreach($this->inventory as $index => $item){
-            $size += $item->getSize(); 
+            $size += ($item->getSize()*$item->getQuantity()); 
         }
         return $size; 
     }
@@ -165,7 +174,10 @@ abstract class Hero extends Combattant{
         $this->treasure += $quant;
     }
 
-    public function getInvenory(){
+    /**
+     * @return array $this->inventory
+     */
+    public function getInventory(){
         return $this->inventory; 
     }
 
@@ -200,6 +212,13 @@ abstract class Hero extends Combattant{
         return $this->chapter = $chap; 
     }
 
+    public function getArmor(){
+        return $this->armor; 
+    }
+
+    public function getWeapon(){
+        return $this->weapon; 
+    }
 
 }
 ?>

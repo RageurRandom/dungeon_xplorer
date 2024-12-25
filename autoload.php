@@ -6,7 +6,7 @@ spl_autoload_register(function ($class) {
         'controllers/',
         'models/hero/',
         'models/item/', 
-        'models/item/spell/', 
+        'models/spell/', 
     );
 
     foreach ($directories as $directory) {
