@@ -6,15 +6,28 @@
     <title>Accueil</title>
 </head>
 <body>
-<h1> page du chapitre 1 </h1>
+<h1> Chapitre <?php echo $hero->getChapter(); ?> </h1>
+    
+    <div>
+        <p>
+            <?php
+                //On affiche le hero
+                $this->printHero($hero); 
+            ?>
+        </p>
+    </div>
 
-<?php
+    <div> 
+        <p>
+            <?php echo $chapterInfos[0]["chapter_content"] ?>
+        </p> 
+    </div>
 
-$controller = new ChapitreController();
-$chapter_content = $controller->getChapitre(1);
-echo "<p>" . $chapter_content . "</p>";
-
-?>
+    <ul>
+        <?php
+            $this->printLinks($links); 
+        ?>
+    </ul>
 
 </body>
 </html>

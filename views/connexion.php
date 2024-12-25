@@ -26,6 +26,8 @@
         <img class="logo" src="assets/images/dxlogo.png" alt="">
     </div>
 
+</div>
+
       <h1 class="h2 mb-3 font-weight-normal">Page de connexion</h1>
       <label for="userMail" class="sr-only">Email address</label>
       <input type="email" id="userMail" class="form-control" placeholder="Email address" name="userMail" required autofocus>
