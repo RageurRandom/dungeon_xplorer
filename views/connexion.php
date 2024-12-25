@@ -14,19 +14,21 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"
         defer></script>
 
-    <link href="assets/css/acceuil.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/connexion.css">
+    <!-- Custom CSS -->
+    <link href="assets/css/styleLandingPage.css" rel="stylesheet" />
+    <link href="assets/css/styleConnexion.css" rel="stylesheet" >
 
     <title>Connexion</title>
 </head>
 
-<body class="text-center d-flex align-items-center justify-content-center vh-100">
+<body class="text-center d-flex align-items-center justify-content-center">
 
 <form class="form-signin" action="connexion" method = "post">
     <div class="logo-container mb-4">
-        <div class="logo"></div>
+        <img class="logo" src="assets/images/dxlogo.png" alt="">
     </div>
-      <h1 class="h3 mb-3 font-weight-normal">Page de connection</h1>
+
+      <h1 class="h2 mb-3 font-weight-normal">Page de connexion</h1>
       <label for="userMail" class="sr-only">Email address</label>
       <input type="email" id="userMail" class="form-control" placeholder="Email address" name="userMail" required autofocus>
       <label for="userPassword" class="sr-only">Password</label>

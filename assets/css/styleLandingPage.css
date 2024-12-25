@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url('../images/dungeounBackground.png');
+    background-image: url("../images/dungeonBackground2.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -45,9 +45,11 @@ p {
 }
 
 .btn-link {
+    font-family: sans-serif;
     color: rgb(255, 255, 255);
 }
 
 .btn-link:hover {
     color: rgb(0, 0, 0);
 }
+
