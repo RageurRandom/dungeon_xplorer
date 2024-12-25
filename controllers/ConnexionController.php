@@ -111,7 +111,10 @@ class ConnexionController {
 
         //si le mot de passe n'est pas correcte            
         else{
-            die("le mot de passe n'est pas correcte"); 
+            //die("le mot de passe n'est pas correcte"); 
+            $_SESSION["login_error"] = "Le mot de passe n'est pas correct";
+            header("Location: /dx_11/connexion");
+            exit();
         }//si le mot de passe n'est pas correcte 
 
     }//fonction login() 

@@ -26,9 +26,15 @@
         <img class="logo" src="assets/images/dxlogo.png" alt="">
     </div>
 
-</div>
 
       <h1 class="h2 mb-3 font-weight-normal">Page de connexion</h1>
+
+      <?php if (isset($_SESSION["login_error"])): ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $_SESSION["login_error"]; unset($_SESSION["login_error"]); ?>
+        </div>
+    <?php endif; ?>
+
       <label for="userMail" class="sr-only">Email address</label>
       <input type="email" id="userMail" class="form-control" placeholder="Email address" name="userMail" required autofocus>
       <label for="userPassword" class="sr-only">Password</label>
