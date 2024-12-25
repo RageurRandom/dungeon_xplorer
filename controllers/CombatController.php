@@ -29,7 +29,7 @@ class CombatController{
         if(count($results) > 0){
             $row = $results[0];
 
-            $res = new Combattant($row["monster_name"], $row["monster_HP"], $row["monster_HP"], $row["monster_mana"], $row["monster_mana"], $row["monster_initiative"], $row["monster_strength"]);
+            $res = new Fighter($row["monster_name"], $row["monster_HP"], $row["monster_HP"], $row["monster_mana"], $row["monster_mana"], $row["monster_initiative"], $row["monster_strength"]);
             
             return $res;
         } else {
