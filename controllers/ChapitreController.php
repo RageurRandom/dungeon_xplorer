@@ -44,6 +44,8 @@ class ChapitreController {
      */
     public function nextChapter($nextChap, $linkTreasure, $linkMonsterID, $itemID, $spellID){ 
         session_start(); 
+        $_SESSION["combatChap"] = $nextChap; $_SESSION["combatTreasure"] = $linkTreasure;  $_SESSION["combatMonster"] = $linkMonsterID;  $_SESSION["combatItem"] = $itemID;
+        $_SESSION["combatSpell"] = $spellID; 
 
         //si on n'est pas connecté
         if(!isset($_SESSION["connected"]) || !($_SESSION["connected"] === true)){ 
