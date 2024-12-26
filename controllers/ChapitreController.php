@@ -44,8 +44,7 @@ class ChapitreController {
      */
     public function nextChapter($nextChap, $linkTreasure, $linkMonsterID, $itemID, $spellID){ 
         session_start(); 
-        $_SESSION["combatChap"] = $nextChap; $_SESSION["combatTreasure"] = $linkTreasure;  $_SESSION["combatMonster"] = $linkMonsterID;  $_SESSION["combatItem"] = $itemID;
-        $_SESSION["combatSpell"] = $spellID; 
+
 
         //si on n'est pas connecté
         if(!isset($_SESSION["connected"]) || !($_SESSION["connected"] === true)){ 
@@ -86,20 +85,29 @@ class ChapitreController {
 
             //Si un monstre est à affronter
             if($linkMonsterID > 0){
-                //On fait le combat 
-                $battleWon = $this->faceMonster($linkMonsterID); 
 
-                //si le combat est gagné 
-                if($battleWon){
-                    //On passe au chapitre suivant
-                    $this->nextChapter($nextChap, $linkTreasure, 0, $itemID, $spellID); 
-                }//si le combat est gagné 
-                
-                //si le combat n'est pas gagné
+                //si le combat a déjà été fait 
+                if(isset($_POST["battleWon"])){
+
+                    //Si le combat est gagné
+                    if($_POST["battleWon"])
+                        //On passe au chapitre suivant
+                        $this->nextChapter($nextChap, $linkTreasure, 0, $itemID, $spellID);
+
+                    //Si le combat est perdu    
+                    else
+                        //On recommence depuis le début
+                        header("Location: /dx_11/reinitialisationHero");
+
+                }//si le combat a déjà été fait 
+
+                //Si le combat n'a pas déjà été fait
                 else{
-                    //On recommence depuis le début
-                    header("Location: /dx_11/reinitialisationHero"); 
-                }//si le combat n'est pas gagné
+                    $_SESSION["combatChap"] = $nextChap; $_SESSION["combatTreasure"] = $linkTreasure;  $_SESSION["combatMonster"] = $linkMonsterID;
+                    $_SESSION["combatItem"] = $itemID; $_SESSION["combatSpell"] = $spellID; $_SESSION["monster"] = DataBase::getMonster($linkMonsterID);
+                    //On le fait 
+                    require_once "views/combat.php";
+                }//Si le combat n'a pas déjà été fait
 
             }//Si un monstre est à affronter
             
