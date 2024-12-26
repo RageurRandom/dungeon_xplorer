@@ -9,6 +9,12 @@
 <body>
     
 <?php
+    if(isset($_POST["action"])){
+        echo "<h1>".$_POST["action"]." effectué</h1>";
+    } else {
+        echo "<h1>Un adversaire approche !</h1>";
+    }
+
     $monster_test = DataBase::getMonster(2); //pour les tests
     
     if(!isset($_SESSION["hero"])){
@@ -34,20 +40,25 @@
         . "<div>" . $_SESSION["hero"]->getCurrentMana() . "/" . $_SESSION["hero"]->getMaxMana() . " Mana </div> </div>";
     
 ?>
-<div>Votre tour : </div>
-<button>Attaque</button>
-<?php
-    $arr = $_SESSION["hero"]->getSpellBook() ;
-    foreach($arr as $spell){
-        echo "<div><button>".$spell->getName()."</button></div>";
-    }
-?>
-<div id="test"></div>
 
-<script>
-    let i = 0;
-    document.getElementById('test').addC;
-</script>
+<!--ACTIONS-->
+
+<div>Votre tour : </div>
+<form action="/dx_11/combat" method="post">
+    <div>
+        <input type="radio" id="attaque" name="action" value="attaque"><label for="attaque">Attaque</label>
+    </div>
+
+    <?php
+        $arr = $_SESSION["hero"]->getSpellBook() ;
+        foreach($arr as $spell){
+            $name = $spell->getName();
+            echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"$name\"><label for=\"$name\">$name (".$spell->getCost()." Mana)</label></div>";
+        }
+    ?>
+
+    <input type="submit">
+</form>
 
 </body>
 </html>
