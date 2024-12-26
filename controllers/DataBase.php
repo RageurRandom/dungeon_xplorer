@@ -437,5 +437,33 @@ class DataBase{
         header("Location: /dx_11/chapitre"); 
     }//fonction saveHero()
 
+
+    public static function getMonster($monster_id){
+        $DB = DataBase::getInstance();
+
+        try {
+            $querry = "SELECT monster_name, monster_HP, monster_mana, monster_strength, monster_initiative FROM monster
+            WHERE monster_id = ?";
+
+            $statement = $DB->prepare_statement($querry);
+
+            $statement->bindParam(1, $monster_id);
+            $statement->execute();
+            $results = $statement->fetchAll();
+        } catch (Exception $e) {
+            die("Erreur getMonster : " . $e->getMessage());
+        }
+
+        if(count($results) > 0){
+            $row = $results[0];
+
+            $res = new Fighter($row["monster_name"], $row["monster_HP"], $row["monster_HP"], $row["monster_mana"], $row["monster_mana"], $row["monster_initiative"], $row["monster_strength"]);
+            
+            return $res;
+        } else {
+            die(print_r($results));
+            return NULL;
+        }
+    }
 }
 ?>
