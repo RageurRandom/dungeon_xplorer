@@ -28,9 +28,11 @@ class Fighter {
      * @param Combattant $adversaire à attaquer 
      * @return int nb de dégâts infligés
      */
-    public function attack($adversaire){
-        $degats = rand(1, 6) + $this->strength;
-        return $adversaire->recieveAttack($degats);
+    public function attack($opponent){
+        $damages = rand(1, 6) + $this->strength;
+        $output = $opponent->recieveAttack($damages);
+
+        return $output;
     }
 
     /**
