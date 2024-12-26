@@ -20,7 +20,6 @@ class CombatController{
      * @param string|int $spellId id du sort à utiliser (doit être dans la BDD)
      */
     public function playerBoost($spellId){
-        echo "BOOOOOOOOOOOOOOOOOST\n";
 
         $resRequest = DataBase::getSpell($spellId)[0]; //y a qu'un sort normalement
 
@@ -39,7 +38,6 @@ class CombatController{
      * @param string|int $spellId id du sort à utiliser (doit être dans la BDD)
      */
     public function playerAttackSpell($spellId){
-        echo "patate\n";
         $resRequest = DataBase::getSpell($spellId)[0]; //y a qu'un sort normalement
 
         $spell = Factory::spellInstance($spellId, $resRequest["spell_name"], $resRequest["spell_mana_cost"]);
@@ -134,13 +132,14 @@ class CombatController{
         session_start();
 
         $this->test(); //TODO retirer
-        
+
         if(!isset($_SESSION["hero"]) || !isset($_SESSION["combatMonster"])){
             //erreur
-            header("Location : /dx_11");
+            echo "erreur\n";
+            header("Location: /dx_11");
         }
 
-        echo "<pre>";
+        //echo "<pre>";
 
         if(isset($_POST["action"])){ //la baston
         
@@ -167,7 +166,7 @@ class CombatController{
         //calcul de l'initiative pour le prochain tour
         $_SESSION["combatIsPlayerFirst"] = $this->isPlayerFirst($_SESSION["hero"], $_SESSION["combatMonster"]);
         
-        echo "</pre>";
+        //echo "</pre>";
         require_once 'views/combat.php';
     }
     

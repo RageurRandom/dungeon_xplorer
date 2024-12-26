@@ -41,10 +41,10 @@
         . "<div>" . $monster->getCurrentHP() . "/" . $monster->getMaxHP() . " HP </div>"
         . "<div>" . $monster->getCurrentMana() . "/" . $monster->getMaxMana() . " Mana </div> </div>";
 
-        echo "<divclass = \"heros\"><h2>" . $heros->getName() . "</h2>"
+        echo "<div class = \"heros\"><h2>" . $heros->getName() . "</h2>"
         . "<div>" . $heros->getCurrentHP() . "/" . $heros->getMaxHP() . " HP </div>"
         . "<div>" . $heros->getCurrentMana() . "/" . $heros->getMaxMana() . " Mana </div> "
-        . "<div>" . $heros->getCurrentMana() . " Initiative </div> " . "</div> </div>";
+        . "<div>" . $heros->getInitiative() . " Initiative </div> " . "</div> </div>";
     
 ?>
 
