@@ -9,8 +9,7 @@
 <body>
     
 <?php
-    $controller = new CombatController();
-    $monster_test = $controller->getMonster(2); //pour les tests
+    $monster_test = DataBase::getMonster(2); //pour les tests
     
     if(!isset($_SESSION["hero"])){
         $_SESSION["hero"] = new Mage(0, 1, 1, "Sir Alain Juppé", 7, 10, 12, 0, 0, 5, 3, 0); //tj pour les tests
@@ -43,6 +42,12 @@
         echo "<div><button>".$spell->getName()."</button></div>";
     }
 ?>
+<div id="test"></div>
+
+<script>
+    let i = 0;
+    document.getElementById('test').addC;
+</script>
 
 </body>
 </html>
