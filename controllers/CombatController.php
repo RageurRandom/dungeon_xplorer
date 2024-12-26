@@ -20,7 +20,17 @@ class CombatController{
      * @param string action effectuée par le joueur
      */
     public function playerAction($action){
-        echo "gestion de ";
+        if($action === "attack"){
+            echo "je connais ça c'est une attaque !";
+        } else {
+            $tab = explode('_', $action);
+
+            $prefix = $tab[0];
+
+            $id = $tab[1];
+
+            echo "je connais ça c'est $prefix";
+        }
         
     }
 
@@ -29,7 +39,12 @@ class CombatController{
      * actuellement juste une attaque, pourrais être étendu pour par exemple intégrer un système de sorts
      */
     public function ennemyAction(){
-        $_SESSION["combatMonster"]->attack($_SESSION["hero"]);
+        if($_SESSION["combatMonster"]->isDead()){
+            echo $_SESSION["combatMonster"]->getName() . " a succombé(e)";
+        } else {
+            echo "L'ennemi attaque !";
+            echo $_SESSION["combatMonster"]->attack($_SESSION["hero"]) . " dégâts subis !";
+        }
     }
 
     /**
@@ -62,16 +77,25 @@ class CombatController{
         
         if(!isset($_SESSION["hero"]) || !isset($_SESSION["combatMonster"])){
             //erreur
-            header("/dx_11");
+            header("Location : /dx_11");
         }
 
-        if(isset($_SESSION["combatIsPlayerFirst"])){
-            //gestion des attaques selon prio
-        }
+        
 
-        if(isset($_POST["action"])){
+        if(isset($_POST["action"])){ //la baston
+        
+            if($_SESSION["combatIsPlayerFirst"]){
+                //gestion des attaques selon prio
+                echo "ui\n";
+            }
+
             $this->playerAction($_POST["action"]);
+        
         }
+
+        //calcul de l'initiative pour le prochain tour
+        $_SESSION["combatIsPlayerFirst"] = $this->isPlayerFirst($_SESSION["hero"], $_SESSION["combatMonster"]);
+        
 
         require_once 'views/combat.php';
     }
