@@ -28,7 +28,7 @@ class Fighter {
      * @param Combattant $adversaire à attaquer 
      */
     public function attack($adversaire){
-        $adversaire->recieveAttack($this->strength);
+        $adversaire->recieveAttack(rand(1, 6) + $this->strength);
     }
 
     /**
@@ -36,7 +36,13 @@ class Fighter {
      * @param int $damage les dégâts à subire
      */
     public function recieveAttack($damage){
-        $this->reduceHP($damage);
+        $defence = rand(1, 6) + (int)($this->strength / 2);
+
+        $true_damage = $damage - $defence;
+
+        if($true_damage > 0){
+            $this->reduceHP($true_damage);
+        }
     }
 
     /**

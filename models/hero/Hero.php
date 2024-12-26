@@ -48,7 +48,7 @@ abstract class Hero extends Fighter{
         if(isset($this->armor))
             $damage -= $this->armor->getDefenseValue();
 
-        parent::recieveAttack($damage); 
+        parent::recieveAttack($damage);
     }
 
     /**

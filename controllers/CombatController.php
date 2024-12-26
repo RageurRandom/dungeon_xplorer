@@ -37,6 +37,24 @@ class CombatController{
             return NULL;
         }
     }
+
+    /**
+     * vérifie qui du joueur ou du monstre doit jouer en premier
+     * @param Heros heros du joueur
+     * @param Fighter monstre qui combat le héros
+     * @return bool vrai si le joueur joue en premier, faux sinon
+     */
+    public function isPlayerFirst($heros, $monster){
+        $heros_init = rand(1,6) + $heros->getInitiative();
+
+        $monster_init = rand(1, 6) + $monster->getInitiative();
+
+        if($heros_init == $monster_init){
+            return $heros instanceof Thief;
+        }
+
+        return $heros_init > $monster_init;
+    }
 }
 
 ?>

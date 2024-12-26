@@ -10,6 +10,21 @@ class Thief extends Hero {
         return "voleur"; 
     }
 
+    /**
+     * reçoit une attaque et diminue les PV
+     * @param int $damage les dégâts à subire
+     */
+    public function recieveAttack($damage){
+        if(isset($this->armor))
+            $damage -= $this->armor->getDefenseValue();
 
+        $defence = rand(1, 6) + (int)($this->initiative / 2);
+
+        $true_damage = $damage - $defence;
+
+        if($true_damage > 0){
+            $this->reduceHP($true_damage);
+        }
+    }
 }
 ?>
