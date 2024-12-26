@@ -15,45 +15,60 @@
         echo "<h1>Un adversaire approche !</h1>";
     }
 
-    $monster_test = DataBase::getMonster(2); //pour les tests
     
-    if(!isset($_SESSION["hero"])){
-        $_SESSION["hero"] = new Mage(0, 1, 1, "Sir Alain Juppé", 7, 10, 12, 0, 0, 5, 3, 0); //tj pour les tests
-        
+    
+    
+    $heros = $_SESSION["hero"];
+
+    if(!isset($heros)){
+        //problème
+        die("Erreur : Cet héros n'existe pas dans la base de données");
     }
-        $_SESSION["hero"]->collecteSpell(new AttackingSpell(0, 10, "bullshit no jutsu", 1));
-        $_SESSION["hero"]->collecteSpell(new AttackingSpell(1, 5, "taper très fort", 0));
-        $_SESSION["hero"]->collecteSpell(new BoostingSpell(2, 2,"initiative", 2, "gotta go fast", 1));
-    if(!isset($monster_test)){
+
+    
+
+    $monster = $_SESSION["combatMonster"];
+
+    if(!isset($monster)){
         //problème
         die("Erreur : Ce monstre n'existe pas dans la base de données");
     }
 
 
     
-        echo "<div><h2>" . $monster_test->getName() . "</h2>"
-        . "<div>" . $monster_test->getCurrentHP() . "/" . $monster_test->getMaxHP() . " HP </div>"
-        . "<div>" . $monster_test->getCurrentMana() . "/" . $monster_test->getMaxMana() . " Mana </div> </div>";
+    //affichage noms CSS REQUIS
+        echo "<div class=\"containeur_combat\"><div class = \"monstre\"><h2>" . $monster->getName() . "</h2>"
+        . "<div>" . $monster->getCurrentHP() . "/" . $monster->getMaxHP() . " HP </div>"
+        . "<div>" . $monster->getCurrentMana() . "/" . $monster->getMaxMana() . " Mana </div> </div>";
 
-        echo "<div><h2>" . $_SESSION["hero"]->getName() . "</h2>"
-        . "<div>" . $_SESSION["hero"]->getCurrentHP() . "/" . $_SESSION["hero"]->getMaxHP() . " HP </div>"
-        . "<div>" . $_SESSION["hero"]->getCurrentMana() . "/" . $_SESSION["hero"]->getMaxMana() . " Mana </div> </div>";
+        echo "<divclass = \"heros\"><h2>" . $heros->getName() . "</h2>"
+        . "<div>" . $heros->getCurrentHP() . "/" . $heros->getMaxHP() . " HP </div>"
+        . "<div>" . $heros->getCurrentMana() . "/" . $heros->getMaxMana() . " Mana </div> "
+        . "<div>" . $heros->getCurrentMana() . " Initiative </div> " . "</div> </div>";
     
 ?>
 
 <!--ACTIONS-->
 
-<div>Votre tour : </div>
+<div><!--br tempo en attendant css--><br>Votre tour : </div>
 <form action="/dx_11/combat" method="post">
     <div>
-        <input type="radio" id="attaque" name="action" value="attaque"><label for="attaque">Attaque</label>
+        <input type="radio" id="attack" name="action" value="attack" required><label for="attack">Attaque</label>
     </div>
 
     <?php
-        $arr = $_SESSION["hero"]->getSpellBook() ;
+    //affichage des sorts
+
+        $arr = $heros->getSpellBook() ;
         foreach($arr as $spell){
             $name = $spell->getName();
-            echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"$name\"><label for=\"$name\">$name (".$spell->getCost()." Mana)</label></div>";
+            if($spell->getCost() > $heros->getCurrentMana()){
+                //sort trop couteux
+                echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"err_". $spell->getID() ."\" disabled><label for=\"$name\">$name (".$spell->getCost()." Mana)</label></div>";
+            } else {
+                echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"spell_" . $spell->getID() . "\"><label for=\"$name\">$name (".$spell->getCost()." Mana)</label></div>";
+            }
+            
         }
     ?>
 
