@@ -62,12 +62,14 @@
         $arr = $heros->getSpellBook() ;
         foreach($arr as $spell){
             $name = $spell->getName();
+
+            $option = "";
             if($spell->getCost() > $heros->getCurrentMana()){
-                //sort trop couteux
-                echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"err_". $spell->getID() ."\" disabled><label for=\"$name\">$name (".$spell->getCost()." Mana)</label></div>";
-            } else {
-                echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"spell_" . $spell->getID() . "\"><label for=\"$name\">$name (".$spell->getCost()." Mana)</label></div>";
+                $option .= "disabled";
             }
+
+            echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"" . $spell->getType() ."_" . $spell->getID() . "\" $option><label for=\"$name\">$name (".$spell->getCost()." Mana)</label></div>";
+            
             
         }
     ?>

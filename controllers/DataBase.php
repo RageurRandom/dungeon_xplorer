@@ -254,7 +254,7 @@ class DataBase{
         $result = $statement->fetchAll();
         if(count($result) <= 0)
             die("impossible de trouver le spell $spellID dans la BDD"); 
-        return $result; 
+        return $result;
     }
 
     /**

@@ -16,6 +16,38 @@ class CombatController{
     }
 
     /**
+     * utilise un sort de boost sur le joueur
+     * @param string|int $spellId id du sort à utiliser (doit être dans la BDD)
+     */
+    public function playerBoost($spellId){
+        echo "BOOOOOOOOOOOOOOOOOST\n";
+
+        $resRequest = DataBase::getSpell($spellId)[0]; //y a qu'un sort normalement
+
+        $spell = Factory::spellInstance($spellId, $resRequest["spell_name"], $resRequest["spell_mana_cost"]);
+        
+
+
+        $_SESSION["hero"]->useBoostingSpell($spell);
+
+        //gestion du boost eventuelle
+
+    }
+
+    /**
+     * utilise un sort d'attaque
+     * @param string|int $spellId id du sort à utiliser (doit être dans la BDD)
+     */
+    public function playerAttackSpell($spellId){
+        echo "patate\n";
+        $resRequest = DataBase::getSpell($spellId)[0]; //y a qu'un sort normalement
+
+        $spell = Factory::spellInstance($spellId, $resRequest["spell_name"], $resRequest["spell_mana_cost"]);
+
+        $_SESSION["hero"]->useAttackingSpell($spell, $_SESSION["combatMonster"]);
+    }
+
+    /**
      * gestion de l'action selectionnée par le joueur
      * @param string action effectuée par le joueur
      */
@@ -24,8 +56,17 @@ class CombatController{
         if($heros->isDead()){
             echo $heros->getName() . " a succombé(e)\n";
         } else {
-            if($action === "attack"){
-                echo "je connais ça c'est une attaque !\n";
+            if($action === "attack"){ //attaque classique
+                echo $heros->getName() . " attaque !\n";
+
+                $damages = $_SESSION["hero"]->attack($_SESSION["combatMonster"]);
+
+                if($damages == 0){
+                    $damages = "Aucun";
+                }
+
+                echo  "$damages dégâts subis par ". $_SESSION["combatMonster"]->getName() . "!\n";
+
             } else {
                 $tab = explode('_', $action);
 
@@ -34,6 +75,15 @@ class CombatController{
                 $id = $tab[1];
 
                 echo "je connais ça c'est $prefix\n";
+
+                //TODO gestion consommables
+
+                if($prefix === "boostingSpell"){
+                    $this->playerBoost($id);
+                } else {
+                    //ici c'est forcément un sort d'attaque, on peut imaginer d'autres sorts
+                    $this->playerAttackSpell($id);
+                }
             }
         }
     }
@@ -95,21 +145,22 @@ class CombatController{
         if(isset($_POST["action"])){ //la baston
         
             if($_SESSION["combatIsPlayerFirst"]){
-                $this->ennemyAction();
                 $this->playerAction($_POST["action"]);
-                echo "ui\n";
+                $this->ennemyAction();
             } else {
-                $this->playerAction($_POST["action"]);
                 $this->ennemyAction();
+                $this->playerAction($_POST["action"]);
             }
         
             //fin du tour
             if($_SESSION["combatMonster"]->isDead()){
                 //chapitre suivant
+                echo "chapitre suivant\n";
             }
 
             if($_SESSION["hero"]->isDead()){
                 //mort puis chapitre 10
+                echo "mort\n";
             }
         }
 
