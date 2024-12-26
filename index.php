@@ -63,7 +63,7 @@ class Router
         }
 
         // Si aucune route n'a été trouvée, gérer l'erreur 404
-        require_once 'views/accueil/accueilNonConnecter.php';
+        require_once 'views/accueil/accueilNonConnecte.php';
     }
 }
 

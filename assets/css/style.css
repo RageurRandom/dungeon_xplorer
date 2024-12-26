@@ -1,90 +1,85 @@
-body{
-    background-color: black;
-    background-image: url("../image/DarkCastle.jpg");
-    background-repeat: no-repeat;
+:root {
+    --color-primary: #1A1A1A;
+    --color-secondary: #2E2E2E;
+    --text-primary: #E5E5E5;
+    --text-secondary: #BFBFBF;
+    --btn-primary: #C4975E;
+    --btn-secondary: #8B1E1E;
+    --alert: #8B1E1E;
+    --success: #4A7A66;
+}
+
+@font-face {
+    font-family: 'PirataOne';
+    src: url('../fonts/PirataOne-Regular.ttf') format('truetype');
+}
+
+body {
+    background-image: url("../images/dungeonBackground2.png");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    font-family: 'PirataOne', sans-serif;
+    color: var(--text-primary);
+}
+
+.nofont{
+    font-family: sans-serif;
+}
+
+.masthead {
+    height: 100%;
     display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	font-family: 'Montserrat', sans-serif;
-	height: 100vh;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
 }
 
-.block{
-    position: relative;
-	overflow: hidden;
-	min-height: 300px;
-	width: 600px;
-	max-width: 100%;
-	background-color: gray;
-	border-radius: 10px;
-	box-shadow: 0 8px 24px  rgba(0, 32, 63, .45),
-		  0 8px 8px rgba(0, 32, 63, .45);
+h1 {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 1);
 }
 
-button.ghost {
-	background-color: transparent;
+p {
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-button {
-	background-color: white;
-	color: #00203f;
-	border: 1px solid white;
-	font-size: 16px;
-	font-weight: bold;
-	padding: 16px 32px;
-	margin-top: 24px;
-	letter-spacing: 1px;
-	border-radius: 50px;
-	border-color: rgba(0, 32, 63, .45);
-	transition: .2s ease-in;
+.btn-light {
+    font-family: sans-serif;
+    background-color: var(--btn-primary);
+    outline-color: var(--btn-primary);
+    color: var(--text-primary);
+    font-weight: bold;
+
 }
 
-button:hover {
-	cursor: pointer;
-	background-color: #00203f;
-	color: white;
+.btn-light:hover {
+    background-color: var(--btn-secondary);
+    color: var(--text-primary);
 }
 
-button:active {
-	transform: scale(.95);
+.btn-link {
+    color: var(--btn-primary);
+    font-family: sans-serif;
+    text-decoration: none;
 }
 
-input {
-	background-color: white;
-    border-radius: 10px;
-	border: none;
-	padding: 12px 15px;
-	margin: 8px 0;
-	width: 100%;
+.btn-link:hover {
+    text-decoration: underline;
+    color: var(--btn-primary);
 }
 
-h1{
-    text-align: center;
-    color: white;
-    font-size: 60px;
+.deconnexion-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
-form {
-	background-color: gray;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 50px;
-	text-align: center;
-}
-
-a{
-    display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-    margin: 10px;
-}
-
-p{
-	text-align: center;
+@media (max-width: 768px) {
+    .deconnexion-btn {
+        right: 50%;
+        transform: translateX(50%);
+    }
 }

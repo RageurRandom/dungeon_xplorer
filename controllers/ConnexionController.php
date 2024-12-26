@@ -51,33 +51,32 @@ class ConnexionController {
     public function create() { 
         session_start();
 
-        //Si on est dèjà connecté
         if(isset($_SESSION["connected"]) && $_SESSION["connected"] === true) {
-            //On revien à la page d'accueil
+            // On revient à la page d'accueil
             header("Location: /dx_11"); 
-        }//si on est déjà connecté 
+        } // Si on est déjà connecté 
         
-        //Si on veut renseigner les champs de création 
-        if(!isset($_POST["userMail"]) || !isset($_POST["userPassword"]) || !isset($_POST["userName"])){
+        // Si on veut renseigner les champs de création 
+        if(!isset($_POST["userMail"]) || !isset($_POST["userPassword"]) || !isset($_POST["userName"])) {
             require_once "views/creationCompte.php"; 
-        }//Si on veut renseigner les champs de création 
-
-        //Si les champs sont déjà renseignés
-        else{
-            //On récupère les infos du compte à créer
+        } // Si on veut renseigner les champs de création 
+        
+        // Si les champs sont déjà renseignés
+        else {
+            // On récupère les infos du compte à créer
             $userMail = strtoupper($_POST['userMail']); 
-            $userPassword = strtoupper($_POST['userPassword']); 
+            $userPassword = password_hash($_POST['userPassword'], PASSWORD_DEFAULT); // Chiffrer le mot de passe
             $userName = strtoupper($_POST['userName']); 
-
-            //On créer le compte
+        
+            // On crée le compte
             DataBase::createAccount($userMail, $userPassword, $userName);
-
-            //On se connecte 
-            $this->login($userMail, $userPassword); 
-
-            //on revient à la page d'accueil
+        
+            // On se connecte 
+            $this->login($userMail, $_POST['userPassword']); 
+        
+            // On revient à la page d'accueil
             header("Location: /dx_11"); 
-        }//Si les champs sont déjà renseignés
+        } // Si les champs sont déjà renseignés
     }//fonction create()
     
     
@@ -89,31 +88,31 @@ class ConnexionController {
      * @return void
      * @see connect()
      */
-    public function login($userMail, $userPassword){ 
-        
-        //On récupère le compte
+    public function login($userMail, $userPassword) { 
+        // On récupère le compte
         $result = DataBase::getAccount($userMail);
-
-        //Si le mot de passe est correcte
-        if($result[0]["user_password"] == $userPassword){
-
-            //on vérifie si l'utilisateur a un héro dans la base de donnée et on stock cette infos dans la session
+    
+        // Si le mot de passe est correct
+        if ($result && password_verify($userPassword, $result[0]["user_password"])) {
+            // On vérifie si l'utilisateur a un héros dans la base de données et on stocke cette info dans la session
             $hasHero = DataBase::hasHero($userMail); 
             $_SESSION["hasHero"] = $hasHero; 
-
-            //on initialise les variables de connexion
+    
+            // On initialise les variables de connexion
             $_SESSION["connected"] = true;
             $_SESSION["userMail"] = $userMail;
-            $_SESSION["userPassword"] = $userPassword;
             $_SESSION["userName"] = $result[0]["user_name"]; 
             $_SESSION["userID"] = $result[0]["user_id"]; 
-        }//si le mot de passe est correcte
-
-        //si le mot de passe n'est pas correcte            
-        else{
-            die("le mot de passe n'est pas correcte"); 
-        }//si le mot de passe n'est pas correcte 
-
+    
+            // Rediriger vers la page d'accueil ou une autre page
+            header("Location: /dx_11/accueil");
+            exit();
+        } else {
+            // Si le mot de passe n'est pas correct, renvoyer un message d'erreur
+            $_SESSION["login_error"] = "Le mot de passe n'est pas correct";
+            header("Location: /dx_11/connexion");
+            exit();
+        }
     }//fonction login() 
 }
 ?>
