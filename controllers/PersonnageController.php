@@ -47,11 +47,6 @@ class PersonnageController {
             //On envoie vers la page de cnnexion
             header("Location: /dx_11/connexion"); 
         }//Si on n'est pas connecté
-
-        //Si un hero est déjà récupéré
-        else if(isset($_SESSION["hero"])){
-            header("Location: /dx_11/chapitre");
-        }//Si un hero est déjà récupéré
  
         //Si on est connecté et qu'on n'a pas de personnage récupéré 
         else{
@@ -111,6 +106,23 @@ class PersonnageController {
         }//Si on est connecté et qu'on n'a pas de personnage récupéré 
     }//fonction getHero()
 
+    /**
+     * permet de réinitialiser l'histoire du héro actuel
+     */
+    public function resetHero(){
+            session_start(); 
+            //Si on n'est pas connecté
+            if(!isset($_SESSION["connected"]) || !$_SESSION["connected"]){
+                //On envoie vers la page de cnnexion
+                header("Location: /dx_11/connexion"); 
+            }//Si on n'est pas connecté
+            
+            //On réinitialise dans la BDD
+            DataBase::resetHero($_SESSION["userMail"]); 
+
+            //On revient récupère le hero après réinitialisation 
+            header("Location: /dx_11/recuperationHero"); 
+    }//fonction resetHero()
 
 }
 ?>

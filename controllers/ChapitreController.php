@@ -85,7 +85,6 @@ class ChapitreController {
 
             //Si un monstre est à affronter
             if($linkMonsterID > 0){
-
                 //si le combat a déjà été fait 
                 if(isset($_POST["battleWon"])){
 
