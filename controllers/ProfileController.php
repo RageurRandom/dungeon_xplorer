@@ -12,6 +12,7 @@ class ProfileController {
         }//si on n'est pas connecté
 
         else{
+            $_SESSION["deletePermission"] = true; 
             require_once 'views/profile.php';
         }
     }//fonction index()
@@ -21,6 +22,7 @@ class ProfileController {
      */
     public function changePassword(){
         session_start(); 
+        unset($_SESSION["deletePermission"]); 
 
         //si on n'est pas connecté
         if(!isset($_SESSION["connected"]) || !($_SESSION["connected"] === true)){ 
@@ -52,8 +54,12 @@ class ProfileController {
 
     }//fonction changePassword()
 
+    /**
+     * permet de changer le nom d'utilisateur du compte
+     */
     public function changeUserName(){
         session_start(); 
+        unset($_SESSION["deletePermission"]); 
 
         //si on n'est pas connecté
         if(!isset($_SESSION["connected"]) || !($_SESSION["connected"] === true)){ 
@@ -82,6 +88,29 @@ class ProfileController {
             $_SESSION["userName"] = $_POST["newUserName"]; 
             header("Location: /dx_11/profile"); 
         }//Si les champs sont bien renseigné et qu'on est connecté
+    }//fonction changeUserName()
+
+    /**
+     * permet de supprimer le compte de l'utilisateur connecté
+     */
+    public function deleteAccount(){
+        session_start(); 
+
+        //si on n'est pas connecté
+        if(!isset($_SESSION["connected"]) || !($_SESSION["connected"] === true)){ 
+            header("Location: /dx_11/connexion");
+        }//si on n'est pas connecté
+
+        //si on n'a pas accéder à la fonction par le bouton "supprimer" de la page profile
+        if(!isset($_SESSION["deletePermission"]) || !($_SESSION["deletePermission"] === true)){ 
+            header("Location: /dx_11/profile");
+        }//si on n'a pas accéder à la fonction par le bouton "supprimer" de la page profile
+
+        //Si on est connecté et qu'on a accédé à cette fonction par le bouton "supprimer"
+        else{
+            DataBase::deleteAccount(); 
+            header("Location: /dx_11/deconnexion"); 
+        }//Si on est connecté et qu'on a accédé à cette fonction par le bouton "supprimer"
     }
 
     public function printUser(){

@@ -100,6 +100,23 @@ class DataBase{
     }//fonction createAccount()
 
     /**
+     * permet de supprimer le compte de l'utilsiateur connnecté
+     */
+    public static function deleteAccount(){
+        $DB = DataBase::getInstance();
+        $userMail = strtoupper($_SESSION["userMail"]);
+
+        //On change le MDP dans la BDD
+        $query = "delete from user where upper(user_mail) = '$userMail'"; 
+        $nbLines = $DB->excute($query); 
+
+        if($nbLines == 0)
+            die("impossible de supprimer le comtpe de cette adresse mail : $userMail. soit le compte n'existe pas, soit une autre erreur s'est produite");
+        else if($nbLines > 1)
+            die("une erreure s'est produite");
+    }
+
+    /**
      * permet de changer le MDP de l'utilisateur connecté
      * @param string $newPassword le nouveau MDP déjà haché
      */

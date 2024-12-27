@@ -34,8 +34,8 @@
                             $this->printUser(); 
                         ?>
                     </p>
-                    
-                    <form class="form-signin" action="changerNomU" method = "post">
+
+                    <form class="form-signin" action="changementNomU" method = "post">
                         <h2>changer le nom d'utilisateur</h2>
 
                         <?php if (isset($_SESSION["changeUserName_error"])): ?>
@@ -50,7 +50,7 @@
                         <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">CHANGER LE NOM D'UTILISATEUR</button>
                     </form>
 
-                    <form class="form-signin" action="changerMDP" method = "post">
+                    <form class="form-signin" action="changementMDP" method = "post">
                         <h2>changer le mot de passe</h2>
 
                         <?php if (isset($_SESSION["changePassword_error"])): ?>
@@ -66,6 +66,7 @@
 
                         <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">CHANGER LE MOT DE PASSE</button>
                         </form>
+                    <a class="btn btn-primary btn-lg btn-light" href="/dx_11/suppressionCompte">Supprimer le compte</a>
                     <a class="btn btn-primary btn-lg btn-light" href="/dx_11/">Page d'accueil</a>
                 </div>
             </div>
