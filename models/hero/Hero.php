@@ -1,8 +1,8 @@
 <?php
 abstract class Hero extends Fighter{
 
-    protected static int $maxInventoryWeight = 100;
-    protected static int $InventorySize = 100; 
+    protected static int $maxInventoryWeight = 30;
+    protected static int $InventorySize = 10; 
 
     protected int $XP;
     protected int $level;
