@@ -47,11 +47,6 @@ class PersonnageController {
             //On envoie vers la page de cnnexion
             header("Location: /dx_11/connexion"); 
         }//Si on n'est pas connecté
-
-        //Si un hero est déjà récupéré
-        else if(isset($_SESSION["hero"])){
-            header("Location: /dx_11/chapitre");
-        }//Si un hero est déjà récupéré
  
         //Si on est connecté et qu'on n'a pas de personnage récupéré 
         else{
