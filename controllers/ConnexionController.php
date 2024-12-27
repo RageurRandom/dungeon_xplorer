@@ -113,7 +113,7 @@ class ConnexionController {
             exit();
         } else {
             // Si le mot de passe n'est pas correct, renvoyer un message d'erreur
-            $_SESSION["login_error"] = "Le mot de passe n'est pas correct";
+            $_SESSION["login_error"] = "Le mot de passe est incorrect";
             header("Location: /dx_11/connexion");
             exit();
         }

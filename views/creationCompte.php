@@ -26,24 +26,22 @@
             <img class="logo" src="assets/images/dxlogo.png" alt="">
         </div>
 
-        <h1 class="h2 mb-3 font-weight-normal"> page de création de compte</h1>
+        <label for="userMail" class="sr-only">Adresse mail</label>
+        <input type="email" placeholder="exemple@mail.com" id="userMail" class="form-control" name="userMail" required />
 
-        <label for="userMail" class="sr-only">Email address</label>
-        <input type="email" placeholder="adresse e-mail" id="userMail" class="form-control" name="userMail" required />
+        <label for="userName" class="sr-only">Nom d'utilisateur</label>
+        <input type="text" placeholder="Utilisateur" id="userName" class="form-control" name="userName" required />
 
-        <label for="userName" class="sr-only">Username</label>
-        <input type="text" placeholder="username" id="userName" class="form-control" name="userName" required />
+        <label for="userPassword" class="sr-only">Mot de passe</label>
+        <input type="password" placeholder="Mot de passe" id="userPassword" class="form-control" name="userPassword" required />
 
-        <label for="userPassword" class="sr-only">Password</label>
-        <input type="password" placeholder="mot de passe" id="userPassword" class="form-control" name="userPassword"
-            required />
-
-        <label for="userAdmin" class="sr-only">Compte admin</label>
-        <input type="checkbox" name="userAdmin" value="1"/>
-
-        <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">créer un compte</button>
-        <p> si vous avez déjà un compte
-        <a class="btn btn-link" href="connexion">cliquer ici vous connecter</a></p>
+        <div>
+            <label for="userAdmin" class="sr-only">Compte admin</label>
+            <input type="checkbox" name="userAdmin" value="1"/>
+        </div>
+        
+        <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">Créer un compte</button>
+        <a class="btn btn-primary btn-lg btn-light mb-3" href="connexion">Annuler</a>
 
     </form>
 </body>

@@ -24,7 +24,7 @@
 
 </head>
 <body class="content justify-content-center align-items-center d-flex flex-column">
-   <h1> Chapitre <?php echo $hero->getChapter(); ?> </h1>
+   <h1>Chapitre <?php echo $hero->getChapter(); ?> </h1>
     
     <div class="justify-content-center align-items-center d-flex flex-column">    
         <a href="connexion" class="home-btn"><i class="fas fa-home"></i></a>
