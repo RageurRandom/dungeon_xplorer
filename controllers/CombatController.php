@@ -56,6 +56,18 @@ class CombatController{
         $combatEnded = false;
         $battleWon = false;
 
+        if(isset($_POST["weapon"]) && $_POST["weapon"] != "current"){
+            $this->equipWeapon($_POST["weapon"]);
+        }
+
+        if(isset($_POST["armor"]) && $_POST["armor"] != "current"){
+            $this->equipWeapon($_POST["armor"]);
+        }
+
+        if(isset($_POST["shield"]) && $_POST["shield"] != "current"){
+            $this->equipShield($_POST["weapon"]);
+        }
+
         if(isset($_POST["action"])){ //la baston
         
             if($_SESSION["combatIsPlayerFirst"]){
@@ -69,16 +81,30 @@ class CombatController{
             //fin du tour
             if($_SESSION["monster"]->isDead()){
                 //chapitre suivant
-                echo "chapitre suivant\n";
+                
                 $this->endFight();
                 $_SESSION["battleWon"] = true; 
+
+                //recherche de l'id du monstre
+                $DB = DataBase::getInstance(); 
+                $query = "select monster_id from monster where monster_name = ?"; 
+                $statement = $DB->prepare_statement($query);
+                $monsterName = $_SESSION["monster"]->getName();
+                $statement->bindParam(1, $monsterName);
+                $statement->execute();
+                $result = $statement->fetchAll();
+
+                if(count($result) > 0){
+                    $this->monsterSlayed($result[0]["monster_id"]);
+                }
+                                
                 $combatEnded = true;
                 $battleWon = true;
             }
 
             if($_SESSION["hero"]->isDead()){
                 //mort puis chapitre 10
-                echo "mort\n";
+                
                 $this->endFight();
                 $_SESSION["battleWon"] = false; 
                 $combatEnded = true;
@@ -95,6 +121,8 @@ class CombatController{
 
         require_once 'views/combat.php';
     }
+
+    
 
     /**
      * A appeler à la fin d'un combat (peu importe l'issue)
@@ -284,7 +312,7 @@ class CombatController{
             if($action === "attack"){ //attaque classique
                 echo $heros->getName() . " attaque !\n";
 
-                $damages = $heros->attack($_SESSION["monster"]);
+                $damages = $_SESSION["hero"]->attack($_SESSION["monster"]);
 
                 
 
@@ -328,12 +356,8 @@ class CombatController{
         } else {
             echo "L'ennemi attaque !\n";
             $damages = $_SESSION["monster"]->attack($_SESSION["hero"]);
-    
-            if($damages == 0){
-                $damages = "Aucun";
-            }
-    
-            echo  "$damages dégâts subis !\n";
+
+            
         }
     }
 
