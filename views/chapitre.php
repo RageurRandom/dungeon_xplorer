@@ -26,7 +26,7 @@
 <body class="content justify-content-center align-items-center d-flex flex-column">
    <h1> Chapitre <?php echo $hero->getChapter(); ?> </h1>
     
-    <div class="">    
+    <div class="justify-content-center align-items-center d-flex flex-column">    
         <a href="connexion" class="home-btn"><i class="fas fa-home"></i></a>
 
         <div class="hero-section justify-content-center align-items-center d-flex">
@@ -38,7 +38,7 @@
             </p>
         </div>
 
-        <div class="chapter-content justify-content-center align-items-center d-flex"> 
+        <div class="chapter-content justify-content-center align-items-center d-flex flex-column"> 
             <p>
                 <?php echo $chapterInfos[0]["chapter_content"] ?>
             </p> 

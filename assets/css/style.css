@@ -48,7 +48,7 @@ p {
 }
 
 .btn-light {
-    font-family: sans-serif;
+    font-size: 1.5rem;
     background-color: var(--btn-primary);
     outline-color: var(--btn-primary);
     color: var(--text-primary);
