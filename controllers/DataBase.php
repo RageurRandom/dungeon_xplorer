@@ -27,9 +27,6 @@ class DataBase{
      * @return DataBase l'instance static de cette classe connectée à la BDD dx_11 en localhost
      */
     public static function getInstance(){
-        if(self::$instance === null){
-            self::$instance = new Database(); 
-        }
         return self::$instance; 
     }
 
