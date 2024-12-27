@@ -38,10 +38,10 @@ class CombatController{
             header("Location: /dx_11/recuperationHero");
         }//Si aucun hero n'est récupéré
 
-        //Si aucun moonstre n'est récupéré
+        //Si aucun monstre n'est récupéré
         if(!isset($_SESSION["monster"])){
             header("Location: /dx_11/chapitre");
-        }//Si aucun moonstre n'est récupéré
+        }//Si aucun monstre n'est récupéré
 
         if(!isset($_SESSION["tabBoost"])){
             $_SESSION["tabBoost"] = [];
@@ -49,7 +49,12 @@ class CombatController{
             $this->updateBoost();
         }
 
+        ob_start(); // Start output buffering
+
         echo "<pre>";
+
+        $combatEnded = false;
+        $battleWon = false;
 
         if(isset($_POST["action"])){ //la baston
         
@@ -67,8 +72,8 @@ class CombatController{
                 echo "chapitre suivant\n";
                 $this->endFight();
                 $_SESSION["battleWon"] = true; 
-                echo "<a href = \"/dx_11/chapitreSuivant/". $_SESSION["combatChap"] . "/". $_SESSION["combatTreasure"]."/0/0/0\">Continuer</a>";
-                die();
+                $combatEnded = true;
+                $battleWon = true;
             }
 
             if($_SESSION["hero"]->isDead()){
@@ -76,8 +81,8 @@ class CombatController{
                 echo "mort\n";
                 $this->endFight();
                 $_SESSION["battleWon"] = false; 
-                echo "<a href = \"/dx_11/reinitialisationHero\">recommencer</a>";
-                die();
+                $combatEnded = true;
+                $battleWon = false;
             }
         }
 
@@ -85,6 +90,9 @@ class CombatController{
         $_SESSION["combatIsPlayerFirst"] = $this->isPlayerFirst($_SESSION["hero"], $_SESSION["monster"]);
         
         echo "</pre>";
+
+        $combatSummary = ob_get_clean(); // Get the buffered content and clean the buffer
+
         require_once 'views/combat.php';
     }
 
