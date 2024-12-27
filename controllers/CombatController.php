@@ -2,7 +2,7 @@
 class CombatController{
     public function test(){
         if(!isset($_SESSION["hero"])){
-            $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 100, 100, 12, 10, 10, 1, 3, 0); //tj pour les tests
+            $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 100, 100, 12, 10, 10, 10, 3, 0); //tj pour les tests
     
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(1, 4, "boule de feu", 10));
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(8, 5, "Tranche de vent", 1));
@@ -21,7 +21,6 @@ class CombatController{
     public function endFight(){
         while(sizeof($_SESSION["tabBoost"]) > 0){
             $this->updateBoost();
-            echo "update";
         }
 
         unset($_SESSION["tabBoost"]);
@@ -30,19 +29,22 @@ class CombatController{
 
     public function updateBoost(){
         for($i = 0; $i < sizeof($_SESSION["tabBoost"]); $i++){
+            $boost = $_SESSION["tabBoost"][$i];
 
-            if($_SESSION["tabBoost"][$i]["remaining_time"] == 0){
-                switch ($_SESSION["tabBoost"][$i]["target"]) {
+            if($boost["remaining_time"] <= 0){
+                //boost fini
+                switch ($boost["target"]) {
                     case 'initiative':
-                        $_SESSION["hero"]->addInitiative($_SESSION["tabBoost"][$i]["value"] * -1);
+                        $_SESSION["hero"]->addInitiative($boost["value"] * -1);
                         break;
                     
                     case 'strength':
-                        $_SESSION["hero"]->addStrength($_SESSION["tabBoost"][$i]["value"] * -1);
+                        $_SESSION["hero"]->addStrength($boost["value"] * -1);
                         break;
 
                     default:
                         //correspond aux pv, pas besoin de reset
+                        echo "pas besoin\n";
                         break;
                 }
 
@@ -50,7 +52,7 @@ class CombatController{
                 array_splice($_SESSION["tabBoost"], 0);
 
             } else {
-                $_SESSION["tabBoost"][$i]["remaining_time"] -= 1;
+                $_SESSION["tabBoost"][$i]["remaining_time"] = $_SESSION["tabBoost"][$i]["remaining_time"] - 1;
             }
         }
     }
