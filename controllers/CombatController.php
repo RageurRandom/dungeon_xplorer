@@ -81,7 +81,7 @@ class CombatController{
             //fin du tour
             if($_SESSION["monster"]->isDead()){
                 //chapitre suivant
-                echo "chapitre suivant\n";
+                
                 $this->endFight();
                 $_SESSION["battleWon"] = true; 
 
@@ -107,7 +107,7 @@ class CombatController{
 
             if($_SESSION["hero"]->isDead()){
                 //mort puis chapitre 10
-                echo "mort\n";
+                
                 $this->endFight();
                 $_SESSION["battleWon"] = false; 
                 $combatEnded = true;
@@ -315,11 +315,7 @@ class CombatController{
 
                 $damages = $_SESSION["hero"]->attack($_SESSION["monster"]);
 
-                if($damages == 0){
-                    $damages = "Aucun";
-                }
-
-                echo  "$damages dégâts subis par ". $_SESSION["monster"]->getName() . "!\n";
+                
 
             } else {
                 $tab = explode('_', $action);
@@ -362,11 +358,7 @@ class CombatController{
             echo "L'ennemi attaque !\n";
             $damages = $_SESSION["monster"]->attack($_SESSION["hero"]);
 
-            if($damages == 0){
-                $damages = "Aucun";
-            }
-
-            echo  "$damages dégâts subis !\n";
+            
         }
     }
 
