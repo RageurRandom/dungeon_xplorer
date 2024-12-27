@@ -1,0 +1,89 @@
+:root {
+    --color-primary: #1A1A1A;
+    --color-secondary: #2E2E2E;
+    --text-primary: #E5E5E5;
+    --text-secondary: #BFBFBF;
+    --btn-primary: #C4975E;
+    --btn-secondary: #8B1E1E;
+    --alert: #8B1E1E;
+    --success: #4A7A66;
+}
+
+
+h1{
+    text-align: center;
+    font-size: 70px;
+}
+
+.wrapper {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box {
+    border-radius: 5px;
+    color: #fff;
+}
+
+.character {
+    border: 5px solid var(--btn-primary);
+    border-radius: 6px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 270px;
+    height: 650px;
+
+    background-size: contain; /* Ensure the image fits within the container */
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 10px; /* Add some margin to space out the character divs */
+}
+
+
+.guerrier {
+    background-image: url(../images/bw_guerrier.jpeg);
+}
+
+.guerrier:hover {
+    background-image: url(../images/color_guerrier.jpeg);
+}
+
+.magicien {
+    background-image: url(../images/bw_mage.jpeg);
+}
+
+.magicien:hover {
+    background-image: url(../images/color_mage.jpeg);
+}
+
+.voleur {
+    background-image: url(../images/bw_voleur.jpeg);
+}
+
+.voleur:hover {
+    background-image: url(../images/color_voleur.jpeg);
+}
+
+@media (max-width: 992px) {
+    .home-btn {
+        top: 10px;
+        font-size: 40px;
+    }
+
+    h1{
+        font-size: 40px;
+        margin-top: 30px;
+    }
+    .container.mt-3.d-lg-block {
+        display: none;
+    }
+    .container.mt-3.d-lg-none {
+        display: block;
+    }
+}
