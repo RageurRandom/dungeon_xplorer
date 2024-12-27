@@ -314,6 +314,12 @@ class CombatController{
 
                 $damages = $_SESSION["hero"]->attack($_SESSION["monster"]);
 
+                if($damages == 0){
+                    $damages = "Aucun";
+                }
+    
+                echo  "$damages dégâts infligés !\n";
+
                 
 
             } else {
