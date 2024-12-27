@@ -563,6 +563,7 @@ class DataBase{
     /**
      * retourne toutes les lignes de loot associée au monstre passé en paramètre + les infos de chaque item
      * @param int $monster_id le ID du monstre
+     * @return array resultats de la requete
      */
     public static function getLoot($monster_id){
         $DB = DataBase::getInstance();
