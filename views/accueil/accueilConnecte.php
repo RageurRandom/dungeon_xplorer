@@ -25,27 +25,26 @@
     <div class="container px-4 px-lg-5 h-100">
         <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
             <div class="col-lg-8 align-self-end">
-                <h1 class="font-weight-bold">page d'acceuil avec l'utilisateur connectee</h1>
                 <h1 class="font-weight-bold">Bienvenue <?php echo $_SESSION["userName"] ?></h1>
 
                 <?php
                 //Si l'utilisateur a un héro
                 if (isset($_SESSION["hasHero"]) && $_SESSION["hasHero"] == true)
-                    echo "<p><a class='btn btn-primary btn-lg btn-light' href='recuperationHero'>continuer l'aventure</a></p>";
+                    echo "<p><a class='btn btn-primary btn-lg btn-light' href='recuperationHero'>Continuer l'aventure</a></p>";
                 //Si c'est un compte Admin
                 if (isset($_SESSION["adminAccount"]) && $_SESSION["adminAccount"] == true)
-                echo "<p><a class='btn btn-primary btn-lg btn-light' href='modificationHistoire'>Mdoifier l'histoire</a></p>";
+                echo "<p><a class='btn btn-primary btn-lg btn-light' href='modificationHistoire'>Modifier l'histoire</a></p>";
                 ?>
 
                 <hr class="divider" />
 
             </div>
             <div class="col-lg-8 align-self-baseline">
-                <p class="nofont">adresse mail : <?php echo $_SESSION["userMail"] ?></p>
-                <p><a class="btn btn-primary btn-lg btn-light deconnexion-btn" href="deconnexion">déconnexion</a></p>
+                <p class="nofont">Adresse mail : <?php echo $_SESSION["userMail"] ?></p>
+                <p><a class="btn btn-primary btn-lg btn-light deconnexion-btn" href="deconnexion">Déconnexion</a></p>
 
-                <p><a class="btn btn-primary btn-lg btn-light" href='creationHero'>nouvelle aventure</a></p>
-                <p><a class="btn btn-primary btn-lg btn-light" href='profile'>profile</a></p>
+                <p><a class="btn btn-primary btn-lg btn-light" href='creationHero'>Nouvelle aventure</a></p>
+                <p><a class="btn btn-primary btn-lg btn-light" href='profile'>Profil</a></p>
             </div>
         </div>
     </div>

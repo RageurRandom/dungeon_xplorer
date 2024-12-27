@@ -34,7 +34,7 @@
         <h1> Choix du héro</h1>
         <div class="wrapper">
             <div class="box">
-                <input type="text" placeholder="nom de l'héro" id="heroName" name="heroName" required />
+                <input type="text" placeholder="Nom de l'héros" id="heroName" name="heroName" required />
             </div>
         </div>
 

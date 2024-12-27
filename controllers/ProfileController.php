@@ -48,7 +48,7 @@ class ProfileController {
             //On cahnge le MDP
             $newPassword = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
             DataBase::changePassword($newPassword); 
-            $_SESSION["changePassword_error"] = "Mot de passe changé avec succés";
+            $_SESSION["changePassword_error"] = "Mot de passe changé avec succès";
             header("Location: /dx_11/profile"); 
         }//Si les champs sont bien renseigné et qu'on est connecté
 
@@ -114,10 +114,10 @@ class ProfileController {
     }
 
     public function printUser(){
-        echo"nom d'utilisateur : ".$_SESSION["userName"]."<br>
-                adresse mail : ".$_SESSION["userMail"]."<br>"; 
+        echo"Nom d'utilisateur : ".$_SESSION["userName"]."<br>
+                Adresse mail : ".$_SESSION["userMail"]."<br>"; 
         if($_SESSION["adminAccount"])
-            echo"compte admin <br>";
+            echo"Compte admin <br>";
     }
 }
 ?>

@@ -30,16 +30,16 @@
                 <div class="col-lg-8 align-self-baseline">
 
                     <form class="form-signin" action="suppressionCompte2" method = "post">
-                        <h2>comptes</h2>
+                        <h2>Comptes</h2>
                         <select id="accounts" name="account" class="text-white-75 mb-5" required>
                             <?php
                                 $this->printAccounts(); 
                             ?>
                         </select>
-                        <button type="submit">supprimer le compte</button>
+                        <button type="submit">Supprimer le compte</button>
                     </form>
 
-                    <h2>chapitres</h2>
+                    <h2>Chapitres</h2>
                     <p class="text-white-75 mb-5">
                         <?php
                             $this->printChapters(); 
