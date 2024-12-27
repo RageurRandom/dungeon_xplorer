@@ -25,6 +25,23 @@ L’administrateur :
  - [ ] Disposer de statistiques concernant les joueurs
  - [ ] Proposer un système de gestion des combats plus visuel.
 
+## 🛠️ Architecture du projet
+
+### Structure des dossiers :
+- `assets/` : Contient les fichiers statiques tels que les images, les styles CSS et les scripts JavaScript.
+- `controllers/` : Contient les contrôleurs PHP qui gèrent la logique de l'application.
+- `models/` : Contient les modèles PHP qui représentent les données de l'application.
+- `views/` : Contient les fichiers de vue PHP qui génèrent l'interface utilisateur.
+- `index.php` : Point d'entrée principal de l'application.
+- `.htaccess` : Fichier de configuration Apache pour la réécriture d'URL.
+- `autoload.php` : Fichier de chargement automatique des classes PHP.
+- `BDD.sql` : Script SQL pour la création de la base de données.
+- `inserts.sql` et `inserts2.sql` : Scripts SQL pour l'insertion des données initiales.
+
+### Base de données :
+La base de données contient plusieurs tables pour gérer les utilisateurs, les héros, les chapitres, les monstres, les objets, les sorts, etc.
+
+
 ## 👨‍💻Auteurs :
 #### TarekRemo - Tarek REME, BUT Informatique, Promo 2023-2026, 2ème année, TD2 
 #### torivado - Clément MAGANZA, BUT Informatique, Promo 2023-2026, 2ème année, TD2
