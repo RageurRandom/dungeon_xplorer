@@ -2,7 +2,7 @@
 class CombatController{
     public function test(){
         if(!isset($_SESSION["hero"])){
-            $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 1, 100, 12, 10, 10, 1, 3, 0); //tj pour les tests
+            $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 100, 100, 12, 10, 10, 1, 3, 0); //tj pour les tests
     
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(1, 4, "boule de feu", 10));
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(8, 5, "Tranche de vent", 1));
@@ -16,6 +16,45 @@ class CombatController{
     }
 
     /**
+     * A appeler à la fin d'un combat (peu importe l'issue)
+     */
+    public function endFight(){
+        while(sizeof($_SESSION["tabBoost"]) > 0){
+            $this->updateBoost();
+            echo "update";
+        }
+
+        unset($_SESSION["tabBoost"]);
+        unset($_SESSION["combatIsPlayerFirst"]);
+    }
+
+    public function updateBoost(){
+        for($i = 0; $i < sizeof($_SESSION["tabBoost"]); $i++){
+
+            if($_SESSION["tabBoost"][$i]["remaining_time"] == 0){
+                switch ($boost["target"]) {
+                    case 'initiative':
+                        $_SESSION["hero"]->addInitiative($_SESSION["tabBoost"][$i]["value"] * -1);
+                        break;
+                    
+                    case 'strength':
+                        $_SESSION["hero"]->addStrength($_SESSION["tabBoost"][$i]["value"] * -1);
+                        break;
+
+                    default:
+                        //correspond aux pv, pas besoin de reset
+                        break;
+                }
+
+                unset($_SESSION["tabBoost"][$i]);
+
+            } else {
+                $_SESSION["tabBoost"][$i]["remaining_time"] -= 1;
+            }
+        }
+    }
+
+    /**
      * utilise un sort de boost sur le joueur
      * @param string|int $spellId id du sort à utiliser (doit être dans la BDD)
      */
@@ -24,12 +63,10 @@ class CombatController{
         $resRequest = DataBase::getSpell($spellId)[0]; //y a qu'un sort normalement
 
         $spell = Factory::spellInstance($spellId, $resRequest["spell_name"], $resRequest["spell_mana_cost"]);
-        
-
 
         $_SESSION["hero"]->useBoostingSpell($spell);
 
-        //gestion du boost eventuelle
+        array_push($_SESSION["tabBoost"], array("target" => $spell->getBoostTarget(), "remaining_time" => $spell->getBoostDuration(), "value" => $spell->getBoostValue()));
 
     }
 
@@ -133,6 +170,12 @@ class CombatController{
 
         $this->test(); //TODO retirer
 
+        if(!isset($_SESSION["tabBoost"])){
+            $_SESSION["tabBoost"] = [];
+        } else {
+            $this->updateBoost();
+        }
+
         if(!isset($_SESSION["hero"]) || !isset($_SESSION["combatMonster"])){
             //erreur
             echo "erreur\n";
@@ -155,6 +198,7 @@ class CombatController{
             if($_SESSION["combatMonster"]->isDead()){
                 //chapitre suivant
                 echo "chapitre suivant\n";
+                $this->endFight();
                 echo "<a href = \"/dx_11/chapitreSuivant/". $_SESSION["combatChap"] . "/0/0/0/0\">Continuer</a>";
                 die();
             }
@@ -162,6 +206,7 @@ class CombatController{
             if($_SESSION["hero"]->isDead()){
                 //mort puis chapitre 10
                 echo "mort\n";
+                $this->endFight();
                 echo "<a href = \"/dx_11/chapitreSuivant/10/0/0/0/0\">Continuer</a>";
                 die();
             }
