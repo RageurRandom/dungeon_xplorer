@@ -66,7 +66,91 @@
 
             }
         }
+
+        
     ?>
+
+    <div>
+        <h3>Equipements</h3>
+        <label for="weapon">Arme : </label>
+        
+            <?php
+
+                echo "<select name=\"weapon\" id=\"weapon\">";
+
+                //equipement actuel
+                $equippedWeap = $heros->getWeapon();
+
+                $itemArr = $heros->getInventory();
+                if(isset($equippedWeap)){
+                    echo "<option value=\"current\">" . $equippedWeap->getName() . "</option>";
+                } else {
+                    echo "<option value=\"current\">Aucune</option>";
+                }
+                
+                
+                    foreach($itemArr as $item){
+                        if(isset($item) && $item->getType() === "arme" && (!isset($equippedWeap) || $item->getId() != $equippedWeap->getId())){
+                        
+                            echo "<option value=\"". $item->getID() ."\">" . $item->getName() . " : " . $item->getAttackValue() . " dégâts</option>";
+                        }
+                    }
+                
+
+                echo "</select>";
+            ?>
+
+            <label for="armor">Armure : </label>
+
+            <?php
+
+                echo "<select name=\"armor\" id=\"armor\">";
+
+                //equipement actuel
+                $equippedArm = $heros->getArmor();
+
+                if(isset($equippedArm)){
+                    echo "<option value=\"current\">" . $equippedArm->getName() . "</option>";
+                } else {
+                    echo "<option value=\"current\">Aucune</option>";
+                }
+                
+                
+                foreach($itemArr as $item){
+                    if(isset($item) && $item->getType() === "amure" && (!isset($equippedArm) || $item->getId() != $equippedArm->getId())){
+                        echo "<option value=\"". $item->getID() ."\">" . $item->getName() . " : " . $item->getDefenseValue() . " defense</option>";
+                    }
+                }
+
+                echo "</select>";
+
+                // bouclier
+
+                if($heros->getClass() === "guerrier"){
+                    echo "<label for=\"shield\">Bouclier : </label>";
+                    echo "<select name=\"shield\" id=\"shield\">";
+
+                    //equipement actuel
+                    $equippedSh = $heros->getShield();
+
+                    if(isset($equippedSh)){
+                        echo "<option value=\"current\">" . $equippedSh->getName() . "</option>";
+                    } else {
+                        echo "<option value=\"current\">Aucune</option>";
+                    }
+                    
+                    
+                    foreach($itemArr as $item){
+                        if(isset($item) && $item->getType() === "bouclier" && (!isset($equippedSh) || $item->getId() != $equippedSh->getId())){
+                            echo "<option value=\"". $item->getID() ."\">" . $item->getName() . " : " . $item->getDefenseValue() . " defense</option>";
+                        }
+                    }
+                    
+
+                    echo "</select>";
+                }
+            ?>
+    </div>
 
     <input type="submit">
 </form>

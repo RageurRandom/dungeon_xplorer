@@ -51,6 +51,18 @@ class CombatController{
 
         echo "<pre>";
 
+        if(isset($_POST["weapon"]) && $_POST["weapon"] != "current"){
+            $this->equipWeapon($_POST["weapon"]);
+        }
+
+        if(isset($_POST["armor"]) && $_POST["armor"] != "current"){
+            $this->equipWeapon($_POST["armor"]);
+        }
+
+        if(isset($_POST["shield"]) && $_POST["shield"] != "current"){
+            $this->equipShield($_POST["weapon"]);
+        }
+
         if(isset($_POST["action"])){ //la baston
         
             if($_SESSION["combatIsPlayerFirst"]){
@@ -196,6 +208,32 @@ class CombatController{
         
     }
 
+    public function equipArmor($armorId){
+        $requestRes = DataBase::getItem($armorId);
+        $requestRes = $requestRes[0];
+
+        $armor = Factory::itemInstance($armorId, $requestRes["item_weight"], $requestRes["item_name"], $requestRes["item_desc"], $requestRes["item_size"], 1);
+        $_SESSION["hero"]->putArmor($armor);
+    }
+
+    public function equipWeapon($weaponId){
+        $requestRes = DataBase::getItem($weaponId);
+        $requestRes = $requestRes[0];
+
+        $weapon = Factory::itemInstance($weaponId, $requestRes["item_weight"], $requestRes["item_name"], $requestRes["item_desc"], $requestRes["item_size"], 1);
+        $_SESSION["hero"]->holdWeapon($weapon);
+    }
+
+    public function equipShield($shieldId){
+        if($_SESSION["hero"]->getClass() === "guerrier"){
+            $requestRes = DataBase::getItem($shieldId);
+            $requestRes = $requestRes[0];
+
+            $shield = Factory::itemInstance($shieldId, $requestRes["item_weight"], $requestRes["item_name"], $requestRes["item_desc"], $requestRes["item_size"], 1);
+            $_SESSION["hero"]->holdShield($shield);
+        }
+    }
+
 
     /**
      * gestion de l'action selectionnée par le joueur
@@ -284,7 +322,7 @@ class CombatController{
         return $heros_init > $monster_init;
     }
 
-        
+
 }
 
 ?>
