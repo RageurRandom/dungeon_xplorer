@@ -36,7 +36,7 @@ L’administrateur :
 - `.htaccess` : Fichier de configuration Apache pour la réécriture d'URL.
 - `autoload.php` : Fichier de chargement automatique des classes PHP.
 - `BDD.sql` : Script SQL pour la création de la base de données.
-- `inserts.sql` et `inserts2.sql` : Scripts SQL pour l'insertion des données initiales.
+- `inserts2.sql` : Scripts SQL pour l'insertion des données initiales.
 
 ### Base de données :
 La base de données contient plusieurs tables pour gérer les utilisateurs, les héros, les chapitres, les monstres, les objets, les sorts, etc.
