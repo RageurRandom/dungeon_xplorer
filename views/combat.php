@@ -72,10 +72,13 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <button type="button" class="btn btn-primary w-100 btn-sort" data-bs-toggle="collapse" data-bs-target="#spells">Sorts</button>
+                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="collapse" data-bs-target="#spells">Sorts</button>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-success w-100 btn-object" data-bs-toggle="collapse" data-bs-target="#items">Objets</button>
+                                <button type="button" class="btn btn-success w-100" data-bs-toggle="collapse" data-bs-target="#items">Objets</button>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-warning w-100" data-bs-toggle="collapse" data-bs-target="#equipments">Équipements</button>
                             </div>
                         </div>
                         <div id="spells" class="collapse">
@@ -103,6 +106,65 @@
                                 }
                             }
                             ?>
+                        </div>
+                        <div id="equipments" class="collapse">
+                            <h3>Équipements</h3>
+                            <div class="mb-3">
+                                <label for="weapon">Arme : </label>
+                                <?php
+                                echo "<select name='weapon' id='weapon' class='form-select'>";
+                                $equippedWeap = $heros->getWeapon();
+                                if(isset($equippedWeap)){
+                                    echo "<option value='current'>" . $equippedWeap->getName() . "</option>";
+                                } else {
+                                    echo "<option value='current'>Aucune</option>";
+                                }
+                                foreach($itemArr as $item){
+                                    if($item->getType() === "arme" && (!isset($equippedWeap) || $item->getId() != $equippedWeap->getId())){
+                                        echo "<option value='" . $item->getID() . "'>" . $item->getName() . " : " . $item->getAttackValue() . " dégâts</option>";
+                                    }
+                                }
+                                echo "</select>";
+                                ?>
+                            </div>
+                            <div class="mb-3">
+                                <label for="armor">Armure : </label>
+                                <?php
+                                echo "<select name='armor' id='armor' class='form-select'>";
+                                $equippedArm = $heros->getArmor();
+                                if(isset($equippedArm)){
+                                    echo "<option value='current'>" . $equippedArm->getName() . "</option>";
+                                } else {
+                                    echo "<option value='current'>Aucune</option>";
+                                }
+                                foreach($itemArr as $item){
+                                    if($item->getType() === "amure" && (!isset($equippedArm) || $item->getId() != $equippedArm->getId())){
+                                        echo "<option value='" . $item->getID() . "'>" . $item->getName() . " : " . $item->getDefenseValue() . " defense</option>";
+                                    }
+                                }
+                                echo "</select>";
+                                ?>
+                            </div>
+                            <?php if($heros->getClass() === "guerrier"): ?>
+                            <div class="mb-3">
+                                <label for="shield">Bouclier : </label>
+                                <?php
+                                echo "<select name='shield' id='shield' class='form-select'>";
+                                $equippedSh = $heros->getShield();
+                                if(isset($equippedSh)){
+                                    echo "<option value='current'>" . $equippedSh->getName() . "</option>";
+                                } else {
+                                    echo "<option value='current'>Aucune</option>";
+                                }
+                                foreach($itemArr as $item){
+                                    if($item->getType() === "bouclier" && (!isset($equippedSh) || $item->getId() != $equippedSh->getId())){
+                                        echo "<option value='" . $item->getID() . "'>" . $item->getName() . " : " . $item->getDefenseValue() . " defense</option>";
+                                    }
+                                }
+                                echo "</select>";
+                                ?>
+                            </div>
+                            <?php endif; ?>
                         </div>
                         <div class="row mt-3">
                             <div class="col">

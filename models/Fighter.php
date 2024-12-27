@@ -30,7 +30,9 @@ class Fighter {
      */
     public function attack($opponent){
         $damages = rand(1, 6) + $this->strength;
-        return $opponent->recieveAttack($damages);
+        $trueDamage = $opponent->recieveAttack($damages);
+    
+        return $trueDamage;
     }
 
     /**
@@ -295,6 +297,5 @@ class Fighter {
     public function getStrength(){
         return $this->strength;
     }
-
 }
 ?>
