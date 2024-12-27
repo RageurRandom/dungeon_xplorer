@@ -7,7 +7,7 @@ class Factory{
 
     /**
      * céer et retourne une insence de Hero
-     * @return Hero le héro
+     * @return Hero|Mage|Thief|Warrior le héro
      */
     public static function heroInstance($_id, $_level, $_chapter, $_name, $_hp, $_max_hp, $_xp, $_mana, $_max_mana, $_strength, $_initiative, $_treasure, $_class){
         $_className = strtoupper($_class); 
@@ -33,16 +33,30 @@ class Factory{
     }//fonction heroInstance()
 
     /**
+     * prend en paramètre l'ID d'un monstre dans la BDD puis retourne ine instance de Fighter correspondant à ce monstre
+     * @param int monsterID l'ID du monstre à instancier
+     * @return Fighter une instance du monstre
+     */
+    public static function monsterInstance($monsterID){
+        $row = DataBase::getMonster($monsterID)[0];
+
+        $res = new Fighter($row["monster_name"], $row["monster_HP"], $row["monster_HP"], $row["monster_mana"],
+                            $row["monster_mana"], $row["monster_initiative"], $row["monster_strength"]);
+
+        return $res;  
+    }//Fonction monsterInstance()
+
+    /**
      * crée et retourne une instece de l'item 
      * @param int $_id l'id de l'item dans la BDD
-     * @return Item l'item
+     * @return Item|Armor|Potion|Shield|Weapon l'item
      */
     public static function itemInstance($_id, $_weight, $_name, $_desc, $_size, $_quantity){
         $DB = DataBase::getInstance(); 
 
         //Vérifier le type de l'item grâce à son ID
 
-        $query = "select count(*) nb from weapon where item_id = $_id"; 
+        $query = "select count(*) as nb from weapon where item_id = $_id"; 
         $statement = $DB->unprepared_statement($query); 
         $result = $statement->fetchAll();
 
@@ -55,7 +69,7 @@ class Factory{
             return new Weapon($_id, $result[0]["weapon_attack_value"], $_weight, $_name, $_desc, $_size, $_quantity); 
         }//Si c'est une arme
 
-        $query = "select count(*) nb from armor where item_id = $_id"; 
+        $query = "select count(*) as nb from armor where item_id = $_id"; 
         $statement = $DB->unprepared_statement($query); 
         $result = $statement->fetchAll();
 
@@ -77,7 +91,7 @@ class Factory{
             }
         }//Si c'est une armure
 
-        $query = "select count(*) nb from potion where item_id = $_id"; 
+        $query = "select count(*) as nb from potion where item_id = $_id"; 
         $statement = $DB->unprepared_statement($query); 
         $result = $statement->fetchAll();
 
@@ -99,7 +113,7 @@ class Factory{
     /**
      * crée une instence de Spell en fonction des paramètres passés
      * @param int $_spellID l'ID du spell dans la BDD
-     * @return Spell le sort
+     * @return Spell|AttackingSpell|BoostingSpell le sort
      */
     public static function spellInstance($_spellID, $_name, $_manaCost){
         $DB = DataBase::getInstance();

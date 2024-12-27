@@ -216,6 +216,25 @@ class DataBase{
         }
     }//fonction getClass()
 
+    /**
+     * @param int $ClassID id de la class à récupérer
+     * @return array tableaux des infos de la classe
+     * @throws Exception si aucune classe existe pour ce nom
+     */
+    public static function getClassByID($classID){
+        $DB = DataBase::getInstance();
+
+        $query = "select * from class where class_id = $classID"; 
+        $statement = $DB->unprepared_statement($query);
+        $classInfos = $statement->fetchAll();
+
+        if (count($classInfos) > 0) {
+            return $classInfos;
+        } else {
+            die("aucune classe existe avec cet ID : $classID");
+        }
+    }//fonction getClassByID()
+
 
     /**
      * retourne toutes les lignes de Inventory assiciée au hero passé en paramètre + les infos de chaque item
@@ -288,7 +307,7 @@ class DataBase{
         $result = $statement->fetchAll();
         if(count($result) <= 0)
             die("impossible de trouver le spell $spellID dans la BDD"); 
-        return $result; 
+        return $result;
     }
 
     /**
@@ -390,7 +409,39 @@ class DataBase{
             return $result[0]["max"]+1; 
     }
     
+    /**
+     * permet de réinitialiser les valeur du hero d'un utilisateur
+     * @param string $userMail adresse mail de l'utilisateur
+     */
+    public static function resetHero($userMail){
+        $DB = DataBase::getInstance(); 
+        $userMail = strtoupper($userMail); 
 
+        //on récupère les infos du hero
+        $infosHero = DataBase::getHero($_SESSION["userMail"])[0]; 
+
+        //On réinitialise les infos 
+        $query = "update hero set level_num = 1, chapter_num = 1, hero_HP = ".$infosHero["class_starting_HP"].",
+                                    hero_max_HP = ".$infosHero["class_starting_HP"].", hero_XP = 0, 
+                                    hero_mana = ".$infosHero["class_starting_mana"].", hero_max_mana = ".$infosHero["class_starting_mana"].",
+                                    hero_strength = ".$infosHero["class_starting_strength"].", hero_initiative = ".$infosHero["class_starting_intitiative"].",
+                                    hero_treasure = 0
+                                    where hero_id = ".$infosHero["hero_id"];
+
+        $nbLines = $DB->excute($query);
+        if($nbLines != 1){
+            die("une erreur s'est produite lors de la réinitialisation du hero ".$infosHero["hero_id"]); 
+        } 
+        else{
+            //On vide l'inventaire et le spell_book
+            $query = "delete from inventory where hero_id = ".$infosHero["hero_id"];
+            $nbLines = $DB->excute($query);
+
+            $query = "delete from spell_book where hero_id = ".$infosHero["hero_id"];
+            $nbLines = $DB->excute($query);
+        }
+
+    }
     /**
      * insère un nouvel héro dans la base de donnée pour l'utilisateur connecté
      * @param string $heroClass nom de la classe de l'héro à insérer
@@ -489,6 +540,40 @@ class DataBase{
         //On revient au chapitres 
         header("Location: /dx_11/chapitre"); 
     }//fonction saveHero()
+
+    /**
+     * permet de retourner un monstre de la table monster
+     * @param int $monster_id l'ID du monstre à retourner
+     */
+    public static function getMonster($monster_id){
+        $DB = DataBase::getInstance();
+
+        $querry = "SELECT * FROM monster WHERE monster_id = $monster_id";
+        $statement = $DB->unprepared_statement($querry);
+        $results = $statement->fetchAll();
+
+        if(count($results) > 0){
+            return $results; 
+        }
+        else{
+            die("aucun monstre trouvé avec cet ID : $monster_id"); 
+        }
+    }//Fonction getMonster()
+
+    /**
+     * retourne toutes les lignes de loot associée au monstre passé en paramètre + les infos de chaque item
+     * @param int $monster_id le ID du monstre
+     */
+    public static function getLoot($monster_id){
+        $DB = DataBase::getInstance();
+        $query = "select * from loot 
+                    join item using (item_id)
+                    where monster_id = $monster_id"; 
+        $statement = $DB->unprepared_statement($query); 
+        $result = $statement->fetchAll();
+        return $result;
+    }//Fonction getLoot
+
 
 }
 ?>

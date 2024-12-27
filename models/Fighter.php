@@ -26,17 +26,31 @@ class Fighter {
     /**
      * fait des dégats à l'adversaire passé en paramètre
      * @param Combattant $adversaire à attaquer 
+     * @return int nb de dégâts infligés
      */
-    public function attack($adversaire){
-        $adversaire->recieveAttack($this->strength); 
+    public function attack($opponent){
+        $damages = rand(1, 6) + $this->strength;
+        $output = $opponent->recieveAttack($damages);
+
+        return $output;
     }
 
     /**
      * reçoit une attaque et diminue les PV
      * @param int $damage les dégâts à subire
+     * @return int nb de dégâts réellement subis (après défense)
      */
     public function recieveAttack($damage){
-        $this->reduceHP($damage); 
+        $defence = rand(1, 6) + (int)($this->strength / 2);
+
+        $trueDamage = $damage - $defence;
+
+        if($trueDamage > 0){
+            $this->reduceHP($trueDamage);
+            return $trueDamage;
+        }
+
+        return 0; //aucun dégât subis
     }
 
     /**

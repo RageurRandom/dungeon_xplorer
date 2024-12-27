@@ -57,7 +57,7 @@ class ChapitreController {
 
         $hero = $_SESSION["hero"];
 
-        //Si il n' y a pas de lien entre le cahpitre actuel et le chapitre vers lequel on essaye d'aller
+        //Si il n' y a pas de lien entre le chapitre actuel et le chapitre vers lequel on essaye d'aller
         if(!DataBase::linkExists($hero->getChapter(), $nextChap))
             die("vous ne pouvez pas accéder à ce chapitre depuis votre chapitre actuel"); 
 
@@ -84,24 +84,12 @@ class ChapitreController {
 
             //Si un monstre est à affronter
             if($linkMonsterID > 0){
-                //On fait le combat 
-                $battleWon = $this->faceMonster($linkMonsterID); 
-
-                //si le combat est gagné 
-                if($battleWon){
-                    //On passe au chapitre suivant
-                    $this->nextChapter($nextChap, $linkTreasure, 0, $itemID, $spellID); 
-                }//si le combat est gagné 
-                
-                //si le combat n'est pas gagné
-                else{
-                    //On recommence depuis le début
-                    header("Location: /dx_11/reinitialisationHero"); 
-                }//si le combat n'est pas gagné
-
+                $_SESSION["combatChap"] = $nextChap; $_SESSION["combatTreasure"] = $linkTreasure; $_SESSION["monster"] = Factory::monsterInstance($linkMonsterID);
+                //On le fait 
+                header("Location: /dx_11/combat");
             }//Si un monstre est à affronter
-            
-            //S'il n'y a pas de monstre à affronter
+
+            //S'il n'y a aucun monstre à affronter
             else{
                 //On met à jour les infos du héro 
                 $this->updateHero($hero, $linkTreasure, $nextChap); 
@@ -111,7 +99,7 @@ class ChapitreController {
 
                 //On affiche le nouveau chapitre
                 header("Location: /dx_11/chapitre"); 
-            }//S'il n'y a pas de monstre à affronter
+            }//S'il n'y a aucun monstre à affronter
 
         }//Si on est connecté et qu'on a un hero récupéré
     }//fonction nextChapter()
