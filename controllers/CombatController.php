@@ -1,26 +1,5 @@
 <?php
 class CombatController{
-    /*
-    public function test(){
-        if(!isset($_SESSION["hero"])){
-            $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 100, 100, 12, 10, 10, 1, 3, 0); //tj pour les tests
-    
-            $_SESSION["hero"]->collecteSpell(new AttackingSpell(1, 4, "boule de feu", 10));
-            $_SESSION["hero"]->collecteSpell(new AttackingSpell(8, 5, "Tranche de vent", 1));
-            $_SESSION["hero"]->collecteSpell(new BoostingSpell(13, 3,"initiative", 3, "rythme du soleil levant", 5));
-            $_SESSION["hero"]->collecteSpell(new AttackingSpell(10, 2, "Onde Obscure", 13));
-            $potionTest = Factory::itemInstance(17, 1, "potion de vie", "rends 5 pv", 1, 3);
-            $_SESSION["hero"]->collecteItem($potionTest);
-            $_SESSION["hero"]->collecteItem(Factory::itemInstance(18, 1, "potion de mana", "rends 5 points de mana", 1, 3));
-
-            $_SESSION["hero"]->dropItem($potionTest);
-
-        }
-
-        if(!isset($_SESSION["combatMonster"])){
-            $_SESSION["combatMonster"] = DataBase::getMonster(1);
-        }
-    }*/
 
     /**
      * Fonction appelée au chargement de la page "combat"

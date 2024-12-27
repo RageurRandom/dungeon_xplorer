@@ -29,7 +29,7 @@ class Warrior extends Hero {
      * @return Shield bouclier équipé
      */
     public function getShield(){
-        return $shield;
+        return $this->shield;
     }
 
     /**
