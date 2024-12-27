@@ -56,18 +56,6 @@ class CombatController{
         $combatEnded = false;
         $battleWon = false;
 
-        if(isset($_POST["weapon"]) && $_POST["weapon"] != "current"){
-            $this->equipWeapon($_POST["weapon"]);
-        }
-
-        if(isset($_POST["armor"]) && $_POST["armor"] != "current"){
-            $this->equipWeapon($_POST["armor"]);
-        }
-
-        if(isset($_POST["shield"]) && $_POST["shield"] != "current"){
-            $this->equipShield($_POST["weapon"]);
-        }
-
         if(isset($_POST["action"])){ //la baston
         
             if($_SESSION["combatIsPlayerFirst"]){
@@ -81,33 +69,16 @@ class CombatController{
             //fin du tour
             if($_SESSION["monster"]->isDead()){
                 //chapitre suivant
-                
+                echo "chapitre suivant\n";
                 $this->endFight();
                 $_SESSION["battleWon"] = true; 
-
-                //recherche de l'id du monstre
-                $DB = DataBase::getInstance(); 
-                $query = "select monster_id from monster where monster_name = ?"; 
-                $statement = $DB->prepare_statement($query);
-                $monsterName = $_SESSION["monster"]->getName();
-                $statement->bindParam(1, $monsterName);
-                $statement->execute();
-                $result = $statement->fetchAll();
-
-                if(count($result) > 0){
-                    $this->monsterSlayed($result[0]["monster_id"]);
-                }
-                
-                echo "<a href = \"/dx_11/chapitreSuivant/". $_SESSION["combatChap"] . "/". $_SESSION["combatTreasure"]."/0/0/0\">Continuer</a>";
-                
                 $combatEnded = true;
                 $battleWon = true;
-                die();
             }
 
             if($_SESSION["hero"]->isDead()){
                 //mort puis chapitre 10
-                
+                echo "mort\n";
                 $this->endFight();
                 $_SESSION["battleWon"] = false; 
                 $combatEnded = true;
