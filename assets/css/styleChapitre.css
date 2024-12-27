@@ -1,97 +1,100 @@
-@font-face {
-    font-family: 'PirataOne';
-    src: url('../fonts/PirataOne-Regular.ttf') format('truetype');
+:root {
+  --color-primary: #1A1A1A;
+  --color-secondary: #2E2E2E;
+  --text-primary: #E5E5E5;
+  --text-secondary: #BFBFBF;
+  --btn-primary: #C4975E;
+  --btn-secondary: #8B1E1E;
+  --alert: #8B1E1E;
+  --success: #4A7A66;
 }
 
-body, h1, p, ul, li {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
 
-  body {
-    background-image: url("../images/dungeonBackground2.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    font-family: 'PirataOne', sans-serif;
-    font-size: 4vh;
-    color: #333;
-    padding: 0px 20vh;
-    line-height: 1.5;
-  }
-  
-  /* Titre principal */
-  h1 {
-    text-shadow: 10px 10px 15px rgba(0, 0, 0, 1);
-    font-size: 10vh;
-    margin: 8vh 0;
-    color: #FFD700; /* Or doré */
-    text-align: center;
-  }
-  
-  .content{
-    display: flex;
-    justify-content: center;
-    gap: 15vh;
+
+/* Luke */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+  background-color: #1A1A1Adc; /* Set to a solid color */
+  margin: 15% auto;
+  padding: 20px;
+  padding-left: 50px;
+  border: 3px solid var(--btn-primary);
+  width: 70%;
+  max-height: 70%;
+  overflow-y: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-  /* Section Héros */
-  .hero-section {
-    padding: 2vh;
-    border: 2px solid #8B4513; /* Brun foncé */
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 1);
-    color: #e5e5e5;
-    float: left;
-  }
-  
-  /* Contenu du chapitre */
-  .chapter-content {
-    padding: 2vh;
-    float: right;
-    max-width: 120vh;
-    border: 2px solid #8B4513; /* Brun foncé */
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    box-shadow:10px 10px 15px rgba(0, 0, 0, 1);
-    color: #e5e5e5;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Boutons */
-  .buttons {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin: auto 0;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-  
-  .buttons li{
-    margin: 2vh 0;
-  }
+.close {
+  color: var(--text-secondary);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
-  .buttons li a{
-    font-size: 4vh;
-    border: 2px solid #8B4513; /* Brun foncé */
-    padding: 0.5rem 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: #FFD700;
-    cursor: pointer;
-    transition: 0.3s ease;
-    text-decoration: none;
-  }
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-  .buttons li a:hover {
-    color: rgb(0, 0, 0);
-    background-color: #FFD700;
-  }
-  
+/* Mathis */
+
+/* Contenu du chapitre */
+.chapter-content {
+  padding: 2vh;
+
+  border: 2px solid #8B4513;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 1);
+  color: #e5e5e5;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Boutons */
+.buttons {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: auto 0;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.buttons li {
+  margin: 2vh 0;
+}
+
+.buttons li a {
+  font-size: 4vh;
+  border: 2px solid #8B4513;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #FFD700;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+.buttons li a:hover {
+  color: rgb(0, 0, 0);
+  background-color: #FFD700;
+}
