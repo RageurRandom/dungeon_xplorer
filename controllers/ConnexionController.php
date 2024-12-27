@@ -66,10 +66,11 @@ class ConnexionController {
             // On récupère les infos du compte à créer
             $userMail = strtoupper($_POST['userMail']); 
             $userPassword = password_hash($_POST['userPassword'], PASSWORD_DEFAULT); // Chiffrer le mot de passe
-            $userName = strtoupper($_POST['userName']); 
+            $userName = strtoupper($_POST['userName']);
+            $userAdmin = (isset($_POST["userAdmin"])); 
         
             // On crée le compte
-            DataBase::createAccount($userMail, $userPassword, $userName);
+            DataBase::createAccount($userMail, $userPassword, $userName, $userAdmin);
         
             // On se connecte 
             $this->login($userMail, $_POST['userPassword']); 
@@ -97,7 +98,10 @@ class ConnexionController {
             // On vérifie si l'utilisateur a un héros dans la base de données et on stocke cette info dans la session
             $hasHero = DataBase::hasHero($userMail); 
             $_SESSION["hasHero"] = $hasHero; 
-    
+            
+            //On vérifie si c'est compte admin
+            $_SESSION["adminAccount"] = ($result[0]["user_admin"] == 1); 
+
             // On initialise les variables de connexion
             $_SESSION["connected"] = true;
             $_SESSION["userMail"] = $userMail;
