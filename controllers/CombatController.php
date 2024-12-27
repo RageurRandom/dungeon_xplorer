@@ -2,7 +2,7 @@
 class CombatController{
     public function test(){
         if(!isset($_SESSION["hero"])){
-            $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 70, 100, 12, 10, 10, 5, 3, 0); //tj pour les tests
+            $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 1, 100, 12, 10, 10, 1, 3, 0); //tj pour les tests
     
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(1, 4, "boule de feu", 10));
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(8, 5, "Tranche de vent", 1));
@@ -139,7 +139,7 @@ class CombatController{
             header("Location: /dx_11");
         }
 
-        //echo "<pre>";
+        echo "<pre>";
 
         if(isset($_POST["action"])){ //la baston
         
@@ -155,18 +155,22 @@ class CombatController{
             if($_SESSION["combatMonster"]->isDead()){
                 //chapitre suivant
                 echo "chapitre suivant\n";
+                echo "<a href = \"/dx_11/chapitreSuivant/". $_SESSION["combatChap"] . "/0/0/0/0\">Continuer</a>";
+                die();
             }
 
             if($_SESSION["hero"]->isDead()){
                 //mort puis chapitre 10
                 echo "mort\n";
+                echo "<a href = \"/dx_11/chapitreSuivant/10/0/0/0/0\">Continuer</a>";
+                die();
             }
         }
 
         //calcul de l'initiative pour le prochain tour
         $_SESSION["combatIsPlayerFirst"] = $this->isPlayerFirst($_SESSION["hero"], $_SESSION["combatMonster"]);
         
-        //echo "</pre>";
+        echo "</pre>";
         require_once 'views/combat.php';
     }
     

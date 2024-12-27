@@ -58,7 +58,7 @@ class ChapitreController {
 
         $hero = $_SESSION["hero"];
 
-        //Si il n' y a pas de lien entre le cahpitre actuel et le chapitre vers lequel on essaye d'aller
+        //Si il n' y a pas de lien entre le chapitre actuel et le chapitre vers lequel on essaye d'aller
         if(!DataBase::linkExists($hero->getChapter(), $nextChap))
             die("vous ne pouvez pas accéder à ce chapitre depuis votre chapitre actuel"); 
 
