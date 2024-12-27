@@ -38,6 +38,9 @@
         <input type="password" placeholder="mot de passe" id="userPassword" class="form-control" name="userPassword"
             required />
 
+        <label for="userAdmin" class="sr-only">Compte admin</label>
+        <input type="checkbox" name="userAdmin" value="1"/>
+
         <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">créer un compte</button>
         <p> si vous avez déjà un compte
         <a class="btn btn-link" href="connexion">cliquer ici vous connecter</a></p>

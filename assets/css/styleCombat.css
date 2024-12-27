@@ -1,0 +1,40 @@
+:root {
+    --color-primary: #1A1A1A;
+    --color-secondary: #2E2E2E;
+    --text-primary: #E5E5E5;
+    --text-secondary: #BFBFBF;
+    --btn-primary: #C4975E;
+    --btn-secondary: #8B1E1E;
+    --alert: #8B1E1E;
+    --success: #4A7A66;
+  }
+
+body {
+    color: var(--text-primary);
+}
+
+.custom-card {
+    color: var(--text-primary);
+    background-color: #1a1a1a86; /* Transparent gray */
+    border: 3px solid var(--btn-primary);
+}
+
+.btn-sort {
+    background-color: rgb(102, 51, 153);
+    border-color: rgb(102, 51, 153);
+}
+
+.btn-sort:hover {
+    background-color: rgb(76, 37, 116);
+    border-color: rgb(76, 37, 116);
+}
+
+.btn-object {
+    background-color: rgb(39, 60, 180);
+    border-color: rgb(39, 60, 180);
+}
+
+.btn-object:hover {
+    background-color: rgb(30, 47, 139);
+    border-color: rgb(30, 47, 139);
+}
