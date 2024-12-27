@@ -38,6 +38,7 @@
                 <p><a class="btn btn-primary btn-lg btn-light deconnexion-btn" href="deconnexion">déconnexion</a></p>
 
                 <p><a class="btn btn-primary btn-lg btn-light" href='creationHero'>nouvelle aventure</a></p>
+                <p><a class="btn btn-primary btn-lg btn-light" href='profile'>profile</a></p>
             </div>
         </div>
     </div>
