@@ -270,7 +270,7 @@ class CombatController{
                 $damages = "Aucun";
             }
 
-            echo  "$damages dégâts subis !\n";
+            //echo  "$damages dégâts subis !\n";
         }
     }
 
