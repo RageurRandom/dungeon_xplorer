@@ -115,7 +115,25 @@ class DataBase{
             die("impossible de changer le MDP pour cette adresse mail : $userMail");
         else if($nbLines > 1)
             die("une erreure s'est produite");
-    }
+    }//fonction changePassword()
+
+    /**
+     * permet de changer le nom de l'utilisateur connecté
+     * @param string $newUserName le nouveau nom
+     */
+    public static function changeUserName($newUserName){
+        $DB = DataBase::getInstance();
+        $userMail = strtoupper($_SESSION["userMail"]);
+
+        //On change le MDP dans la BDD
+        $query = "update user set user_name = '$newUserName' where upper(user_mail) = '$userMail'"; 
+        $nbLines = $DB->excute($query); 
+
+        if($nbLines == 0)
+            die("impossible de changer le nom pour cette adresse mail : $userMail");
+        else if($nbLines > 1)
+            die("une erreure s'est produite");
+    }//fonction changePassword()
 
     /**
      * récupère un compte depuis la base de donnée

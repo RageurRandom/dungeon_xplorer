@@ -82,6 +82,7 @@ $router->addRoute('recuperationHero', 'PersonnageController@getHero'); // Pour r
 
 $router->addRoute('profile', 'ProfileController@index'); // Pour afficher la page de profile
 $router->addRoute('changerMDP', 'ProfileController@changePassword'); // Pour changer le MDP
+$router->addRoute('changerNomU', 'ProfileController@changeUserName'); //Pour changer le nom d'utilisateur
 
 $router->addRoute('chapitre', 'ChapitreController@showChapter'); // Pour afficher le chapitre en cours
 $router->addRoute('chapitreSuivant/{numChap}/{tresor}/{monstreID}/{itemID}/{spellID}', 'ChapitreController@nextChapter'); //Pour passer d'un chapitre à l'autre

@@ -34,17 +34,35 @@
                             $this->printUser(); 
                         ?>
                     </p>
+                    
+                    <form class="form-signin" action="changerNomU" method = "post">
+                        <h2>changer le nom d'utilisateur</h2>
+
+                        <?php if (isset($_SESSION["changeUserName_error"])): ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo $_SESSION["changeUserName_error"]; unset($_SESSION["changeUserName_error"]); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <label for="newUserName" class="sr-only">Nouveau Nom d'utilisateur</label>
+                        <input type="text" placeholder="Nom d'utilisateur" id="userName" class="form-control" name="newUserName" required>
+
+                        <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">CHANGER LE NOM D'UTILISATEUR</button>
+                    </form>
+
                     <form class="form-signin" action="changerMDP" method = "post">
                         <h2>changer le mot de passe</h2>
+
                         <?php if (isset($_SESSION["changePassword_error"])): ?>
                             <div class="alert alert-danger" role="alert">
                                 <?php echo $_SESSION["changePassword_error"]; unset($_SESSION["changePassword_error"]); ?>
                             </div>
                         <?php endif; ?>
+
                         <label for="oldPassword" class="sr-only">Ancien mot de passe</label>
-                        <input type="password" id="userPassword" class="form-control mb-3" placeholder="Password" name="oldPassword" required>
+                        <input type="password" id="userPassword" class="form-control mb-3" placeholder="ancien MDP" name="oldPassword" required>
                         <label for="newPassword" class="sr-only">Nouveau mot de passe</label>
-                        <input type="password" id="userPassword" class="form-control mb-3" placeholder="Password" name="newPassword" required>
+                        <input type="password" id="userPassword" class="form-control mb-3" placeholder="nouveau MDP" name="newPassword" required>
 
                         <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">CHANGER LE MOT DE PASSE</button>
                         </form>
