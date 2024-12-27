@@ -145,9 +145,11 @@ class ChapitreController {
      * @param Hero $hero le hero à afficher
      */
     public function printHero($hero){
-        echo '<button id="heroInfoButton">Afficher les informations du hero</button>';
-        echo '<button id="inventoryButton">Afficher l\'inventaire</button>';
-        echo '<button id="spellsButton">Afficher les sorts</button>';
+        echo '<div class="justify-content-center align-items-center d-flex">';
+        echo '<button class="btn btn-primary btn-lg btn-light m-3" id="heroInfoButton">info hero</button>';
+        echo '<button class="btn btn-primary btn-lg btn-light m-3" id="inventoryButton">inventaire</button>';
+        echo '<button class="btn btn-primary btn-lg btn-light m-3" id="spellsButton">sorts</button>';
+        echo '</div>';
 
         echo '<div id="heroInfoModal" class="modal">
                 <div class="modal-content">

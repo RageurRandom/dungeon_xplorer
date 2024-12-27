@@ -13,6 +13,10 @@
 
 /* Luke */
 
+h1{
+  font-size: 3rem;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -55,15 +59,13 @@
 
 /* Contenu du chapitre */
 .chapter-content {
-  padding: 2vh;
+  padding: 1rem;
+  width: 100%;
 
-  border: 2px solid #8B4513;
+  border: 2px solid var(--btn-primary);
   background: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 1);
-  color: #e5e5e5;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Boutons */
@@ -83,12 +85,12 @@
 
 .buttons li a {
   font-size: 4vh;
-  border: 2px solid #8B4513;
+  border: 2px solid var(--btn-primary);
   padding: 0.5rem 1rem;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: #FFD700;
+  color: var(--text-primary);
   cursor: pointer;
   transition: 0.3s ease;
   text-decoration: none;
@@ -96,5 +98,17 @@
 
 .buttons li a:hover {
   color: rgb(0, 0, 0);
-  background-color: #FFD700;
+  background-color: var(--success);
+}
+
+
+@media (max-width: 425px) {
+  .buttons li a {
+    margin: 10px;
+  }
+
+  p, .btn, .buttons li a{
+      font-size: 1rem;
+  }
+
 }

@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/5022ecc52d.js" crossorigin="anonymous"></script>
+
     
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"
+        defer></script>
+
+
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="assets/css/styleChapitre.css" rel="stylesheet">
 
@@ -11,11 +23,13 @@
     <title>Chapitre</title>
 
 </head>
-<body>
-    <h1> Chapitre <?php echo $hero->getChapter(); ?> </h1>
+<body class="content justify-content-center align-items-center d-flex flex-column">
+   <h1> Chapitre <?php echo $hero->getChapter(); ?> </h1>
     
-    <div class="content">
-        <div class="hero-section">
+    <div class="justify-content-center align-items-center d-flex flex-column">    
+        <a href="connexion" class="home-btn"><i class="fas fa-home"></i></a>
+
+        <div class="hero-section justify-content-center align-items-center d-flex">
             <p>
                 <?php
                     // On affiche le hero
@@ -24,7 +38,7 @@
             </p>
         </div>
 
-        <div class="chapter-content"> 
+        <div class="chapter-content justify-content-center align-items-center d-flex flex-column"> 
             <p>
                 <?php echo $chapterInfos[0]["chapter_content"] ?>
             </p> 
