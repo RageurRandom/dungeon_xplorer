@@ -45,7 +45,6 @@ class ChapitreController {
     public function nextChapter($nextChap, $linkTreasure, $linkMonsterID, $itemID, $spellID){ 
         session_start(); 
 
-
         //si on n'est pas connecté
         if(!isset($_SESSION["connected"]) || !($_SESSION["connected"] === true)){ 
             header("Location: /dx_11/connexion");
@@ -85,32 +84,12 @@ class ChapitreController {
 
             //Si un monstre est à affronter
             if($linkMonsterID > 0){
-                //si le combat a déjà été fait 
-                if(isset($_POST["battleWon"])){
-
-                    //Si le combat est gagné
-                    if($_POST["battleWon"])
-                        //On passe au chapitre suivant
-                        $this->nextChapter($nextChap, $linkTreasure, 0, $itemID, $spellID);
-
-                    //Si le combat est perdu    
-                    else
-                        //On recommence depuis le début
-                        header("Location: /dx_11/reinitialisationHero");
-
-                }//si le combat a déjà été fait 
-
-                //Si le combat n'a pas déjà été fait
-                else{
-                    $_SESSION["combatChap"] = $nextChap; $_SESSION["combatTreasure"] = $linkTreasure;  $_SESSION["combatMonster"] = $linkMonsterID;
-                    $_SESSION["combatItem"] = $itemID; $_SESSION["combatSpell"] = $spellID; $_SESSION["monster"] = DataBase::getMonster($linkMonsterID);
-                    //On le fait 
-                    require_once "views/combat.php"; //TODO probleme il faut plutot aller directement à la page du combat
-                }//Si le combat n'a pas déjà été fait
-
+                $_SESSION["combatChap"] = $nextChap; $_SESSION["combatTreasure"] = $linkTreasure; $_SESSION["monster"] = Factory::monsterInstance($linkMonsterID);
+                //On le fait 
+                header("Location: /dx_11/combat");
             }//Si un monstre est à affronter
-            
-            //S'il n'y a pas de monstre à affronter
+
+            //S'il n'y a aucun monstre à affronter
             else{
                 //On met à jour les infos du héro 
                 $this->updateHero($hero, $linkTreasure, $nextChap); 
@@ -120,7 +99,7 @@ class ChapitreController {
 
                 //On affiche le nouveau chapitre
                 header("Location: /dx_11/chapitre"); 
-            }//S'il n'y a pas de monstre à affronter
+            }//S'il n'y a aucun monstre à affronter
 
         }//Si on est connecté et qu'on a un hero récupéré
     }//fonction nextChapter()

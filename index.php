@@ -86,7 +86,7 @@ $router->addRoute('chapitre', 'ChapitreController@showChapter'); // Pour affiche
 $router->addRoute('chapitreSuivant/{numChap}/{tresor}/{monstreID}/{itemID}/{spellID}', 'ChapitreController@nextChapter'); //Pour passer d'un chapitre à l'autre
 
 $router->addRoute('profile', 'ProfileController@index'); // Pour le profile
-$router->addRoute('combat', 'CombatController@index'); 
+$router->addRoute('combat', 'CombatController@index');//Pour lancer un combat 
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

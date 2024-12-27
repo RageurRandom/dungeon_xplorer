@@ -1,5 +1,6 @@
 <?php
 class CombatController{
+    /*
     public function test(){
         if(!isset($_SESSION["hero"])){
             $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 100, 100, 12, 10, 10, 1, 3, 0); //tj pour les tests
@@ -19,6 +20,72 @@ class CombatController{
         if(!isset($_SESSION["combatMonster"])){
             $_SESSION["combatMonster"] = DataBase::getMonster(1);
         }
+    }*/
+
+    /**
+     * Fonction appelée au chargement de la page "combat"
+     */
+    public function index() {
+        session_start();
+
+        //si on n'est pas connecté
+        if(!isset($_SESSION["connected"]) || !($_SESSION["connected"] === true)){ 
+            header("Location: /dx_11/connexion");
+        }//si on n'est pas connecté
+
+        //Si aucun hero n'est récupéré
+        if(!isset($_SESSION["hero"])){
+            header("Location: /dx_11/recuperationHero");
+        }//Si aucun hero n'est récupéré
+
+        //Si aucun moonstre n'est récupéré
+        if(!isset($_SESSION["monster"])){
+            header("Location: /dx_11/chapitre");
+        }//Si aucun moonstre n'est récupéré
+
+        if(!isset($_SESSION["tabBoost"])){
+            $_SESSION["tabBoost"] = [];
+        } else {
+            $this->updateBoost();
+        }
+
+        echo "<pre>";
+
+        if(isset($_POST["action"])){ //la baston
+        
+            if($_SESSION["combatIsPlayerFirst"]){
+                $this->playerAction($_POST["action"]);
+                $this->ennemyAction();
+            } else {
+                $this->ennemyAction();
+                $this->playerAction($_POST["action"]);
+            }
+        
+            //fin du tour
+            if($_SESSION["monster"]->isDead()){
+                //chapitre suivant
+                echo "chapitre suivant\n";
+                $this->endFight();
+                $_SESSION["battleWon"] = true; 
+                echo "<a href = \"/dx_11/chapitreSuivant/". $_SESSION["combatChap"] . "/". $_SESSION["combatTreasure"]."/0/0/0\">Continuer</a>";
+                die();
+            }
+
+            if($_SESSION["hero"]->isDead()){
+                //mort puis chapitre 10
+                echo "mort\n";
+                $this->endFight();
+                $_SESSION["battleWon"] = false; 
+                echo "<a href = \"/dx_11/reinitialisationHero\">recommencer</a>";
+                die();
+            }
+        }
+
+        //calcul de l'initiative pour le prochain tour
+        $_SESSION["combatIsPlayerFirst"] = $this->isPlayerFirst($_SESSION["hero"], $_SESSION["monster"]);
+        
+        echo "</pre>";
+        require_once 'views/combat.php';
     }
 
     /**
@@ -71,7 +138,7 @@ class CombatController{
         $resRequest = DataBase::getSpell($spellId)[0]; //y a qu'un sort normalement
 
         $spell = Factory::spellInstance($spellId, $resRequest["spell_name"], $resRequest["spell_mana_cost"]);
-
+        
         $_SESSION["hero"]->useBoostingSpell($spell);
 
         array_push($_SESSION["tabBoost"], array("target" => $spell->getBoostTarget(), "remaining_time" => $spell->getBoostDuration(), "value" => $spell->getBoostValue()));
@@ -89,7 +156,7 @@ class CombatController{
 
         $spell = Factory::spellInstance($spellId, $resRequest["spell_name"], $resRequest["spell_mana_cost"]);
 
-        $_SESSION["hero"]->useAttackingSpell($spell, $_SESSION["combatMonster"]);
+        $_SESSION["hero"]->useAttackingSpell($spell, $_SESSION["monster"]);
     }
 
     /**
@@ -142,13 +209,13 @@ class CombatController{
             if($action === "attack"){ //attaque classique
                 echo $heros->getName() . " attaque !\n";
 
-                $damages = $_SESSION["hero"]->attack($_SESSION["combatMonster"]);
+                $damages = $_SESSION["hero"]->attack($_SESSION["monster"]);
 
                 if($damages == 0){
                     $damages = "Aucun";
                 }
 
-                echo  "$damages dégâts subis par ". $_SESSION["combatMonster"]->getName() . "!\n";
+                echo  "$damages dégâts subis par ". $_SESSION["monster"]->getName() . "!\n";
 
             } else {
                 $tab = explode('_', $action);
@@ -185,11 +252,11 @@ class CombatController{
      * actuellement juste une attaque, pourrais être étendu pour par exemple intégrer un système de sorts
      */
     public function ennemyAction(){
-        if($_SESSION["combatMonster"]->isDead()){
-            echo $_SESSION["combatMonster"]->getName() . " a succombé(e)\n";
+        if($_SESSION["monster"]->isDead()){
+            echo $_SESSION["monster"]->getName() . " a succombé(e)\n";
         } else {
             echo "L'ennemi attaque !\n";
-            $damages = $_SESSION["combatMonster"]->attack($_SESSION["hero"]);
+            $damages = $_SESSION["monster"]->attack($_SESSION["hero"]);
 
             if($damages == 0){
                 $damages = "Aucun";
@@ -217,67 +284,7 @@ class CombatController{
         return $heros_init > $monster_init;
     }
 
-
-
-    /**
-     * Fonction appelée au chargement de la page "combat"
-     */
-    public function index() {
-        session_start();
-
-        $this->test(); //TODO retirer
-
-        if(!isset($_SESSION["tabBoost"])){
-            $_SESSION["tabBoost"] = [];
-        } else {
-            $this->updateBoost();
-        }
-
-        if(!isset($_SESSION["hero"]) || !isset($_SESSION["combatMonster"])){
-            //erreur
-            echo "erreur\n";
-            header("Location: /dx_11");
-        }
-
-        echo "<pre>";
-
-        if(isset($_POST["action"])){ //la baston
         
-            if($_SESSION["combatIsPlayerFirst"]){
-                $this->playerAction($_POST["action"]);
-                $this->ennemyAction();
-            } else {
-                $this->ennemyAction();
-                $this->playerAction($_POST["action"]);
-            }
-        
-            //fin du tour
-            if($_SESSION["combatMonster"]->isDead()){
-                //chapitre suivant
-                echo "chapitre suivant\n";
-                $this->endFight();
-                echo "<a href = \"/dx_11/chapitreSuivant/". $_SESSION["combatChap"] . "/0/0/0/0\">Continuer</a>";
-                die();
-            }
-
-            if($_SESSION["hero"]->isDead()){
-                //mort puis chapitre 10
-                echo "mort\n";
-                $this->endFight();
-                echo "<a href = \"/dx_11/chapitreSuivant/10/0/0/0/0\">Continuer</a>";
-                die();
-            }
-        }
-
-        //calcul de l'initiative pour le prochain tour
-        $_SESSION["combatIsPlayerFirst"] = $this->isPlayerFirst($_SESSION["hero"], $_SESSION["combatMonster"]);
-        
-        echo "</pre>";
-        require_once 'views/combat.php';
-    }
-    
-
-    
 }
 
 ?>

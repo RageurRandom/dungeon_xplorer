@@ -488,33 +488,39 @@ class DataBase{
         header("Location: /dx_11/chapitre"); 
     }//fonction saveHero()
 
-
+    /**
+     * permet de retourner un monstre de la table monster
+     * @param int $monster_id l'ID du monstre à retourner
+     */
     public static function getMonster($monster_id){
         $DB = DataBase::getInstance();
 
-        try {
-            $querry = "SELECT monster_name, monster_HP, monster_mana, monster_strength, monster_initiative FROM monster
-            WHERE monster_id = ?";
-
-            $statement = $DB->prepare_statement($querry);
-
-            $statement->bindParam(1, $monster_id);
-            $statement->execute();
-            $results = $statement->fetchAll();
-        } catch (Exception $e) {
-            die("Erreur getMonster : " . $e->getMessage());
-        }
+        $querry = "SELECT * FROM monster WHERE monster_id = $monster_id";
+        $statement = $DB->unprepared_statement($querry);
+        $results = $statement->fetchAll();
 
         if(count($results) > 0){
-            $row = $results[0];
-
-            $res = new Fighter($row["monster_name"], $row["monster_HP"], $row["monster_HP"], $row["monster_mana"], $row["monster_mana"], $row["monster_initiative"], $row["monster_strength"]);
-            
-            return $res;
-        } else {
-            die(print_r($results));
-            return NULL;
+            return $results; 
         }
-    }
+        else{
+            die("aucun monstre trouvé avec cet ID : $monster_id"); 
+        }
+    }//Fonction getMonster()
+
+    /**
+     * retourne toutes les lignes de loot associée au monstre passé en paramètre + les infos de chaque item
+     * @param int $monster_id le ID du monstre
+     */
+    public static function getLoot($monster_id){
+        $DB = DataBase::getInstance();
+        $query = "select * from loot 
+                    join item using (item_id)
+                    where monster_id = $monster_id"; 
+        $statement = $DB->unprepared_statement($query); 
+        $result = $statement->fetchAll();
+        return $result;
+    }//Fonction getLoot
+
+
 }
 ?>

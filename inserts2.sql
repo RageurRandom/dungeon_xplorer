@@ -1,6 +1,6 @@
 -- Insertion des monstres
 INSERT INTO monster (monster_id, monster_name, monster_HP, monster_mana, monster_strength, monster_initiative, monster_xp) VALUES
-(1, 'Sanglier enragé', 50, 0, 15, 5, 50),
+(1, 'Sanglier enragé', 50, 0, 50, 5, 50),
 (2, 'Loup noir', 40, 0, 10, 7, 80);
 
 -- Insertion des chapitres

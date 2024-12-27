@@ -14,26 +14,9 @@
     } else {
         echo "<h1>Un adversaire approche !</h1>";
     }
-
-    
-    
     
     $heros = $_SESSION["hero"];
-
-    if(!isset($heros)){
-        //problème
-        die("Erreur : Cet héros n'existe pas dans la base de données");
-    }
-
-    
-
-    $monster = $_SESSION["combatMonster"];
-
-    if(!isset($monster)){
-        //problème
-        die("Erreur : Ce monstre n'existe pas dans la base de données");
-    }
-
+    $monster = $_SESSION["monster"];
 
     
     //affichage noms CSS REQUIS
