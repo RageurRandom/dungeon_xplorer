@@ -13,9 +13,9 @@ class DataBase{
      *  dont l'attribut $DB est une PDO de connexion à la BDD dx_11 en localhost  
      */
     private function __construct(){
-        $DB_adresse = 'mysql:host=localhost;port=3306;dbname=dx_11;charset=utf8'; 
-        $user = 'root'; 
-        $password = ''; 
+        $DB_adresse = 'mysql:host=mysql-etu.unicaen.fr;port=3306;dbname=remo231_0;charset=utf8'; 
+        $user = 'remo231'; 
+        $password = 'iewoh5RooghohFa4'; 
 
         $this->DB = new PDO($DB_adresse, $user, $password); 
         $this->DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
