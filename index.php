@@ -84,13 +84,15 @@ $router->addRoute('reinitialisationHero', 'PersonnageController@resetHero'); // 
 $router->addRoute('profile', 'ProfileController@index'); // Pour afficher la page de profile
 $router->addRoute('changementMDP', 'ProfileController@changePassword'); // Pour changer le MDP
 $router->addRoute('changementNomU', 'ProfileController@changeUserName'); //Pour changer le nom d'utilisateur
-$router->addRoute('suppressionCompte', 'ProfileController@deleteAccount'); //Pour changer le nom d'utilisateur
+$router->addRoute('suppressionCompte', 'ProfileController@deleteAccount'); //Pour supprimer un compte
 
 $router->addRoute('chapitre', 'ChapitreController@showChapter'); // Pour afficher le chapitre en cours
 $router->addRoute('chapitreSuivant/{numChap}/{tresor}/{monstreID}/{itemID}/{spellID}', 'ChapitreController@nextChapter'); //Pour passer d'un chapitre à l'autre
 
-$router->addRoute('profile', 'ProfileController@index'); // Pour le profile
 $router->addRoute('combat', 'CombatController@index');//Pour lancer un combat 
+
+$router->addRoute('modificationHistoire', 'HistoireController@index'); // Pour modifier le jeu
+$router->addRoute('suppressionCompte2', 'HistoireController@deleteAccount'); // Pour supprimer un compte par un Admin
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
