@@ -85,6 +85,8 @@ class CombatController{
     public function playerAttackSpell($spellId){
         $resRequest = DataBase::getSpell($spellId)[0]; //y a qu'un sort normalement
 
+        print_r($resRequest);
+
         $spell = Factory::spellInstance($spellId, $resRequest["spell_name"], $resRequest["spell_mana_cost"]);
 
         $_SESSION["hero"]->useAttackingSpell($spell, $_SESSION["combatMonster"]);
@@ -162,7 +164,7 @@ class CombatController{
                         $this->playerBoost($id);
                         break;
 
-                    case "attacking_spell":
+                    case "attackingSpell":
                         $this->playerAttackSpell($id);
                         break;
 
