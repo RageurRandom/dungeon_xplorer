@@ -24,7 +24,7 @@
         <div class="container px-4 px-lg-5 h-100">
             <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
                 <div class="col-lg-8 align-self-end">
-                    <h1 class="font-weight-bold">PAGE DE PROFILE</h1>
+                    <h1 class="font-weight-bold">Profil</h1>
 
                     <hr class="divider" />
                 </div>
@@ -36,7 +36,7 @@
                     </p>
 
                     <form class="form-signin" action="changementNomU" method = "post">
-                        <h2>changer le nom d'utilisateur</h2>
+                        <h2>Changer le nom d'utilisateur</h2>
 
                         <?php if (isset($_SESSION["changeUserName_error"])): ?>
                             <div class="alert alert-danger" role="alert">
@@ -44,14 +44,14 @@
                             </div>
                         <?php endif; ?>
 
-                        <label for="newUserName" class="sr-only">Nouveau Nom d'utilisateur</label>
+                        <label for="newUserName" class="sr-only">Nouveau nom d'utilisateur</label>
                         <input type="text" placeholder="Nom d'utilisateur" id="userName" class="form-control" name="newUserName" required>
 
                         <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">CHANGER LE NOM D'UTILISATEUR</button>
                     </form>
 
                     <form class="form-signin" action="changementMDP" method = "post">
-                        <h2>changer le mot de passe</h2>
+                        <h2>Changer le mot de passe</h2>
 
                         <?php if (isset($_SESSION["changePassword_error"])): ?>
                             <div class="alert alert-danger" role="alert">
@@ -67,7 +67,7 @@
                         <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">CHANGER LE MOT DE PASSE</button>
                         </form>
                     <a class="btn btn-primary btn-lg btn-light" href="/dx_11/suppressionCompte">Supprimer le compte</a>
-                    <a class="btn btn-primary btn-lg btn-light" href="/dx_11/">Page d'accueil</a>
+                    <a class="btn btn-primary btn-lg btn-light" href="/dx_11/">Quitter</a>
                 </div>
             </div>
         </div>

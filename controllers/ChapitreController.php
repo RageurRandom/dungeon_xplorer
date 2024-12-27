@@ -146,29 +146,29 @@ class ChapitreController {
      */
     public function printHero($hero){
         echo '<div class="justify-content-center align-items-center d-flex">';
-        echo '<button class="btn btn-primary btn-lg btn-light m-3" id="heroInfoButton">info hero</button>';
-        echo '<button class="btn btn-primary btn-lg btn-light m-3" id="inventoryButton">inventaire</button>';
-        echo '<button class="btn btn-primary btn-lg btn-light m-3" id="spellsButton">sorts</button>';
+        echo '<button class="btn btn-primary btn-lg btn-light m-3" id="heroInfoButton">Info héros</button>';
+        echo '<button class="btn btn-primary btn-lg btn-light m-3" id="inventoryButton">Inventaire</button>';
+        echo '<button class="btn btn-primary btn-lg btn-light m-3" id="spellsButton">Sorts</button>';
         echo '</div>';
 
         echo '<div id="heroInfoModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
-                    <h2>Informations du Hero</h2>';
-        echo "nom du hero : ".$hero->getName()."<br>
-              type : ".$hero->getClass()."<br>
+                    <h2>Informations du héros</h2>';
+        echo "Nom du héros : ".$hero->getName()."<br>
+              Type : ".$hero->getClass()."<br>
               PV : ".$hero->getCurrentHP()."/".$hero->getMaxHP()."<br>
-              mana : ".$hero->getCurrentMana()."/".$hero->getMaxMana()."<br>
-              initiative : ".$hero->getInitiative()."<br>
-              force : ".$hero->getStrength()."<br>
+              Mana : ".$hero->getCurrentMana()."/".$hero->getMaxMana()."<br>
+              Initiative : ".$hero->getInitiative()."<br>
+              Force : ".$hero->getStrength()."<br>
               XP : ".$hero->getXP()."<br>
-              niveau : ".$hero->getLevel()."<br>";
+              Niveau : ".$hero->getLevel()."<br>";
 
         if($hero->getArmor() !== null)
-            echo "armure : ".$hero->getArmor()->getName()."<br>";
+            echo "Armure : ".$hero->getArmor()->getName()."<br>";
 
         if($hero->getWeapon() !== null)
-            echo "arme : ".$hero->getWeapon()->getName()."<br>"; 
+            echo "Arme : ".$hero->getWeapon()->getName()."<br>"; 
 
         echo '  </div>
               </div>';

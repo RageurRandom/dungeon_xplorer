@@ -87,7 +87,7 @@ class DataBase{
 
         //Si un compte existe déjà avec cette adresse mail
         if($result[0]["nb"] > 0){
-            die("un compte existe déjà avec cet adresse mail : $userMail"); 
+            die("Un compte existe déjà avec cet adresse mail : $userMail"); 
         }
 
         //Si aucun compte existe avec cette adresse mail
@@ -113,9 +113,9 @@ class DataBase{
         $nbLines = $DB->excute($query); 
 
         if($nbLines == 0)
-            die("impossible de supprimer le comtpe de cette adresse mail : $userMail. soit le compte n'existe pas, soit une autre erreur s'est produite");
+            die("Impossible de supprimer le comtpe de cette adresse mail : $userMail. soit le compte n'existe pas, soit une autre erreur s'est produite");
         else if($nbLines > 1)
-            die("une erreure s'est produite");
+            die("Une erreur s'est produite");
     }
 
     /**
@@ -129,9 +129,9 @@ class DataBase{
         $nbLines = $DB->excute($query); 
 
         if($nbLines == 0)
-            die("impossible de supprimer le comtpe de cette adresse mail : $userMail. soit le compte n'existe pas, soit une autre erreur s'est produite");
+            die("Impossible de supprimer le comtpe de cette adresse mail : $userMail. soit le compte n'existe pas, soit une autre erreur s'est produite");
         else if($nbLines > 1)
-            die("une erreure s'est produite");
+            die("Une erreur s'est produite");
     }
 
     /**
@@ -147,9 +147,9 @@ class DataBase{
         $nbLines = $DB->excute($query); 
 
         if($nbLines == 0)
-            die("impossible de changer le MDP pour cette adresse mail : $userMail");
+            die("Impossible de changer le MDP pour cette adresse mail : $userMail");
         else if($nbLines > 1)
-            die("une erreure s'est produite");
+            die("Une erreur s'est produite");
     }//fonction changePassword()
 
     /**
@@ -165,9 +165,9 @@ class DataBase{
         $nbLines = $DB->excute($query); 
 
         if($nbLines == 0)
-            die("impossible de changer le nom pour cette adresse mail : $userMail");
+            die("Impossible de changer le nom pour cette adresse mail : $userMail");
         else if($nbLines > 1)
-            die("une erreure s'est produite");
+            die("Une erreur s'est produite");
     }//fonction changePassword()
 
     /**
@@ -196,7 +196,7 @@ class DataBase{
         $result = $statement->fetchAll();
         
         if(count($result) === 0)
-            die("aucun compte existe avec cette adresse mail : $userMail"); 
+            die("Aucun compte n'existe avec cette adresse mail : $userMail"); 
 
         return $result; 
     }//fonction getAccount()

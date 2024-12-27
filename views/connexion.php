@@ -35,13 +35,13 @@
         </div>
     <?php endif; ?>
 
-      <label for="userMail" class="sr-only">Email address</label>
-      <input type="email" id="userMail" class="form-control" placeholder="Email address" name="userMail" required autofocus>
-      <label for="userPassword" class="sr-only">Password</label>
-      <input type="password" id="userPassword" class="form-control mb-3" placeholder="Password" name="userPassword" required>
+      <label for="userMail" class="sr-only">Adresse mail</label>
+      <input type="email" id="userMail" class="form-control" placeholder="exemple@mail.com" name="userMail" required autofocus>
+      <label for="userPassword" class="sr-only">Mot de passe</label>
+      <input type="password" id="userPassword" class="form-control mb-3" placeholder="Mot de passe" name="userPassword" required>
 
-      <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">SE CONNECTER</button>
-      <a class="btn btn-link" href="creationCompte">créer un compte</a>
+      <button class="btn btn-primary btn-lg btn-light mb-3" type="submit">Se connecter</button>
+      <a class="btn btn-primary btn-lg btn-light mb-3" href="creationCompte">Créer un compte</a>
 
     </form>
 </body>
