@@ -56,6 +56,18 @@ class CombatController{
         $combatEnded = false;
         $battleWon = false;
 
+        if(isset($_POST["weapon"]) && $_POST["weapon"] != "current"){
+            $this->equipWeapon($_POST["weapon"]);
+        }
+
+        if(isset($_POST["armor"]) && $_POST["armor"] != "current"){
+            $this->equipWeapon($_POST["armor"]);
+        }
+
+        if(isset($_POST["shield"]) && $_POST["shield"] != "current"){
+            $this->equipShield($_POST["weapon"]);
+        }
+
         if(isset($_POST["action"])){ //la baston
         
             if($_SESSION["combatIsPlayerFirst"]){
@@ -69,16 +81,33 @@ class CombatController{
             //fin du tour
             if($_SESSION["monster"]->isDead()){
                 //chapitre suivant
-                echo "chapitre suivant\n";
+                
                 $this->endFight();
                 $_SESSION["battleWon"] = true; 
+
+                //recherche de l'id du monstre
+                $DB = DataBase::getInstance(); 
+                $query = "select monster_id from monster where monster_name = ?"; 
+                $statement = $DB->prepare_statement($query);
+                $monsterName = $_SESSION["monster"]->getName();
+                $statement->bindParam(1, $monsterName);
+                $statement->execute();
+                $result = $statement->fetchAll();
+
+                if(count($result) > 0){
+                    $this->monsterSlayed($result[0]["monster_id"]);
+                }
+                
+                echo "<a href = \"/dx_11/chapitreSuivant/". $_SESSION["combatChap"] . "/". $_SESSION["combatTreasure"]."/0/0/0\">Continuer</a>";
+                
                 $combatEnded = true;
                 $battleWon = true;
+                die();
             }
 
             if($_SESSION["hero"]->isDead()){
                 //mort puis chapitre 10
-                echo "mort\n";
+                
                 $this->endFight();
                 $_SESSION["battleWon"] = false; 
                 $combatEnded = true;
@@ -204,6 +233,73 @@ class CombatController{
         
     }
 
+    /**
+     * équipe l'armure selectionnée
+     * @param string id de l'armure à mettre
+     */
+    public function equipArmor($armorId){
+        $requestRes = DataBase::getItem($armorId);
+        $requestRes = $requestRes[0];
+
+        $armor = Factory::itemInstance($armorId, $requestRes["item_weight"], $requestRes["item_name"], $requestRes["item_desc"], $requestRes["item_size"], 1);
+        $_SESSION["hero"]->putArmor($armor);
+    }
+
+    /**
+     * équipe l'arme selectionnée
+     * @param string id de l'arme à équiper
+     */
+    public function equipWeapon($weaponId){
+        $requestRes = DataBase::getItem($weaponId);
+        $requestRes = $requestRes[0];
+
+        $weapon = Factory::itemInstance($weaponId, $requestRes["item_weight"], $requestRes["item_name"], $requestRes["item_desc"], $requestRes["item_size"], 1);
+        $_SESSION["hero"]->holdWeapon($weapon);
+    }
+
+    /**
+     * équipe le bouclier selectionné, seulement pour les guerriers
+     * @param string id du bouclier à prendre
+     */
+    public function equipShield($shieldId){
+        if($_SESSION["hero"]->getClass() === "guerrier"){
+            $requestRes = DataBase::getItem($shieldId);
+            $requestRes = $requestRes[0];
+
+            $shield = Factory::itemInstance($shieldId, $requestRes["item_weight"], $requestRes["item_name"], $requestRes["item_desc"], $requestRes["item_size"], 1);
+            $_SESSION["hero"]->holdShield($shield);
+        }
+    }
+
+    /**
+     * ajoute l'xp et le loot du monstre vaincu au héros
+     * @param int id du monstre vaincu
+     */
+    public function monsterSlayed($monsterId){
+        $xp = DataBase::getMonster($monsterId);
+        $xp = $xp[0]["monster_xp"];
+
+        $_SESSION["hero"]->addXP($xp + 0);
+
+        //echo "$xp gagné\n";
+
+        $tabLoot = DataBase::getLoot($monsterId);
+
+        foreach($tabLoot as $loot){
+            if(isset($loot)){
+                $item = Factory::itemInstance($loot["item_id"], $loot["item_weight"], $loot["item_name"], $loot["item_desc"], $loot["item_size"], $loot["loot_quantity"]);
+
+                $rand = rand(0, 100);
+
+                if($rand < $loot["loot_proba"] * 100){
+                    $_SESSION["hero"]->collecteItem($item);
+                }
+            }
+            
+        }
+        
+    }
+
 
     /**
      * gestion de l'action selectionnée par le joueur
@@ -219,11 +315,7 @@ class CombatController{
 
                 $damages = $heros->attack($_SESSION["monster"]);
 
-                if($damages == 0){
-                    $damages = "Aucun";
-                }
-
-                echo  "$damages dégâts subis par ". $_SESSION["monster"]->getName() . "!\n";
+                
 
             } else {
                 $tab = explode('_', $action);
@@ -292,7 +384,7 @@ class CombatController{
         return $heros_init > $monster_init;
     }
 
-        
+
 }
 
 ?>

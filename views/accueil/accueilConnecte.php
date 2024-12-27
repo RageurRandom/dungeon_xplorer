@@ -32,6 +32,9 @@
                 //Si l'utilisateur a un héro
                 if (isset($_SESSION["hasHero"]) && $_SESSION["hasHero"] == true)
                     echo "<p><a class='btn btn-primary btn-lg btn-light' href='recuperationHero'>continuer l'aventure</a></p>";
+                //Si c'est un compte Admin
+                if (isset($_SESSION["adminAccount"]) && $_SESSION["adminAccount"] == true)
+                echo "<p><a class='btn btn-primary btn-lg btn-light' href='modificationHistoire'>Mdoifier l'histoire</a></p>";
                 ?>
 
                 <hr class="divider" />

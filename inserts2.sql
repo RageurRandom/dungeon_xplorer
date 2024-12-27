@@ -1,7 +1,7 @@
 -- Insertion des monstres
 INSERT INTO monster (monster_id, monster_name, monster_HP, monster_mana, monster_strength, monster_initiative, monster_xp) VALUES
-(1, 'Sanglier enragé', 50, 0, 50, 5, 50),
-(2, 'Loup noir', 40, 0, 10, 7, 80);
+(1, 'Sanglier enragé', 30, 0, 12, 5, 50),
+(2, 'Loup noir', 20, 0, 20, 15, 80);
 
 -- Insertion des chapitres
 INSERT INTO chapter (chapter_num, chapter_content, chapter_img, chapter_xp) VALUES
@@ -15,7 +15,8 @@ INSERT INTO chapter (chapter_num, chapter_content, chapter_img, chapter_xp) VALU
 (8, 'Près d’un ruisseau, des murmures étranges émanent de la rive.', 'assets/images/stream.jpg', 20),
 (9, 'Devant vous se dresse une colline escarpée avec un château en ruines.', 'assets/images/ruined_castle.jpg', 100),
 (10, 'Le monde se dérobe sous vos pieds, mais une seconde chance vous est accordée.', 'assets/images/void.jpg', 0),
-(11, 'Votre curiosité vous a perdu, retournez au chapitre 10.', 'assets/images/mistake.jpg', 0);
+(11, 'Votre curiosité vous a perdu, retournez au chapitre 10.', 'assets/images/mistake.jpg', 0),
+(12, 'ceci est la fin de cette aventure, merci d''avoir joué et à la prochaine', 'assets/images/mistake.jpg', 0);
 
 
 -- Insertion des items
@@ -66,9 +67,10 @@ INSERT INTO link (chapter_num, chapter_num_next, link_desc, monster_id, link_tre
 (7, 9, 'Suivez le chemin tortueux à travers les racines.', NULL, 25, 5, NULL),
 (8, 11, 'Touchez la pierre gravée.', NULL, 0, NULL, 1),
 (8, 9, 'Ignorez la pierre gravée et poursuivez.', NULL, 15, NULL, NULL),
-(9, 10, 'Approchez le château en ruines.', NULL, 50, NULL, NULL),
+(9, 12, 'Approchez le château en ruines.', NULL, 50, NULL, NULL),
 (10, 1, 'Recommencez depuis le début.', NULL, 0, NULL, NULL),
-(11, 10, 'Retournez au chapitre 10.', NULL, 0, NULL, NULL);
+(11, 10, 'Retournez au chapitre 10.', NULL, 0, NULL, NULL),
+(12, 1, 'bravo, vous avez gagné.', NULL, 0, NULL, NULL);
 
 -- Insertion des sorts d'attaque
 INSERT INTO spell_attack (spell_id, spell_attack_value) VALUES
@@ -82,7 +84,7 @@ INSERT INTO spell_boost (spell_id, spell_boost_value, spell_boost_target, spell_
 INSERT INTO class (class_id, class_starting_HP, class_starting_mana, class_starting_intitiative, class_starting_strength, class_description, class_name) VALUES
 (1, 100, 0, 10, 15, 'Un guerrier robuste qui excelle au combat physique.', 'Guerrier'),
 (2, 80, 50, 20, 10, 'Un voleur agile qui utilise sa vitesse et sa ruse.', 'Voleur'),
-(3, 60, 100, 5, 5, 'Un magicien maîtrisant de puissants sorts magiques.', 'Magicien');
+(3, 60, 100, 5, 13, 'Un magicien maîtrisant de puissants sorts magiques.', 'Magicien');
 
 -- Insertion des niveaux
 INSERT INTO level (level_num, class_id, level_required_xp, level_HP_bonus, level_mana_bonus, level_initiative_bonus, level_strength_bonus) VALUES

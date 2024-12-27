@@ -25,6 +25,14 @@ class Warrior extends Hero {
     }
 
     /**
+     * renvoie le bouclier tenu
+     * @return Shield bouclier équipé
+     */
+    public function getShield(){
+        return $shield;
+    }
+
+    /**
      * reçoit une attaque et diminue les PV
      * @param int $damage les dégâts à subire
      */

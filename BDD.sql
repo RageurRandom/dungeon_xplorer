@@ -5,7 +5,8 @@ CREATE TABLE `user` (
   `hero_id` integer,
   `user_name` varchar(255),
   `user_mail` varchar(255) UNIQUE NOT NULL,
-  `user_password` varchar(255) NOT NULL
+  `user_password` varchar(255) NOT NULL,
+  `user_admin` integer
 );
 
 
@@ -194,9 +195,9 @@ ALTER TABLE `spell_book` ADD FOREIGN KEY (`hero_id`) REFERENCES `hero` (`hero_id
 
 ALTER TABLE `link` ADD FOREIGN KEY (`monster_id`) REFERENCES `monster` (`monster_id`);
 
-ALTER TABLE `link` ADD FOREIGN KEY (`chapter_num`) REFERENCES `chapter` (`chapter_num`);
+ALTER TABLE `link` ADD FOREIGN KEY (`chapter_num`) REFERENCES `chapter` (`chapter_num`) on DELETE CASCADE ;
 
-ALTER TABLE `link` ADD FOREIGN KEY (`chapter_num_next`) REFERENCES `chapter` (`chapter_num`);
+ALTER TABLE `link` ADD FOREIGN KEY (`chapter_num_next`) REFERENCES `chapter` (`chapter_num`) on DELETE CASCADE ;
 
 ALTER TABLE `link` ADD FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`);
 

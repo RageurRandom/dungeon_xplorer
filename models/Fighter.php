@@ -298,6 +298,5 @@ class Fighter {
     public function getStrength(){
         return $this->strength;
     }
-
 }
 ?>

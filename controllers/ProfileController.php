@@ -116,6 +116,8 @@ class ProfileController {
     public function printUser(){
         echo"nom d'utilisateur : ".$_SESSION["userName"]."<br>
                 adresse mail : ".$_SESSION["userMail"]."<br>"; 
+        if($_SESSION["adminAccount"])
+            echo"compte admin <br>";
     }
 }
 ?>

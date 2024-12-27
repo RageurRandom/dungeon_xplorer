@@ -73,11 +73,13 @@ class DataBase{
      * @param string $userMail adresse mail du compte à créer
      * @param string $userPassword MDP du compte à créer
      * @param string $userName nom d'utilisateur du compte à créer
+     * @param bool $userAdmin si le compte est un compte admin ou pas
      * @throws Exception si un compte existe déjà avec cette adresse mail
      */
-    public static function createAccount($userMail, $userPassword, $userName) {
+    public static function createAccount($userMail, $userPassword, $userName, $userAdmin) {
         $DB = DataBase::getInstance();
         $userMail = strtoupper($userMail); 
+        $userAdmin = $userAdmin==true ? 1 : 0; 
 
         $query = "select count(*) nb from user where upper(user_mail) = '$userMail'"; 
         $statement = $DB->unprepared_statement($query);
@@ -91,7 +93,7 @@ class DataBase{
         //Si aucun compte existe avec cette adresse mail
         try{
             //On l'insère
-            $query = "insert into user (user_mail, user_password, user_name) values ('$userMail', '$userPassword', '$userName')"; 
+            $query = "insert into user (user_mail, user_password, user_name, user_admin) values ('$userMail', '$userPassword', '$userName', $userAdmin)"; 
             $nbLines = $DB->excute($query);
         }
         catch (PDOException $ex) {
@@ -100,13 +102,29 @@ class DataBase{
     }//fonction createAccount()
 
     /**
+     * permet de supprimer le compte d'un utilisateur dont le mail est passé en paramètre
+     * @param string $userMail le mail à supprimer
+     */
+    public static function deleteAccount2($userMail){
+        $DB = DataBase::getInstance();
+        $userMail = strtoupper($userMail);
+
+        $query = "delete from user where upper(user_mail) = '$userMail'"; 
+        $nbLines = $DB->excute($query); 
+
+        if($nbLines == 0)
+            die("impossible de supprimer le comtpe de cette adresse mail : $userMail. soit le compte n'existe pas, soit une autre erreur s'est produite");
+        else if($nbLines > 1)
+            die("une erreure s'est produite");
+    }
+
+    /**
      * permet de supprimer le compte de l'utilsiateur connnecté
      */
     public static function deleteAccount(){
         $DB = DataBase::getInstance();
         $userMail = strtoupper($_SESSION["userMail"]);
 
-        //On change le MDP dans la BDD
         $query = "delete from user where upper(user_mail) = '$userMail'"; 
         $nbLines = $DB->excute($query); 
 
@@ -153,6 +171,17 @@ class DataBase{
     }//fonction changePassword()
 
     /**
+     * retorun un tableau de toutes les lignes de user
+     */
+    public static function getAccounts(){
+        $DB = DataBase::getInstance();
+        $querry = "SELECT * FROM user";
+        $statement = $DB->unprepared_statement($querry);
+        $result = $statement->fetchAll();
+        return $result;
+    }//fonction getAccounts
+
+    /**
      * récupère un compte depuis la base de donnée
      * @param string $userMail adresse mail du compte à récupérer
      * @return array $result un tableau contenant les infos du compte
@@ -171,6 +200,48 @@ class DataBase{
 
         return $result; 
     }//fonction getAccount()
+
+    /**
+     * permet de supprimer un chapitre de la BDD. Tous les heros qui se trouve à ce chapitre vont revenir au chapitre 1
+     * @param int $chapterNum numéro du chapitre à suppriemr
+     */
+    public static function deleteChapter($chapterNum){
+        $DB = DataBase::getInstance();
+
+        //On enlève l'avancement de tout les heros qui se trouvent à ce chapitre
+        $querry = "update hero set chapter_num = 1 where chapter_num = $chapterNum";
+        $nbLines = $DB->excute($querry);
+
+        //On supprime les liens du chapitre 
+        $querry = "DELETE FROM link WHERE chapter_num = $chapterNum OR chapter_num_next = $chapterNum";
+        $nbLines = $DB->excute($querry);
+
+        //On décrémente de 1 les lines chapitre 
+        $querry = "UPDATE link SET chapter_num = chapter_num - 1 WHERE chapter_num > $chapterNum";
+        $nbLines = $DB->excute($querry);
+        $querry = "UPDATE link SET chapter_num_next = chapter_num_next - 1 WHERE chapter_num_next > $chapterNum";
+        $nbLines = $DB->excute($querry);
+
+        //On supprime le chapitre
+        $querry = "DELETE FROM chapter WHERE chapter_num = $chapterNum";
+        $nbLines = $DB->excute($querry);
+
+        //On décremente de 1 le numéro de tous les chapitres dont le num était sup à celui là
+        $querry = "UPDATE chapter SET chapter_num = chapter_num - 1 WHERE chapter_num > $chapterNum";
+        $nbLines = $DB->excute($querry);
+        
+    }//Fonction deleteChapter()
+
+    /**
+     * retorun un tableau de toutes les lignes de chapter
+     */
+    public static function getChapters(){
+        $DB = DataBase::getInstance();
+        $querry = "SELECT * FROM chapter";
+        $statement = $DB->unprepared_statement($querry);
+        $result = $statement->fetchAll();
+        return $result;
+    } 
 
     /**
      * @param int $chapterNum numéro du chapitre
@@ -563,6 +634,7 @@ class DataBase{
     /**
      * retourne toutes les lignes de loot associée au monstre passé en paramètre + les infos de chaque item
      * @param int $monster_id le ID du monstre
+     * @return array resultats de la requete
      */
     public static function getLoot($monster_id){
         $DB = DataBase::getInstance();
