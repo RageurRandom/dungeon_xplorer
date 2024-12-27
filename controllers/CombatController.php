@@ -32,7 +32,7 @@ class CombatController{
         for($i = 0; $i < sizeof($_SESSION["tabBoost"]); $i++){
 
             if($_SESSION["tabBoost"][$i]["remaining_time"] == 0){
-                switch ($boost["target"]) {
+                switch ($_SESSION["tabBoost"][$i]["target"]) {
                     case 'initiative':
                         $_SESSION["hero"]->addInitiative($_SESSION["tabBoost"][$i]["value"] * -1);
                         break;
@@ -47,6 +47,7 @@ class CombatController{
                 }
 
                 unset($_SESSION["tabBoost"][$i]);
+                array_splice($_SESSION["tabBoost"], 0);
 
             } else {
                 $_SESSION["tabBoost"][$i]["remaining_time"] -= 1;
