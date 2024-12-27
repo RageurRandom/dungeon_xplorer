@@ -157,38 +157,69 @@ class ChapitreController {
      * @param Hero $hero le hero à afficher
      */
     public function printHero($hero){
+        echo '<button id="heroInfoButton">Afficher les informations du hero</button>';
+        echo '<button id="inventoryButton">Afficher l\'inventaire</button>';
+        echo '<button id="spellsButton">Afficher les sorts</button>';
+
+        echo '<div id="heroInfoModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Informations du Hero</h2>';
         echo "nom du hero : ".$hero->getName()."<br>
-        type : ".$hero->getClass()."<br>
-        PV : ".$hero->getCurrentHP()."/".$hero->getMaxHP()."<br>
-        mana : ".$hero->getCurrentMana()."/".$hero->getMaxMana()."<br>
-        initiative : ".$hero->getInitiative()."<br>
-        force : ".$hero->getStrength()."<br>
-        XP : ".$hero->getXP()."<br>
-        niveau : ".$hero->getLevel()."<br>";
+              type : ".$hero->getClass()."<br>
+              PV : ".$hero->getCurrentHP()."/".$hero->getMaxHP()."<br>
+              mana : ".$hero->getCurrentMana()."/".$hero->getMaxMana()."<br>
+              initiative : ".$hero->getInitiative()."<br>
+              force : ".$hero->getStrength()."<br>
+              XP : ".$hero->getXP()."<br>
+              niveau : ".$hero->getLevel()."<br>";
 
         if($hero->getArmor() !== null)
-        echo "armure : ".$hero->getArmor()->getName()."<br>";
+            echo "armure : ".$hero->getArmor()->getName()."<br>";
 
         if($hero->getWeapon() !== null)
-        echo "arme : ".$hero->getWeapon()->getName()."<br>"; 
+            echo "arme : ".$hero->getWeapon()->getName()."<br>"; 
+
+        echo '  </div>
+              </div>';
+
+        echo '<div id="inventoryModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Inventaire</h2>';
 
         $inventory = $hero->getInventory();
         if(count($inventory) > 0){
-            echo "inventaire : <ul> "; 
+            echo "<ul>"; 
             foreach($inventory as $index => $item){
-            echo "<li>".$item->getName()." : ".$item->getQuantity()."</li>"; 
+                echo "<li>".$item->getName()." : ".$item->getQuantity()."</li>"; 
             }
-            echo "</ul> ";
+            echo "</ul>";
+        } else {
+            echo "<p>Inventaire vide</p>";
         }
+
+        echo '  </div>
+              </div>';
+
+        echo '<div id="spellsModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Sorts</h2>';
 
         $spells = $hero->getSpellBook(); 
         if(count($spells) > 0){
-            echo "sorts : <ul> "; 
+            echo "<ul>"; 
             foreach($spells as $index => $spell){
-            echo "<li>".$spell->getName()."</li>"; 
+                echo "<li>".$spell->getName()."</li>"; 
             }
-            echo "</ul> ";
+            echo "</ul>";
+        } else {
+            echo "<p>Aucun sort</p>";
         }
+
+        echo '  </div>
+              </div>';
     }//fonction printHero()
 
     /**
