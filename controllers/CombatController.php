@@ -217,7 +217,7 @@ class CombatController{
             if($action === "attack"){ //attaque classique
                 echo $heros->getName() . " attaque !\n";
 
-                $damages = $_SESSION["hero"]->attack($_SESSION["monster"]);
+                $damages = $heros->attack($_SESSION["monster"]);
 
                 if($damages == 0){
                     $damages = "Aucun";
@@ -265,11 +265,11 @@ class CombatController{
         } else {
             echo "L'ennemi attaque !\n";
             $damages = $_SESSION["monster"]->attack($_SESSION["hero"]);
-
+    
             if($damages == 0){
                 $damages = "Aucun";
             }
-
+    
             echo  "$damages dégâts subis !\n";
         }
     }

@@ -16,7 +16,7 @@ abstract class Hero extends Fighter{
 
     protected int $treasure; 
 
-    public function __construct($_ID, $_level, $_chapter, $_name, $_hp, $_max_hp, $_XP, $_mana, $_max_mana, $_strength, $_initiative, $_treasure){
+    public function __construct($_ID, $_level, $_chapter, $_name, $_hp, $_max_hp, $_XP, $_mana, $_max_mana, $_strength, $_initiative, $_treasure) {
         parent::__construct($_name, $_hp, $_max_hp, $_mana, $_max_mana, $_initiative, $_strength);
         $this->ID = $_ID; 
         $this->chapter = $_chapter;  
@@ -30,13 +30,19 @@ abstract class Hero extends Fighter{
     /**
      * fait des dégats à l'adversaire passé en paramètre
      * @param Combattant $adversaire à attaquer 
+     * @return int les dégâts infligés
      */
-    public function attack($adversaire){
+    public function attack($adversaire) {
+        $damages = 0;
 
-        if(isset($this->weapon))
-            $adversaire->recieveAttack($this->weapon->getAttackValue() * $this->strength); //TODO modifier la formule si besoin
-        else
-            parent::attack($adversaire); 
+        if (isset($this->weapon)) {
+            $damages = $this->weapon->getAttackValue() * $this->strength; //TODO modifier la formule si besoin
+            $adversaire->recieveAttack($damages);
+        } else {
+            $damages = parent::attack($adversaire);
+        }
+
+        return $damages;
     }
 
     /**
@@ -45,10 +51,12 @@ abstract class Hero extends Fighter{
      */
     public function recieveAttack($damage){
 
-        if(isset($this->armor))
+        if(isset($this->armor)) {
             $damage -= $this->armor->getDefenseValue();
+        }
+        
 
-        parent::recieveAttack($damage);
+        return parent::recieveAttack($damage);
     }
 
     /**
