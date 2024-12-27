@@ -105,7 +105,7 @@ class ConnexionController {
             $_SESSION["userID"] = $result[0]["user_id"]; 
     
             // Rediriger vers la page d'accueil ou une autre page
-            header("Location: /dx_11/accueil");
+            header("Location: /dx_11");
             exit();
         } else {
             // Si le mot de passe n'est pas correct, renvoyer un message d'erreur
