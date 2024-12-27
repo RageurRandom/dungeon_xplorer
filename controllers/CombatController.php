@@ -2,15 +2,15 @@
 class CombatController{
     public function test(){
         if(!isset($_SESSION["hero"])){
-            $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 100, 100, 12, 10, 10, 10, 3, 0); //tj pour les tests
+            $_SESSION["hero"] = new Mage(0, 1, 1, "Pierre Henrie Test", 100, 100, 12, 10, 10, 1, 3, 0); //tj pour les tests
     
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(1, 4, "boule de feu", 10));
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(8, 5, "Tranche de vent", 1));
             $_SESSION["hero"]->collecteSpell(new BoostingSpell(13, 3,"initiative", 3, "rythme du soleil levant", 5));
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(10, 2, "Onde Obscure", 13));
 
-            $_SESSION["hero"]->collecteItem(Factory::itemInstance(17, 1, "potion de vie", "rends 5 pv", 1, 1));
-            $_SESSION["hero"]->collecteItem(Factory::itemInstance(18, 1, "potion de mana", "rends 5 points de mana", 1, 1));
+            $_SESSION["hero"]->collecteItem(Factory::itemInstance(17, 1, "potion de vie", "rends 5 pv", 1, 3));
+            $_SESSION["hero"]->collecteItem(Factory::itemInstance(18, 1, "potion de mana", "rends 5 points de mana", 1, 3));
         }
 
         if(!isset($_SESSION["combatMonster"])){
@@ -88,6 +88,23 @@ class CombatController{
     }
 
     /**
+     * utilise une potion
+     * @param string|int $potionId id de la potion à utiliser (doit être dans la BDD)
+     */
+    public function playerPotion($potionId){
+        $heros = $_SESSION["hero"];
+
+
+        
+        $resRequest = DataBase::getItem($potionId)[0];
+
+        $potion = Factory::itemInstance($potionId, $resRequest["item_weight"], $resRequest["item_name"], $resRequest["item_desc"], $resRequest["item_size"], 1);
+
+        $heros->consumePotion($potion);
+    }
+
+
+    /**
      * gestion de l'action selectionnée par le joueur
      * @param string action effectuée par le joueur
      */
@@ -116,12 +133,23 @@ class CombatController{
 
                 //TODO gestion consommables
 
-                if($prefix === "boostingSpell"){
-                    $this->playerBoost($id);
-                } else {
-                    //ici c'est forcément un sort d'attaque, on peut imaginer d'autres sorts
-                    $this->playerAttackSpell($id);
+                switch($prefix){
+                    case "boostingSpell":
+                        $this->playerBoost($id);
+                        break;
+
+                    case "attacking_spell":
+                        $this->playerAttackSpell($id);
+                        break;
+
+                    case "potion":
+                        $this->playerPotion($id);
+                        break;
+                    
+                    default:
+                    break; //inconnu
                 }
+                
             }
         }
     }

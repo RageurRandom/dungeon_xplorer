@@ -79,7 +79,7 @@
             
             if($item->getType() === "potion"){
                 $name = $item->getName();
-                echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"potion_" . $item->getID() . "\" ><label for=\"$name\">$name </label></div>"; //rajouter peut-être les pts de HP/Mana regen
+                echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"potion_" . $item->getID() . "\" ><label for=\"$name\">$name x ". $item->getQuantity() . "</label></div>"; //rajouter peut-être les pts de HP/Mana regen
 
             }
         }

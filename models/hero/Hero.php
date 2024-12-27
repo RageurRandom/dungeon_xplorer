@@ -87,6 +87,7 @@ abstract class Hero extends Fighter{
      */
     public function consumePotion($potion){
         $this->addHP($potion->getValue()); 
+        $this->dropItem($potion);
     }
 
     /**
@@ -126,8 +127,13 @@ abstract class Hero extends Fighter{
     public function dropItem($item){
 
         if(in_array($item, $this->inventory)){
-            $index = array_search($item, $this->inventory, true); 
-            unset($this->inventory[$index]); 
+            $index = array_search($item, $this->inventory, true);
+            $this->inventory[$index]->addQuantity(-1);
+
+            if($this->inventory[$index]->getQuantity() <= 0){
+                unset($this->inventory[$index]); 
+            }
+            
         }
     }
 
