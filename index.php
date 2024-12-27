@@ -80,6 +80,8 @@ $router->addRoute('creationCompte', 'ConnexionController@create');//Pour la cré
 $router->addRoute('creationHero', 'PersonnageController@createHero'); // Pour créer le personnage
 $router->addRoute('recuperationHero', 'PersonnageController@getHero'); // Pour récupérer le personnage
 
+$router->addRoute('profile', 'ProfileController@index'); // Pour afficher la page de profile
+$router->addRoute('changerMDP', 'ProfileController@changePassword'); // Pour changer le MDP
 
 $router->addRoute('chapitre', 'ChapitreController@showChapter'); // Pour afficher le chapitre en cours
 $router->addRoute('chapitreSuivant/{numChap}/{tresor}/{monstreID}/{itemID}/{spellID}', 'ChapitreController@nextChapter'); //Pour passer d'un chapitre à l'autre

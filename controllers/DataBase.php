@@ -100,6 +100,24 @@ class DataBase{
     }//fonction createAccount()
 
     /**
+     * permet de changer le MDP de l'utilisateur connecté
+     * @param string $newPassword le nouveau MDP déjà haché
+     */
+    public static function changePassword($newPassword){
+        $DB = DataBase::getInstance();
+        $userMail = strtoupper($_SESSION["userMail"]);
+
+        //On change le MDP dans la BDD
+        $query = "update user set user_password = '$newPassword' where upper(user_mail) = '$userMail'"; 
+        $nbLines = $DB->excute($query); 
+
+        if($nbLines == 0)
+            die("impossible de changer le MDP pour cette adresse mail : $userMail");
+        else if($nbLines > 1)
+            die("une erreure s'est produite");
+    }
+
+    /**
      * récupère un compte depuis la base de donnée
      * @param string $userMail adresse mail du compte à récupérer
      * @return array $result un tableau contenant les infos du compte
