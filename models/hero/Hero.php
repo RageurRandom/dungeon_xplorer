@@ -32,11 +32,12 @@ abstract class Hero extends Fighter{
      * @param Combattant $adversaire à attaquer 
      */
     public function attack($adversaire){
-
-        if(isset($this->weapon))
-            $adversaire->recieveAttack($this->weapon->getAttackValue() * $this->strength); //TODO modifier la formule si besoin
-        else
-            parent::attack($adversaire); 
+        if(isset($this->weapon)) {
+            $damage = $this->weapon->getAttackValue() * $this->strength; //TODO modifier la formule si besoin
+            return $adversaire->recieveAttack($damage);
+        } else {
+            return parent::attack($adversaire); 
+        }
     }
 
     /**
