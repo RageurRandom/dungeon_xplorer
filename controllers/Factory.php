@@ -82,7 +82,7 @@ class Factory{
             
             //Si c'est un bouclier
             if($result[0]["armor_is_shield"]){
-                return new Shield($_id, $result[0]["armor_defence_rate"],0, $_weight, $_name, $_desc, $_size, $_quantity); 
+                return new Shield($_id, $result[0]["armor_defence_rate"], $_weight, $_name, $_desc, $_size, $_quantity); 
             }//Si c'est un bouclier 
 
             //Si ce n'est pas un bouclier
