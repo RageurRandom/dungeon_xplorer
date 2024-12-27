@@ -8,6 +8,9 @@ class CombatController{
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(8, 5, "Tranche de vent", 1));
             $_SESSION["hero"]->collecteSpell(new BoostingSpell(13, 3,"initiative", 3, "rythme du soleil levant", 5));
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(10, 2, "Onde Obscure", 13));
+
+            $_SESSION["hero"]->collecteItem(Factory::itemInstance(17, 1, "potion de vie", "rends 5 pv", 1, 1));
+            $_SESSION["hero"]->collecteItem(Factory::itemInstance(18, 1, "potion de mana", "rends 5 points de mana", 1, 1));
         }
 
         if(!isset($_SESSION["combatMonster"])){
@@ -44,7 +47,6 @@ class CombatController{
 
                     default:
                         //correspond aux pv, pas besoin de reset
-                        echo "pas besoin\n";
                         break;
                 }
 
@@ -111,8 +113,6 @@ class CombatController{
                 $prefix = $tab[0];
 
                 $id = $tab[1];
-
-                echo "je connais ça c'est $prefix\n";
 
                 //TODO gestion consommables
 

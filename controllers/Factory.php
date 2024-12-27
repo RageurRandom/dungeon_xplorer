@@ -40,14 +40,16 @@ class Factory{
     public static function itemInstance($_id, $_weight, $_name, $_desc, $_size, $_quantity){
         $DB = DataBase::getInstance(); 
 
+        echo "factory";
         //Vérifier le type de l'item grâce à son ID
 
-        $query = "select count(*) nb from weapon where item_id = $_id"; 
+        $query = "select count(*) as nb from weapon where item_id = $_id"; 
         $statement = $DB->unprepared_statement($query); 
         $result = $statement->fetchAll();
 
         //Si c'est une arme
         if($result[0]["nb"] > 0){
+            echo "arme";
             //On récupère sa valeur d'attaque
             $query = "select weapon_attack_value from weapon where item_id = $_id"; 
             $statement = $DB->unprepared_statement($query); 
@@ -55,12 +57,13 @@ class Factory{
             return new Weapon($_id, $result[0]["weapon_attack_value"], $_weight, $_name, $_desc, $_size, $_quantity); 
         }//Si c'est une arme
 
-        $query = "select count(*) nb from armor where item_id = $_id"; 
+        $query = "select count(*) as nb from armor where item_id = $_id"; 
         $statement = $DB->unprepared_statement($query); 
         $result = $statement->fetchAll();
 
         //Si c'est une armure
         if($result[0]["nb"] > 0){
+            echo "armure";
             //On récupère sa valeur d'attaque
             $query = "select armor_defence_rate, armor_is_shield from armor where item_id = $_id"; 
             $statement = $DB->unprepared_statement($query); 
@@ -77,12 +80,13 @@ class Factory{
             }
         }//Si c'est une armure
 
-        $query = "select count(*) nb from potion where item_id = $_id"; 
+        $query = "select count(*) as nb from potion where item_id = $_id"; 
         $statement = $DB->unprepared_statement($query); 
         $result = $statement->fetchAll();
 
         //Si c'est une potion
         if($result[0]["nb"] > 0){
+            echo "ouais c'est une potion";
             //On récupère sa valeur d'attaque
             $query = "select potion_value from potion where item_id = $_id"; 
             $statement = $DB->unprepared_statement($query); 
@@ -90,6 +94,7 @@ class Factory{
             return new Potion($_id, $result[0]["potion_value"], $_weight, $_name, $_desc, $_size, $_quantity); 
         }//Si c'est une potion
 
+        echo "item a la con";
         //Si aucun de ces types
         return new Item($_id, $_weight, $_name, $_desc, $_size, $_quantity); 
 

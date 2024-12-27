@@ -105,7 +105,7 @@ class ChapitreController {
                     $_SESSION["combatChap"] = $nextChap; $_SESSION["combatTreasure"] = $linkTreasure;  $_SESSION["combatMonster"] = $linkMonsterID;
                     $_SESSION["combatItem"] = $itemID; $_SESSION["combatSpell"] = $spellID; $_SESSION["monster"] = DataBase::getMonster($linkMonsterID);
                     //On le fait 
-                    require_once "views/combat.php";
+                    require_once "views/combat.php"; //TODO probleme il faut plutot aller directement à la page du combat
                 }//Si le combat n'a pas déjà été fait
 
             }//Si un monstre est à affronter

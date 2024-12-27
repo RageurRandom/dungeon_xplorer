@@ -59,8 +59,8 @@
     <?php
     //affichage des sorts
 
-        $arr = $heros->getSpellBook() ;
-        foreach($arr as $spell){
+        $spellArr = $heros->getSpellBook() ;
+        foreach($spellArr as $spell){
             $name = $spell->getName();
 
             $option = "";
@@ -71,6 +71,17 @@
             echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"" . $spell->getType() ."_" . $spell->getID() . "\" $option><label for=\"$name\">$name (".$spell->getCost()." Mana)</label></div>";
             
             
+        }
+
+        $itemArr = $heros->getInventory();
+        
+        foreach($itemArr as $item){
+            
+            if($item->getType() === "potion"){
+                $name = $item->getName();
+                echo "<div><input type=\"radio\" id=\"$name\" name=\"action\" value=\"potion_" . $item->getID() . "\" ><label for=\"$name\">$name </label></div>"; //rajouter peut-être les pts de HP/Mana regen
+
+            }
         }
     ?>
 
