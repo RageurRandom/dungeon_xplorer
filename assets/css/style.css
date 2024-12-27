@@ -87,6 +87,13 @@ p {
     color: var(--btn-secondary);
 }
 
+@media (max-width: 992px) {
+    .home-btn {
+        top: 10px;
+        font-size: 40px;
+    }
+}
+
 @media (max-width: 768px) {
     .deconnexion-btn, .home-btn {
         right: 50%;
