@@ -8,9 +8,12 @@ class CombatController{
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(8, 5, "Tranche de vent", 1));
             $_SESSION["hero"]->collecteSpell(new BoostingSpell(13, 3,"initiative", 3, "rythme du soleil levant", 5));
             $_SESSION["hero"]->collecteSpell(new AttackingSpell(10, 2, "Onde Obscure", 13));
-
-            $_SESSION["hero"]->collecteItem(Factory::itemInstance(17, 1, "potion de vie", "rends 5 pv", 1, 3));
+            $potionTest = Factory::itemInstance(17, 1, "potion de vie", "rends 5 pv", 1, 3);
+            $_SESSION["hero"]->collecteItem($potionTest);
             $_SESSION["hero"]->collecteItem(Factory::itemInstance(18, 1, "potion de mana", "rends 5 points de mana", 1, 3));
+
+            $_SESSION["hero"]->dropItem($potionTest);
+
         }
 
         if(!isset($_SESSION["combatMonster"])){
@@ -94,13 +97,34 @@ class CombatController{
     public function playerPotion($potionId){
         $heros = $_SESSION["hero"];
 
+        $inventory = $heros->getInventory();
 
-        
+        $flag = false;
+        $i = 0;
+
+        $potion = NULL;
+        while(!$flag && $i < sizeof($inventory)){
+            if(isset($inventory[$i]) && $inventory[$i]->getId() == $potionId){
+                $flag = true;
+                $potion = $inventory[$i];
+            }
+
+            $i += 1;
+        }
+
+        if($potion != NULL){
+            $heros->consumePotion($potion);
+        } else {
+            echo "un problème a été rencontré";
+        }
+
+        /*
         $resRequest = DataBase::getItem($potionId)[0];
 
         $potion = Factory::itemInstance($potionId, $resRequest["item_weight"], $resRequest["item_name"], $resRequest["item_desc"], $resRequest["item_size"], 1);
+        */
 
-        $heros->consumePotion($potion);
+        
     }
 
 
